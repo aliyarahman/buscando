@@ -32,7 +32,7 @@ class Location(models.Model):
 	provider = models.ForeignKey(Provider)
 	address = models.CharField(max_length=140)
 	phone = models.CharField(max_length=20)
-	is_headquarters = models.BooleanField
+	is_headquarters = models.BooleanField(default=False)
 	hours_open = models.CharField(max_length=200)
 	resources_needed = models.ManyToManyField(Resource, related_name="resources_needed")
 	resources_available = models.ManyToManyField(Resource, related_name="resources_available")
