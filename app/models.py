@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 class Provider(models.Model):
 	admin = models.ForeignKey(User) # This is what I just typed
-	admin firstname2 = models.CharField(max_length=45, default = "")
+	admin_firstname2 = models.CharField(max_length=45, default = "")
 	admin_lastname2 = models.CharField(max_length=45, default = "")		
 	name = models.CharField(max_length=140, unique = True)
 	logo = models.CharField(max_length=45)
@@ -17,9 +17,16 @@ class Provider(models.Model):
 		return self.name
 
 
+class Resource(models.Model):
+        name = models.CharField(max_length=30, unique = True)
+
+        def __unicode__(self):
+                return self.name
+
+
 class Location(models.Model):
 	POC_firstname = models.CharField(max_length=45)
-	POC firstname2 = models.CharField(max_length=45, default = "")
+	POC_firstname2 = models.CharField(max_length=45, default = "")
 	POC_lastname = models.CharField(max_length=45)
 	POC_last2name = models.CharField(max_length=45, default="")
 	provider = models.ForeignKey(Provider)
@@ -27,14 +34,5 @@ class Location(models.Model):
 	phone = models.CharField(max_length=20)
 	is_headquarters = models.BooleanField
 	hours_open = models.CharField(max_length=200)
-    resources_needed = models.ManyToManyField(Resource, related_name="resources_needed")
-    resources_available = models.ManyToManyField(Resource, related_name="resources_available")
-    
-
-class Resource(models.Model):
-	name = models.CharField(max_length=30, unique = True)
-	locations = models.ManyToManyField(Provider, default = [])
-
-	def __unicode__(self):
-		return self.name
-		
+	resources_needed = models.ManyToManyField(Resource, related_name="resources_needed")
+	resources_available = models.ManyToManyField(Resource, related_name="resources_available")
