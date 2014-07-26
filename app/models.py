@@ -33,7 +33,7 @@ class Location(models.Model):
 
 class Resource(models.Model):
 	name = models.CharField(max_length=30, unique = True)
-	providers = models.ManyToManyField(Provider, default = [])
+	locations = models.ManyToManyField(Provider, default = [])
 
 	def __unicode__(self):
 		return self.name

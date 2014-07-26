@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 
 class Provider(models.Model):
 	name = models.CharField(max_length=140, unique = True)
-	city = models.CharField(max_length=45)
+	location = models.CharField(max_length=140)
+	phone = models.CharField(max_length=15)
 
 	def __unicode__(self):
 		return self.name
