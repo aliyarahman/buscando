@@ -2,31 +2,52 @@
 {% block container %}
 
 <div class="jumbotron">
-  <div class="container">
-    <h1>Buscando</h1>
-    <p>This is an application that will connect volunteers, families and organizations to resources available to help undocumented minors.</p>
-    <p><a class="btn btn-primary btn-lg" role="button">Learn more »</a></p>
-  </div>
+    <div class="container">
+        <h1>Help is near.</h1>
+        <p class="tagline">Find food, clothing, and other resources in your area for undocumented minors.</p>
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <label class="sr-only" for="zipcode">Zipcode</label>
+                <input class="form-control" type="zipcode" placeholder="What is your zipcode?">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="resource">Resource</label>
+                <select class="form-control">
+                    <option value="" disabled selected>What do you need?</option>
+                    <option value="Food">Food</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Language">Language</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Legal Services">Legal Services</option>
+                    <option value="Medical Care">Medical Care</option>
+                    <option value="Education/Enrollment">Education/Enrollment</option>
+                    <option value="Religious Services">Religious Services</option>
+                    <option value="Counseling">Counseling</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Find available resources</button>
+        </form>
+    </div>
 </div>
 
 <main class="container">
- 	<div class="row">
-    	<div class="col-md-4">
-      		<h2>I'm looking for help</h2>
-      		<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
-			<p><a class="btn btn-default" href="http://getbootstrap.com/examples/jumbotron/#" role="button">View details »</a></p>
-    	</div>
-    	<div class="col-md-4">
-      		<h2>I can help</h2>
-      		<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      		<p><a class="btn btn-default" href="http://getbootstrap.com/examples/jumbotron/#" role="button">View details »</a></p>
-   		</div>
-		<div class="col-md-4">
-      		<h2>I'm an Organization</h2>
-      		<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-      		<p><a class="btn btn-default" href="http://getbootstrap.com/examples/jumbotron/#" role="button">View details »</a></p>
-    	</div>
-	</div>
+    <div class="row">
+            <div class="col-md-4">
+                <h2>I'm looking for help</h2>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            <p><a class="btn btn-default" href="http://getbootstrap.com/examples/jumbotron/#" role="button">View details »</a></p>
+            </div>
+            <div class="col-md-4">
+                    <h2>I can help</h2>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                    <p><a class="btn btn-default" href="http://getbootstrap.com/examples/jumbotron/#" role="button">View details »</a></p>
+            </div>
+        <div class="col-md-4">
+                    <h2>I'm an Organization</h2>
+                    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                    <p><a class="btn btn-default" href="http://getbootstrap.com/examples/jumbotron/#" role="button">View details »</a></p>
+            </div>
+    </div>
 
 </main>
 
