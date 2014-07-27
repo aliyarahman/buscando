@@ -8,9 +8,9 @@ import datetime
 
 class Provider(models.Model):
 	admin = models.ForeignKey(User) # This is what I just typed
-	admin_firstname2 = models.CharField(max_length=45, default="")
-	admin_lastname2 = models.CharField(max_length=45, default="")
-	name = models.CharField(max_length=140, unique = True)
+	admin_firstname2 = models.CharField(max_length=45, null=True, blank=True)
+	admin_lastname2 = models.CharField(max_length=45, null=True, blank=True)
+	name = models.CharField(max_length=140, unique=True)
 	logo = models.CharField(max_length=45)
 	URL = models.CharField(max_length=45)
 	approved = models.BooleanField(default = False)
@@ -23,16 +23,16 @@ class Provider(models.Model):
 		return self.name
 
 class Resource(models.Model):
-	name = models.CharField(max_length=30, unique = True)
+	name = models.CharField(max_length=30, unique=True)
 
 	def __unicode__(self):
 		return self.name
 
 class Location(models.Model):
 	POC_firstname = models.CharField(max_length=45)
-	POC_firstname2 = models.CharField(max_length=45, default="")
+	POC_firstname2 = models.CharField(max_length=45, null=True, blank=True)
 	POC_lastname = models.CharField(max_length=45)
-	POC_lastname2 = models.CharField(max_length=45, default="")
+	POC_lastname2 = models.CharField(max_length=45, null=True, blank=True)
 	provider = models.ForeignKey(Provider)
 	address = models.CharField(max_length=140)
 	phone = models.CharField(max_length=20)
