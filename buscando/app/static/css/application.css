@@ -36,3 +36,11 @@ a:focus {
 .navbar-toggle .icon-bar {
 	background-color: #1abc9c;
 }
+
+footer a {
+	color: #fff;
+}
+footer a:hover,
+footer a:focus {
+  color: #fff;
+}
