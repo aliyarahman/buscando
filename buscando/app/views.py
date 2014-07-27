@@ -12,6 +12,8 @@ from app.models import Provider, Resource
 def index(request):
 	return render(request, "index.html")
 
+def organization_register(request):
+	return render(request, "organization_register.html")
 
 
 @login_required
