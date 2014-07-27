@@ -8,8 +8,8 @@ import datetime
 
 class Provider(models.Model):
 	admin = models.ForeignKey(User) # This is what I just typed
-	admin_firstname2 = models.CharField(max_length=45, null=True, blank=True)
-	admin_lastname2 = models.CharField(max_length=45, null=True, blank=True)
+	admin_firstname2 = models.CharField(max_length=45, default="")
+	admin_lastname2 = models.CharField(max_length=45, default="")
 	name = models.CharField(max_length=140, unique=True)
 	logo = models.CharField(max_length=45)
 	URL = models.CharField(max_length=45)
