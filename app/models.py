@@ -59,3 +59,17 @@ class Location(models.Model):
 			except:
 				pass
 		super(Location, self).save()
+
+class Search(models.Model):
+
+	"One search for resources near a zipcode."
+
+	zipcode = models.CharField(max_length=10)
+	resource = models.CharField(max_length=255)
+
+	# Auto-generated timestamps
+	created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
+	updated_at = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
+
+	def __unicode__(self):
+		return '{0}: {1} ({2})'.format(self.zipcode, self.resource, self.created_at)
