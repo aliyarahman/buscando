@@ -14,4 +14,8 @@ urlpatterns = patterns('',
     url(r'^signup/$', views.index, name='signup'),
     url(r'^lookfor/$', views.index, name='lookfor'),
     url(r'^resources/$', views.resources, name='resources'),
+    url(r'^provider/new/$', views.add_provider, name='add_provider'),
+    url(r'^provider/(?P<provider_id>\d+)/edit/$', views.edit_provider, name='edit_provider'),
+    #url(r'^provider/form_upload/$', views.add_provider, name='add_provider'),
+    url(r'^provider/(?P<provider_id>\d+)/detail.html$', views.provider_detail, name='provider_detail'),
 )
