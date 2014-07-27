@@ -13,5 +13,5 @@ urlpatterns = patterns('',
     url(r'^profile/(?P<organization_id>\d+)/$', views.index, name='index'),
     url(r'^signup/$', views.index, name='signup'),
     url(r'^lookfor/$', views.index, name='lookfor'),
-    url(r'^resources/$', views.index, name='resources'),
+    url(r'^resources/$', views.resources, name='resources'),
 )

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block container %}
+
+<div class="row">
+	<aside id="resource-bar" class="col-md-4">
+  		<h3>Search for a Resource</h3>
+  		<form role="form">
+    		<div class="checkbox">
+      		<label>
+        		<input type="checkbox"> Food
+      		</label>
+      		<label>
+        		<input type="checkbox"> Clothing
+      		</label>
+      		<label>
+    			<input type="checkbox"> Legal Services
+      		</label>
+      		<label>
+        		<input type="checkbox"> Transportation
+      		</label>
+      		<label>
+        		<input type="checkbox"> Medical Care
+      		</label>
+      		<label>
+        		<input type="checkbox"> Education/Enrollment
+      		</label>
+      		<label>
+        		<input type="checkbox"> Religious Services
+      		</label>
+      		<label>
+        		<input type="checkbox"> Counseling
+      		</label>
+  		</form>
+	</aside>
+	<main id="map" class="col-md-8">
+		map map maps
+	</main>
+</div>
+
+{% endblock %}
