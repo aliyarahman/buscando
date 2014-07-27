@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Buscando</title>
 	{% load staticfiles %}
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/application.css' %}" rel="stylesheet">
 
@@ -17,11 +18,38 @@
     <![endif]-->
   </head>
   <body>
-	<h1>Hello World</h1>
-	{% block content %}
+	<div class="navbar" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/app"><span class="glyphicon glyphicon-transfer"></span> Buscando</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#about">Find Resources</a></li>
+            <li><a href="#contact">Organizations</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
 
+    {% block container %}
+    <div class="container">
+		
+		{% block content %}{% endblock %}
+		
+		<footer>
+    		<p>Buscando</p>
+  		</footer>
+
+	</div>
 	{% endblock %}
-
+    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

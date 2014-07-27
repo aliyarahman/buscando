@@ -1,0 +1,38 @@
+/* Bootstrap Overrides */
+
+body {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #1abc9c;
+}
+
+a {
+  color: #1abc9c;
+}
+a:hover,
+a:focus {
+  color: #1abc9c;
+}
+
+/* Navigation & Brand */
+
+.navbar {
+	border-radius: 0;
+	background-color: #fff;
+}
+
+.navbar-brand {
+	color: #1abc9c;
+}
+.navbar-brand > .glyphicon {
+	top: 3px;
+}
+
+.nav .navbar-nav {
+	color: #fff;
+}
+.navbar-toggle .icon-bar {
+	background-color: #1abc9c;
+}
