@@ -12,6 +12,7 @@ class Provider(models.Model):
 	name = models.CharField(max_length=140, unique = True)
 	logo = models.CharField(max_length=45)
 	URL = models.CharField(max_length=45)
+	approved = models.BooleanField(default = False)
 	
 	def __unicode__(self):
 		return self.name
