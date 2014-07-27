@@ -12,6 +12,9 @@ from app.models import Provider, Resource
 def index(request):
 	return render(request, "index.html")
 
+def about(request):
+	return render(request, "about.html")
+
 def organization_register(request):
 	return render(request, "organization_register.html")
 

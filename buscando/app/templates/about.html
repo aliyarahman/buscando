@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<h1>About</h1>
+
+<div class="row">
+	<div class="col-md-6">
+		<h2>Buscando</h2>
+		<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+		<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+		<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+	</div>
+	<div class="col-md-3">
+		<figure>
+			<a href="http://instagram.com/p/q6780oSQZk/">
+				<img class="img-responsive" src="{% static 'img/buscando-brainstorm.jpg' %}" alt="Brainstorm session for Buscano at DC Techlady Hackathon"/>
+			</a>
+			<figcaption>
+				Brainstorm session for Buscano at DC Techlady Hackathon
+			</figcaption>
+		</figure>
+	</div>
+	<div class="col-md-3">
+		<figure>
+			<a href="http://instagram.com/p/q7Kw86SQWJ/">
+				<img class="img-responsive" src="{% static 'img/buscando-wireframes.jpg' %}" alt="Set of wireframes in progess for the app"/>
+			</a>
+			<figcaption>
+				Set of wireframes in progess for the app
+			</figcaption>
+		</figure>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<h2>Contact</h2>
+		<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+	</div>
+</div>
+
+{% endblock %}
