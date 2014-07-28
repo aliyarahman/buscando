@@ -4,48 +4,43 @@
 {% block container %}
 
 <div class="row">
-    <main class="col-md-8">
+    <main class="col-md-8 col-md-offset-2">
         <section class="filter">
-            <h3>Search for a Resource</h3>
-            <form role="form">
-                <div class="form-group">
-                    <label for="Zipcode" class="col-4 control-label">Zipcode</label>
-                    <div class="col-sm-4">
-                        <input type="zipcode" name="zipcode" class="form-control" placeholder="zipcode">
+            <div class="row col-md-4">
+            <h3 style="color: #fff;">Search for a Resource</h3>
+            {% if messages %}
+              {% for message in messages %}
+                    <div id="message" class="alert alert-{% if 'error' in message.tags %}danger{% else %}{{ message.tags }}{% endif %}">
+                    {{ message }}
                     </div>
+              {% endfor %}
+            {% endif %}
+            </div>
+            <div class="col-md-8" style="padding-top: 1em;">
+            <form class="form-inline" role="form" method="post" action="resources/">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="sr-only" for="zipcode">Zipcode</label>
+                    <input class="form-control" type="zipcode" placeholder="What is your zipcode?" name="zipcode">
                 </div>
-                
-                <br>
-
-                <div class="checkbox">
-                <label>
-                    <input type="checkbox"> Food
-                </label>
-                <label>
-                    <input type="checkbox"> Clothing
-                </label>
-                <label>
-                    <input type="checkbox"> Legal Services
-                </label>
-                <label>
-                    <input type="checkbox"> Transportation
-                </label>
-                <label>
-                    <input type="checkbox"> Medical Care
-                </label>
-
-                <br>
-
-                <label>
-                    <input type="checkbox"> Education/Enrollment
-                </label>
-                <label>
-                    <input type="checkbox"> Religious Services
-                </label>
-                <label>
-                    <input type="checkbox"> Counseling
-                </label>
+                <div class="form-group">
+                    <label class="sr-only" for="resource">Resource</label>
+                    <select class="form-control" name="resource">
+                        <option value="" disabled selected>What do you need?</option>
+                        <option value="Food">Food</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Language">Language</option>
+                        <option value="Transportation">Transportation</option>
+                        <option value="Legal Services">Legal Services</option>
+                        <option value="Medical Care">Medical Care</option>
+                        <option value="Education/Enrollment">Education/Enrollment</option>
+                        <option value="Religious Services">Religious Services</option>
+                        <option value="Counseling">Counseling</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-info">Find available resources</button>
             </form>
+            </div>
         </section>
 
         <section class="results">

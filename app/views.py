@@ -19,23 +19,24 @@ def index(request):
 def about(request):
 	return render(request, "about.html")
 
-def resources(request):
-	return render(request, "resources.html")
-
 def organization_register(request):
 	return render(request, "organization_register.html")
 
-def find(request):
+def resources(request):
 
     zipcode = request.POST.get('zipcode')
     resource = request.POST.get('resource')
 
-    # Save the search
-    search = Search(**{
-            'zipcode': zipcode,
-            'resource': resource
-        })
-    search.save()
+    if not zipcode and not resource:
+        return render(request, 'resources.html')
+
+    if zipcode and resource:
+        # Save the search
+        search = Search(**{
+                'zipcode': zipcode,
+                'resource': resource
+            })
+        search.save()
 
     try:
         zipcode = int(zipcode[:5])
@@ -71,7 +72,13 @@ def find(request):
             ).miles <= RADIUS_DISTANCE:
                 within_radius.append(location)
 
-    return render(request, 'find.html', dictionary={'within_radius': within_radius})
+    context = {
+        'within_radius': within_radius,
+        'zipcode': zipcode,
+        'resource': resource
+    }
+
+    return render(request, 'resources.html', dictionary=context)
 
 @login_required
 def profile(request):
