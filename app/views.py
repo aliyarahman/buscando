@@ -1,13 +1,17 @@
 import urlparse
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse
-from app.models import Provider, Resource, Location
+from app.models import Provider, Resource, Location, Search, ZipcodeCoordinates
 from app.forms import ProviderForm, LocationFormset
+from geopy.distance import vincenty
+
+RADIUS_DISTANCE = 35 # miles
 
 def index(request):
 	return render(request, "index.html")
@@ -21,6 +25,53 @@ def resources(request):
 def organization_register(request):
 	return render(request, "organization_register.html")
 
+def find(request):
+
+    zipcode = request.POST.get('zipcode')
+    resource = request.POST.get('resource')
+
+    # Save the search
+    search = Search(**{
+            'zipcode': zipcode,
+            'resource': resource
+        })
+    search.save()
+
+    try:
+        zipcode = int(zipcode[:5])
+
+        # Zero-pad New England zipcodes
+        if len(str(zipcode)) == 4:
+            zipcode = '0{0}'.format(zipcode)
+    except:
+        messages.error(request, "Sorry, I didn't recognize that zipcode. Please try again.")
+        return HttpResponseRedirect('/app')
+    else:
+        try:
+            zipcode_coords = ZipcodeCoordinates.objects.get(zipcode=zipcode)
+        except:
+            # If this zipcode has not yet been searched, create a new one
+            zipcode_coords = ZipcodeCoordinates(zipcode=zipcode)
+            zipcode_coords.save()
+
+    try:
+        resource = Resource.objects.get(name=resource.lower())
+    except:
+        messages.error(request, "Please choose a resource and try again.")
+        return HttpResponseRedirect('/app')
+    else:
+        locations = Location.objects.filter(
+            resources_available=resource).exclude(provider__approved=False)
+
+        within_radius = []
+        for location in locations:
+            if vincenty(
+                (location.latitude, location.longitude), 
+                (zipcode_coords.latitude, zipcode_coords.longitude)
+            ).miles <= RADIUS_DISTANCE:
+                within_radius.append(location)
+
+    return render(request, 'find.html', dictionary={'within_radius': within_radius})
 
 @login_required
 def profile(request):

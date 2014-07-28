@@ -5,14 +5,24 @@
     <div class="container">
         <h1>Help is near.</h1>
         <p class="tagline">Find food, clothing, and other resources in your area for undocumented minors.</p>
-        <form class="form-inline" role="form">
+        
+        {% if messages %}
+          {% for message in messages %}
+                <div id="message" class="alert alert-{% if 'error' in message.tags %}danger{% else %}{{ message.tags }}{% endif %}">
+                {{ message }}
+                </div>
+          {% endfor %}
+        {% endif %}
+
+        <form class="form-inline" role="form" method="post" action="find/">
+            {% csrf_token %}
             <div class="form-group">
                 <label class="sr-only" for="zipcode">Zipcode</label>
-                <input class="form-control" type="zipcode" placeholder="What is your zipcode?">
+                <input class="form-control" type="zipcode" placeholder="What is your zipcode?" name="zipcode">
             </div>
             <div class="form-group">
                 <label class="sr-only" for="resource">Resource</label>
-                <select class="form-control">
+                <select class="form-control" name="resource">
                     <option value="" disabled selected>What do you need?</option>
                     <option value="Food">Food</option>
                     <option value="Clothing">Clothing</option>
