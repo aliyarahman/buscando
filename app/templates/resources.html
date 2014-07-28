@@ -7,7 +7,7 @@
     <main class="col-md-8 col-md-offset-2">
         <section class="filter">
             <div class="row col-md-4">
-                <h3 style="color: #fff;">Search for a Resource</h3>
+                <h3 class="white_text">Search for a Resource</h3>
             </div>
             <div class="col-md-8" style="padding-top: 1em;">
             <form class="form-inline" role="form" method="post">
@@ -46,18 +46,48 @@
         <div class="row" style="margin-bottom: 2em;"></div>
 
         {% if zipcode and resource %}
-            <h4 style="color: #fff;">Showing results for {{ resource }} near {{ zipcode }}</h4>
+            <h4 class="white_text">Showing results for {{ resource|title }} near {{ zipcode }}</h4>
         {% endif %}
 
         <section class="results">
             <div class="col-md-4">
                 {% for location in within_radius %}
-                    {{ location }} !!!<br>
+                    <div class="result_card">
+                    <h3 class="white_text">{{ location.provider.name }}</h3>
+                    <h4 class="white_text">{{ location.address }}</h4>
+                    {% if location.phone %}
+                        <h4 class="white_text">Phone: <a class="white_text" href="tel:{{ location.phone }}">{{ location.phone }}</a>
+                        </h4>
+                    {% endif %}
+                    {% if location.hours_open %}
+                        <h4 class="white_text">Hours: {{ location.hours_open }}</h4>
+                    {% endif %}
+                    {% if location.provider.url %}
+                        <h4><a class="white_text" href="{{ location.provider.url }}" target="_blank">{{ location.provider.url }}</a></h4>
+                    {% endif %}
+
+                    {% for available in location.resources_available.all %}
+                        {% if forloop.first %}
+                            <h4 class="white_text">Resources available</h4>
+                                <ul>
+                        {% endif %}
+
+                        <li class="white_text">{{ available|title }}</li>
+
+                        {% if forloop.last %}
+                            </ul>
+                        {% endif %}
+
+                    {% endfor %}
+                    </div>
+
                 {% endfor %}
             </div>
             <div class="col-md-8">
                 {% if within_radius %}
+                    {{ search_from.latitude }}
                     <!-- Google maps API here -->
+                    {{ search_from.longitude }}
                 {% endif %}
             </div>
         </section>

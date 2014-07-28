@@ -74,7 +74,8 @@ def resources(request):
     context = {
         'within_radius': within_radius,
         'zipcode': zipcode,
-        'resource': resource
+        'resource': resource,
+        'search_from': zipcode_coords,
     }
 
     return render(request, 'resources.html', dictionary=context)

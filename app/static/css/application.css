@@ -112,3 +112,15 @@ footer a:focus {
     left: -12px;
     position: relative;
 }
+
+/* Resources page */
+.white_text {
+    color: #fff;
+}
+
+.result_card {
+    border-radius: 10%;
+    padding: 1.5em;
+    margin-bottom: 1em;
+    background-color: #3adcbc;
+}
