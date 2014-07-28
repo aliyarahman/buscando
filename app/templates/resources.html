@@ -7,17 +7,10 @@
     <main class="col-md-8 col-md-offset-2">
         <section class="filter">
             <div class="row col-md-4">
-            <h3 style="color: #fff;">Search for a Resource</h3>
-            {% if messages %}
-              {% for message in messages %}
-                    <div id="message" class="alert alert-{% if 'error' in message.tags %}danger{% else %}{{ message.tags }}{% endif %}">
-                    {{ message }}
-                    </div>
-              {% endfor %}
-            {% endif %}
+                <h3 style="color: #fff;">Search for a Resource</h3>
             </div>
             <div class="col-md-8" style="padding-top: 1em;">
-            <form class="form-inline" role="form" method="post" action="resources/">
+            <form class="form-inline" role="form" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     <label class="sr-only" for="zipcode">Zipcode</label>
@@ -40,26 +33,35 @@
                 </div>
                 <button type="submit" class="btn btn-info">Find available resources</button>
             </form>
+            {% if messages %}
+              {% for message in messages %}
+                    <div id="message" class="alert alert-{% if 'error' in message.tags %}danger{% else %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                    </div>
+              {% endfor %}
+            {% endif %}
             </div>
         </section>
 
+        <div class="row" style="margin-bottom: 2em;"></div>
+
+        {% if zipcode and resource %}
+            <h4 style="color: #fff;">Showing results for {{ resource }} near {{ zipcode }}</h4>
+        {% endif %}
+
         <section class="results">
-            <ul>
-                <li>
-                    First sample result
-                </li>
-                <li>
-                    Second sample result
-                </li>
-                <li>
-                    Third sample result
-                </li>
-            </ul>
+            <div class="col-md-4">
+                {% for location in within_radius %}
+                    {{ location }} !!!<br>
+                {% endfor %}
+            </div>
+            <div class="col-md-8">
+                {% if within_radius %}
+                    <!-- Google maps API here -->
+                {% endif %}
+            </div>
         </section>
     </main>
-    <aside class="map" class="col-md-4">
-        map map maps
-    </aside>
 </div>
 
 {% endblock %}

@@ -61,9 +61,8 @@ def resources(request):
         messages.error(request, "Please choose a resource and try again.")
         return HttpResponseRedirect('/app')
     else:
-        locations = Location.objects.filter(
+        locations = Location.objects.select_related('provider').filter(
             resources_available=resource).exclude(provider__approved=False)
-
         within_radius = []
         for location in locations:
             if vincenty(
