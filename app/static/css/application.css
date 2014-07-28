@@ -124,3 +124,7 @@ footer a:focus {
     margin-bottom: 1em;
     background-color: #3adcbc;
 }
+
+#map-canvas { 
+    height: 100%;
+}

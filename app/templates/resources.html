@@ -85,13 +85,67 @@
             </div>
             <div class="col-md-8">
                 {% if within_radius %}
-                    {{ search_from.latitude }}
-                    <!-- Google maps API here -->
-                    {{ search_from.longitude }}
+                    <div id="map-canvas" class="img-responsive" style="height: 40em;"> </div>
                 {% endif %}
             </div>
         </section>
     </main>
 </div>
+
+{% if search_from.latitude and search_from.longitude %}
+
+    <script type="text/javascript"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwAJNgrVKvQmN_oHe6TxNx0nFdxLdUZag">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng({{ search_from.latitude }}, {{ search_from.longitude }}),
+          zoom: 11
+        };
+        var map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+
+        {% for location in within_radius %}
+            var marker{{ forloop.counter0 }} = new google.maps.Marker({
+                position: new google.maps.LatLng({{ location.latitude }}, {{ location.longitude }}),
+                map: map,
+                title: "{{ location.provider.name }}"
+            });
+
+            var contentString{{ forloop.counter0 }} = '<b>{{ location.provider.name }}</b> <br>' +
+            '{{ location.address }} <br>' +
+            {% if location.phone %} 'Phone: <a href="tel:{{ location.phone }}">{{ location.phone }}</a><br>' + {% endif %}
+            {% if location.hours %} 'Hours: {{ location.hours_open }} <br>' + {% endif %}
+            '<a href="{{ location.provider.url }}">{{ location.provider.url }}</a><br>' +
+                {% for available in location.resources_available.all %}
+                    
+                    {% if forloop.first %}
+                        '<b>Resources available</b><br> <ul>' +
+                    {% endif %}
+
+                    '<li>{{ available|title }}</li>' +
+
+                    {% if forloop.last %}
+                        '</ul>' +
+                    {% endif %}
+
+                {% endfor %}
+            '';
+
+            var infowindow{{ forloop.counter0 }} = new google.maps.InfoWindow({
+                  content: contentString{{ forloop.counter0 }}
+              });
+
+            google.maps.event.addListener(marker{{ forloop.counter0 }}, 'click', function() {
+                infowindow{{ forloop.counter0 }}.open(map,marker{{ forloop.counter0 }});
+              });
+        {% endfor %}
+
+        }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+{% endif %}
 
 {% endblock %}
