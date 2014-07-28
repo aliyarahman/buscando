@@ -60,6 +60,26 @@ class Location(models.Model):
 				pass
 		super(Location, self).save()
 
+class ZipcodeCoordinates(models.Model):
+
+	" Storing this so multiple searches to a single zip code only retrieve coordinates once. "
+
+	zipcode = models.CharField(max_length=10)
+	latitude = models.FloatField(default=0)
+	longitude = models.FloatField(default=0)
+
+	def save(self):
+		if self.latitude == 0 or self.longitude == 0:
+			try:
+				geolocator = GoogleV3()
+				address, (self.latitude, self.longitude) = geolocator.geocode(self.zipcode)
+			except:
+				pass
+		super(ZipcodeCoordinates, self).save()
+
+	def __unicode__(self):
+		return '{0} ({1}, {2})'.format(self.zipcode, self.latitude, self.longitude)
+
 class Search(models.Model):
 
 	"One search for resources near a zipcode."
