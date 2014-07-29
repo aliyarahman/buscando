@@ -11,10 +11,10 @@ class Provider(models.Model):
 	admin = models.ForeignKey(User) # This is what I just typed
 	admin_firstname2 = models.CharField(max_length=45, null=True, blank=True)
 	admin_lastname2 = models.CharField(max_length=45, null=True, blank=True)
-	name = models.CharField(max_length=140, unique=True)
-	logo = models.CharField(max_length=45)
-	URL = models.CharField(max_length=45)
-	approved = models.BooleanField(default = False)
+	name = models.CharField(max_length=140)
+	logo = models.CharField(max_length=140)
+	URL = models.CharField(max_length=140)
+	approved = models.BooleanField(default = True) # Change this in production
 
 	# Auto-generated timestamps
 	created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
