@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 #from django.contrib.auth.models import AbstractBaseUser
 
+from geopy.geocoders import GoogleV3
+
 import datetime
 
 # class User is built in to Django: has firsrtname, lastname, username, email, password
@@ -57,6 +59,15 @@ class Location(models.Model):
 
 	def __unicode__(self):
 		return self.address
+
+	def save(self):
+		if self.latitude == 0 or self.longitude == 0:
+			try:
+				geolocator = GoogleV3()
+				self.address, (self.latitude, self.longitude) = geolocator.geocode(self.address)
+			except:
+				pass
+		super(Location, self).save()
 
 class ZipcodeCoordinates(models.Model):
 
