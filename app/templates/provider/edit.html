@@ -1,4 +1,7 @@
-<form action='/app/provider/edit/' method='post'>{% csrf_token %} 
-{{ form }}
+<form action='.' method='post'>{% csrf_token %} 
+
+{{ provider_form.as_p }}
+{{ location_form.as_p }}
+
 <input type='submit' value='Submit' />
 </form>

@@ -8,8 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse
 from app.models import Provider, Resource, Location, Search, ZipcodeCoordinates
-from app.forms import ProviderForm, LocationFormset
-from geopy.distance import vincenty
+from app.forms import ProviderForm, LocationFormset, LocationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 
 RADIUS_DISTANCE = 35 # miles
 
@@ -86,40 +86,109 @@ def profile(request):
 	return render(request, "profile.html")
 #	return render(request, "profile.html", {'provider': provider })
 
+def organization_home(request):
+	orgs = Provider.objects.filter(admin_id = request.user.id)
+	if orgs:
+		# If an organization is logged in, bring them to their profile
+		provider = orgs[0]
+		return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+	else:
+		# This user is not associated with an organization.
+		# Should this be a login page for organizations?
+		# Or just an index of all organizations (with a search sidebar)?
+		return HttpResponseRedirect(reverse('organization_home'))
+
+def login_page(request):
+	if request.method == "POST":
+		form = AuthenticationForm(data=request.POST)
+		if form.is_valid():
+			login(request, form.get_user())
+			return HttpResponseRedirect(reverse('organization_home'))
+	else:
+		form = AuthenticationForm()
+		
+	return render(request, 'login.html', {'form': form})
+
+def logout_page(request):
+	logout(request)
+	return HttpResponseRedirect(reverse('index'))
+
 def add_provider(request):
 	if request.method == "POST":
-		form = ProviderForm(request.POST)
-		if form.is_valid():
-			provider = form.save(commit=False) # changed from save to save nested locations
-			# timestamp?
+		admin_form = UserCreationForm(request.POST)
+		provider_form = ProviderForm(request.POST)
+		location_form = LocationForm(request.POST)
+
+		if admin_form.is_valid() and provider_form.is_valid() and location_form.is_valid():
+			admin = admin_form.save()
+			provider = provider_form.save(commit=False)
+			provider.admin = admin
 			provider.save()
-			return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
-	else: # request.method == "GET"
-		form = ProviderForm()
-
-	return render(request, "provider/new.html", { 'form': form })
-
-def edit_provider(request, provider_id):
-	provider = get_object_or_404(Provider, id=provider_id)
-
-	if request.method == 'POST':
-		form = ProviderForm(request.POST, instance=provider)
-
-		if form.is_valid():
-			provider = form.save(commit=False)
-			# timestamp?
-			provider.save()
+			location = location_form.save(commit=False)
+			location.provider = provider
+			location.save()
+			location_form.save_m2m()
 			return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
 
 	else:
-		form = ProviderForm(instance=provider)
+		admin_form = UserCreationForm()
+		provider_form = ProviderForm()
+		location_form = LocationForm()
 
-	return render(request, "provider/edit.html", { 'form': form })
+	return render(request, "provider/new.html", { 
+												'provider_form': provider_form, 
+												'location_form': location_form,
+												'admin_form': admin_form,
+												 })
+
+@login_required
+def edit_provider(request, provider_id):
+
+	provider = get_object_or_404(Provider, id=provider_id)
+	admin_user = provider.admin
+
+	#TEMPORARY
+	location = Location.objects.filter(provider__pk = provider_id)[0]
+
+	if request.user == admin_user: # only the provider's registered user can edit page
+
+		if request.method == 'POST':
+			provider_form = ProviderForm(request.POST,instance=provider)
+			location_form = LocationForm(request.POST,instance=location)
+
+			if provider_form.is_valid() and location_form.is_valid():
+				provider = provider_form.save(commit=False)
+				provider.admin = admin_user
+				provider.save()
+				location = location_form.save(commit=False)
+				location.provider = provider
+				location.save()
+				location_form.save_m2m()
+				return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+
+		else:
+			provider_form = ProviderForm(instance=provider)
+			location_form = LocationForm(instance=location) #todo: turn into formsets--right now this is creating a new loca
+
+		return render(request, "provider/edit.html", { 
+												'provider_form': provider_form, 
+												'location_form': location_form
+												 })
+
+	else:
+		return HttpResponseRedirect(reverse('index'))
 
 def provider_detail(request, provider_id):
-	try:
-		provider = Provider.objects.get(pk=provider_id)
-	except Provider.DoesNotExist:
-    	# If no Provider has id provider_id, we raise an HTTP 404 error.
-		raise Http404
-	return render(request, 'provider/detail.html', {'provider': provider})
+	provider = get_object_or_404(Provider, id=provider_id)
+	admin_user = provider.admin
+	if request.user == admin_user: 
+		can_edit = True
+	else:
+		can_edit = False
+	locations = Location.objects.filter(provider__pk = provider_id)
+
+	return render(request, 'provider/detail.html', {
+													'provider': provider, 
+													'locations': locations, 
+													'can_edit': can_edit,
+													})

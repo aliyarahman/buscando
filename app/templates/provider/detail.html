@@ -1,4 +1,60 @@
-<div>                                                                        
-    <h1>{{ provider.name }}</h1>
-    <p>{{ provider.logo }}</p>
+{% extends "base.html" %}
+{% block content %}
+
+
+<h2>Profile page</h2>
+
+
+{% if can_edit %}
+	<a href="{% url 'edit_provider' provider.id %}">Edit</a>
+{% endif %}
+
+<h1>Provider info</h1>
+<div> 
+	<ul>
+		<li>name: {{ provider.name }}  </li>
+		<li>logo: {{ provider.logo }} </li>
+		<li>URL: {{ provider.URL }} </li>
+	</ul>
 </div>
+<h1>Locations info</h2>
+	<ol>
+{% for location in locations %}
+	<li>
+	<div>
+		<ul>
+			<li>POC_firstname: {{ location.POC_firstname }} </li>
+			<li>POC_firstname2: {{ location.POC_firstname2 }} </li>
+			<li>POC_lastname: {{ location.POC_lastname }} </li>
+			<li>POC_lastname2: {{ location.POC_lastname2 }} </li>
+			<li>address: {{ location.address }} </li>
+			<li>latitude: {{ location.latitude }} </li>
+			<li>longitude: {{ location.longitude }} </li>
+			<li>phone: {{ location.phone }} </li>
+			<li>is_headquarters: {{ location.is_headquarters }} </li>
+			<li>phone: {{ location.phone }} </li>
+			<li>is_headquarters: {{ location.is_headquarters }} </li>
+			<li>hours_open: {{ location.hours_open }} </li>
+			<li>resources needed:
+				<ul>
+					{% for resource in location.resources_needed.all %}
+						<li>{{ resource.name }}</li>
+					{% endfor %}
+				</ul>
+			</li>
+			<li>resources available:
+				<ul>
+					{% for resource in location.resources_available.all %}
+						<li>{{ resource.name }}</li>
+					{% endfor %}
+				</ul>
+			</li>
+		</ul>
+	</div>
+	</li>
+{% endfor %}
+</ol>
+</div>
+
+
+{% endblock %}

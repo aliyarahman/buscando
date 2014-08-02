@@ -1,11 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
+#from django.contrib.auth.models import AbstractBaseUser
 
-from geopy.geocoders import GoogleV3
 import datetime
 
 # class User is built in to Django: has firsrtname, lastname, username, email, password
 # That User is referenced via foreign key to attach to the Provider profile
+
+# class User(AbstractBaseUser):
+# 	"""
+# 	Custom user class to include firstname2 and lastname2.
+# 	"""
+# 	firstname2 = models.CharField(max_length=45, null=True, blank=True)
+# 	lastname2 = models.CharField(max_length=45, null=True, blank=True)
 
 class Provider(models.Model):
 	admin = models.ForeignKey(User) # This is what I just typed
@@ -41,8 +48,8 @@ class Location(models.Model):
 	phone = models.CharField(max_length=20)
 	is_headquarters = models.BooleanField(default=False)
 	hours_open = models.CharField(max_length=200)
-	resources_needed = models.ManyToManyField(Resource, related_name="resources_needed")
-	resources_available = models.ManyToManyField(Resource, related_name="resources_available")
+	resources_needed = models.ManyToManyField(Resource, related_name="resources_needed", null=True, blank=True)
+	resources_available = models.ManyToManyField(Resource, related_name="resources_available", null=True, blank=True)
 
 	# Auto-generated timestamps
 	created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
@@ -50,15 +57,6 @@ class Location(models.Model):
 
 	def __unicode__(self):
 		return self.address
-
-	def save(self):
-		if self.latitude == 0 or self.longitude == 0:
-			try:
-				geolocator = GoogleV3()
-				self.address, (self.latitude, self.longitude) = geolocator.geocode(self.address)
-			except:
-				pass
-		super(Location, self).save()
 
 class ZipcodeCoordinates(models.Model):
 

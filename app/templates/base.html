@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Buscando</title>
 	{% load staticfiles %}
+  {% load base_page_helpers %}
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/application.css' %}" rel="stylesheet">
@@ -34,6 +35,12 @@
             <li><a href="{% url 'resources' %}">Find/Give Resources</a></li>
             <li><a href="{% url 'organization_register' %}">Organizations</a></li>
             <li><a href="{% url 'about' %}">About</a></li>
+            {% if user.is_authenticated %}
+              <li><a href="{% url 'organization_home' %}">Profile</a></li>
+              <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}" role="button">Organization Login</a></li>
+            {% endif %}
           </ul>
         </div><!--/.nav-collapse -->
       </div>

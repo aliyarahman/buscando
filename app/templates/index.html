@@ -55,7 +55,14 @@
         <div class="col-md-4">
                     <h2>I'm an Organization</h2>
                     <p>I'm an organization with resources and want to register or update my information.</p>
-                    <p><a class="btn btn-default" href="{% url 'organization_register' %}" role="button">Register or update »</a></p>
+                    <p>
+                    {% if user.is_authenticated %}
+                    <a class="btn btn-default" href="{% url 'organization_home' %}" role="button">Go to my organization profile</a>
+                    {% else %}
+                        <a class="btn btn-default" href="{% url 'add_provider' %}" role="button">Register »</a>
+                        <a class="btn btn-default" href="{% url 'login' %}" role="button">Login »</a>
+                    {% endif %}
+                    </p>
             </div>
     </div>
 
