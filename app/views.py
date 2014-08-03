@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse
 from app.models import Provider, Resource, Location, Search, ZipcodeCoordinates
 from app.forms import ProviderForm, LocationFormset, LocationForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
+from geopy.distance import vincenty
 
 RADIUS_DISTANCE = 35 # miles
 
