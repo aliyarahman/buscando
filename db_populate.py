@@ -20,7 +20,7 @@ with open('providers.csv', 'rb') as csvfile:
 			if row[0] != name:
 				p.save()
 				name=row[0]
-
+# Add locations
 with open('providers.csv', 'rb') as csvfile:
 	providers = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for index, row in enumerate(providers):
@@ -29,6 +29,7 @@ with open('providers.csv', 'rb') as csvfile:
 			l= Location(POC_firstname = "Aliya", POC_firstname2="", POC_lastname="", POC_lastname2="", provider = p, address = (str(row[1])+str(row[5])+str(row[6])+str(row[7])+str(row[8])), latitude=0.00, longitude=0.00, phone = row[10], is_headquarters=True, hours_open=row[11])
 			l.save()
 
+# Add relationships
 with open('providers.csv', 'rb') as csvfile:
 	providers = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for index, row in enumerate(providers):
