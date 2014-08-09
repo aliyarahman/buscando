@@ -14,3 +14,17 @@ Buscando is a Django app that matches volunteers and families of undocumented mi
         python manage.py runserver
 
 4. View the project at `http://localhost:8000/app`
+
+### Editing CSS
+
+1. Install Ruby (if needed) and Compass:
+
+        http://compass-style.org/install/
+
+2. Make changes to /app/static/*.scss files
+
+3. Watch for changes to *.scss files
+
+        compass watch app/static
+
+Note: Don't modify /app/static/*.css
