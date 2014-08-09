@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from app.models import Role
 from app.views import *
 import csv
 import os
@@ -7,20 +8,21 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "buscando.settings")
 
 # Add resources
 for resource in ["food", "clothing", "language", "legal services", "transportation", "medical care", "education and enrollment", "religious services", "counseling", "housing"]:
-	r = Resource(name=resource)
-	r.save()
+    if len(Resource.objects.filter(name=resource)) == 0:
+        r = Resource(name=resource)
+        r.save()
 
 # Add roles
 for role, access in [('Volunteer', 1), ('Organization Staff', 2), ('Task Force Staff', 3), \
 	('Buscando Staff', 90)]:
 	r = Role(**{
-			'role': role,
-			'access': access
+			'name': role,
+			'access_level': access
 		})
 	r.save()
 
 # Load user
-fake_user = User.objects.create_user(username="test_user", email = "test_user_email", password = "test_password", first_name = "test_first_name", last_name = "test_last_name", role=r)
+fake_user = User.objects.create_user(username="test_user", email = "test_user_email", password = "test_password", first_name = "test_first_name", last_name = "test_last_name")
 fake_user.save()
 
 user = User.objects.filter(username="test_user").first()
@@ -29,15 +31,15 @@ user = User.objects.filter(username="test_user").first()
 # to make things easier on the partner orgs, we let them enter a line for each of their locations. We will deal with separating the provider (name, logo, url) and the location (specific information about the location, hours, lat/log, etc). We need to dedup for provider names, but then load each location, so we'll loop through this file twice.
 with open('providers.csv', 'rb') as csvfile:
 	providers = csv.reader(csvfile, delimiter=',', quotechar='"')
-	name="" #we don't want to add duplicates, so we just need the variable name to be defined
+
 	for index, row in enumerate(providers):
 		if index >0:
 
-			p = Provider(admin = user, name = row[0], logo=row[2], URL=row[3])
-			if row[0] != name: #make this work to deal with duplicates even if the list is not in order
+			if len(Provider.objects.filter(name=row[0])) == 0:
+                p = Provider(admin = user, name = row[0], logo=row[2], URL=row[3])
 
 				p.save()
-				name=row[0]
+
 # Add locations
 with open('providers.csv', 'rb') as csvfile:
 	providers = csv.reader(csvfile, delimiter=',', quotechar='"')
