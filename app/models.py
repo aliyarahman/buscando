@@ -91,9 +91,9 @@ class ZipcodeCoordinates(models.Model):
 
 class Search(models.Model):
 
-	"One search for resources near a zipcode."
+	"One search for resources near a location."
 
-	zipcode = models.CharField(max_length=10)
+	location = models.CharField(max_length=255)
 	resource = models.CharField(max_length=255)
 
 	# Auto-generated timestamps
@@ -101,4 +101,4 @@ class Search(models.Model):
 	updated_at = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
 
 	def __unicode__(self):
-		return '{0}: {1} ({2})'.format(self.zipcode, self.resource, self.created_at)
+		return '{0}: {1} ({2})'.format(self.location, self.resource, self.created_at)

@@ -11,6 +11,7 @@ from app.models import Provider, Resource, Location, Search, ZipcodeCoordinates
 from app.forms import ProviderForm, LocationFormset, LocationForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 from geopy.distance import vincenty
+from geopy.geocoders import GoogleV3
 from django.forms.formsets import formset_factory
 import requests
 
@@ -27,36 +28,55 @@ def organization_register(request):
 
 def resources(request):
 
-    zipcode = request.POST.get('zipcode')
+    searched_location = request.POST.get('location')
     resource = request.POST.get('resource')
 
-    if not zipcode and not resource:
+    if not searched_location and not resource:
         return render(request, 'resources.html')
 
-    if zipcode and resource:
+    if searched_location and resource:
         # Save the search
         search = Search(**{
-                'zipcode': zipcode,
+                'location': searched_location,
                 'resource': resource
             })
         search.save()
 
+    coords = False
+
     try:
-        zipcode = int(zipcode[:5])
+        searched_location = int(searched_location[:5])
 
         # Zero-pad New England zipcodes
-        if len(str(zipcode)) == 4:
-            zipcode = '0{0}'.format(zipcode)
+        if len(str(searched_location)) == 4:
+            searched_location = '0{0}'.format(searched_location)
     except:
-        messages.error(request, "Sorry, I didn't recognize that zipcode. Please try again.")
-        return HttpResponseRedirect('/app/resources')
+        try:
+            geolocator = GoogleV3()
+            address, (latitude, longitude) = geolocator.geocode(searched_location)
+        except:
+            pass
+        else:
+            coords = {
+                'latitude': latitude,
+                'longitude': longitude,
+            }
     else:
         try:
-            zipcode_coords = ZipcodeCoordinates.objects.get(zipcode=zipcode)
+            zipcode_coords = ZipcodeCoordinates.objects.get(zipcode=searched_location)
         except:
             # If this zipcode has not yet been searched, create a new one
-            zipcode_coords = ZipcodeCoordinates(zipcode=zipcode)
+            zipcode_coords = ZipcodeCoordinates(zipcode=searched_location)
             zipcode_coords.save()
+        finally:
+            coords = {
+                'latitude': zipcode_coords.latitude,
+                'longitude': zipcode_coords.longitude
+            }
+
+    if not coords:
+        messages.error(request, "Sorry, I couldn't find that location. Please try again. You can also search by city or by zipcode.")
+        return HttpResponseRedirect('/app/resources')
 
     try:
         resource = Resource.objects.get(name=resource.lower())
@@ -70,16 +90,18 @@ def resources(request):
         for location in locations:
             if vincenty(
                 (location.latitude, location.longitude), 
-                (zipcode_coords.latitude, zipcode_coords.longitude)
+                (coords['latitude'], coords['longitude'])
             ).miles <= RADIUS_DISTANCE:
                 within_radius.append(location)
 
     context = {
         'within_radius': within_radius,
-        'zipcode': zipcode,
+        'location': searched_location,
         'resource': resource,
-        'search_from': zipcode_coords,
+        'search_from': coords,
     }
+
+    print context
 
     return render(request, 'resources.html', dictionary=context)
 
