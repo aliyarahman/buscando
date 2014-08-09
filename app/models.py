@@ -6,15 +6,23 @@ from geopy.geocoders import GoogleV3
 
 import datetime
 
+class Role(models.Model):
+	name = models.CharField(max_length=255)
+	access_level = models.IntegerField(default=0)
+
+	def __unicode__(self):
+		return '{0} (Access level {1})'.format(self.name, self.access_level)
+
 # class User is built in to Django: has firsrtname, lastname, username, email, password
 # That User is referenced via foreign key to attach to the Provider profile
 
-# class User(AbstractBaseUser):
-# 	"""
-# 	Custom user class to include firstname2 and lastname2.
-# 	"""
-# 	firstname2 = models.CharField(max_length=45, null=True, blank=True)
-# 	lastname2 = models.CharField(max_length=45, null=True, blank=True)
+class User(AbstractBaseUser):
+	"""
+	Custom user class to include firstname2 and lastname2.
+	"""
+	firstname2 = models.CharField(max_length=45, null=True, blank=True)
+	lastname2 = models.CharField(max_length=45, null=True, blank=True)
+	role = models.ForeignKey(Role, related_name='user')
 
 class Provider(models.Model):
 	admin = models.ForeignKey(User) # This is what I just typed

@@ -10,8 +10,17 @@ for resource in ["food", "clothing", "language", "legal services", "transportati
 	r = Resource(name=resource)
 	r.save()
 
+# Add roles
+for role, access in [('Volunteer', 1), ('Organization Staff', 2), ('Task Force Staff', 3), \
+	('Buscando Staff', 90)]:
+	r = Role(**{
+			'role': role,
+			'access': access
+		})
+	r.save()
+
 # Load user
-fake_user = User.objects.create_user(username="test_user", email = "test_user_email", password = "test_password", first_name = "test_first_name", last_name = "test_last_name")
+fake_user = User.objects.create_user(username="test_user", email = "test_user_email", password = "test_password", first_name = "test_first_name", last_name = "test_last_name", role=r)
 fake_user.save()
 
 user = User.objects.filter(username="test_user").first()
