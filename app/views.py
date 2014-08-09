@@ -171,7 +171,7 @@ def add_provider(request):
 				for location_form in location_formset:
 					location = location_form.save(commit=False)
 					location.provider = provider
-					#location.save()
+					location.save()
 					location_form.save_m2m()
 				location_formset.save()
 				user = authenticate(username=u_name,
