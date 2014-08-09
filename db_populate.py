@@ -8,7 +8,10 @@ for resource in ["food", "clothing", "language", "legal services", "transportati
 	r.save()
 
 # Load user
-aliya = User.objects.filter(username="aliya").first()
+fake_user = User.objects.create_user(username="test_user", email = "test_user_email", password = "test_password", first_name = "test_first_name", last_name = "test_last_name")
+fake_user.save()
+
+user = User.objects.filter(username="test_user").first()
 
 # Add providers
 with open('providers.csv', 'rb') as csvfile:
@@ -16,7 +19,7 @@ with open('providers.csv', 'rb') as csvfile:
 	name=""
 	for index, row in enumerate(providers):
 		if index >0:
-			p = Provider(admin = aliya, name = row[0], logo=row[2], URL=row[3])
+			p = Provider(admin = user, name = row[0], logo=row[2], URL=row[3])
 			if row[0] != name:
 				p.save()
 				name=row[0]
