@@ -78,8 +78,9 @@ footer a:focus {
 .jumbotron {
     background-color: #444;
     /* Temp image from unsplash */
-    background-image: url(https://s3.amazonaws.com/ooomf-com-files/WyVMN1W6Tves4NUkaXwh_14.JPG);
-    background-position: left center;
+    background-image: url(../img/family.jpg);
+    background-position: center;
+    background-size: cover;
     height: 500px;
     color: #fff;
     text-align: center;
