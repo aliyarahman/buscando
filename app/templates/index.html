@@ -17,6 +17,7 @@
         <form class="form-inline" role="form" method="post" action="resources/">
             {% csrf_token %}
             <div class="form-group">
+                <input type="hidden" name="page" value="index.html">
                 <label class="sr-only" for="zipcode">Zipcode</label>
                 <input class="form-control" type="zipcode" placeholder="What is your zipcode?" name="zipcode">
             </div>

@@ -11,6 +11,7 @@ from app.models import Provider, Resource, Location, Search, ZipcodeCoordinates
 from app.forms import ProviderForm, LocationFormset, LocationForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 from geopy.distance import vincenty
+import requests
 
 RADIUS_DISTANCE = 35 # miles
 
@@ -27,9 +28,10 @@ def resources(request):
 
     zipcode = request.POST.get('zipcode')
     resource = request.POST.get('resource')
+    render_page = request.POST.get('page')
 
     if not zipcode and not resource:
-        return render(request, 'resources.html')
+        return render(request, render_page)
 
     if zipcode and resource:
         # Save the search
@@ -47,7 +49,10 @@ def resources(request):
             zipcode = '0{0}'.format(zipcode)
     except:
         messages.error(request, "Sorry, I didn't recognize that zipcode. Please try again.")
-        return HttpResponseRedirect('/app')
+        if render_page == 'index.html':
+            return HttpResponseRedirect('/app')
+        else:
+            return HttpResponseRedirect('/app/resources')
     else:
         try:
             zipcode_coords = ZipcodeCoordinates.objects.get(zipcode=zipcode)
@@ -60,7 +65,10 @@ def resources(request):
         resource = Resource.objects.get(name=resource.lower())
     except:
         messages.error(request, "Please choose a resource and try again.")
-        return HttpResponseRedirect('/app')
+        if render_page == 'index.html':
+            return HttpResponseRedirect('/app')
+        else:
+            return HttpResponseRedirect('/app/resources')
     else:
         locations = Location.objects.select_related('provider').filter(
             resources_available=resource).exclude(provider__approved=False)
