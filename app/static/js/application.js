@@ -62,3 +62,5 @@ function deleteForm(btn, prefix) {
     }
     return false;
 }
+
+$('.landing--need').chosen({ width: '220px', disable_search_threshold: 20 });

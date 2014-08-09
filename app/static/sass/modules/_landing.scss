@@ -1,0 +1,56 @@
+.landing {
+    .landing--form {
+        @include background-rgba(rgba(0, 0, 0, .6));
+        margin: 0 -30px;
+        padding: 20px 0;
+    }
+
+    .landing--location {
+        border: {
+            bottom: 0;
+            left: 2px solid #ccc;
+            right: 0;
+            top: 0;
+        };
+        border-radius: 0;
+        box-shadow: none;
+        font-size: 16px;
+        left: -4px;
+        padding: 20px 20px 21px 20px;
+        position: relative;
+    }
+
+    .btn.btn-primary {
+        padding: 10px 20px;
+        z-index: 1;
+        border-radius: 0;
+        margin: 0;
+        left: -8px;
+        position: relative;
+    }
+
+    .chosen-container > .chosen-single {
+        background: #fff;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        font-size: 16px;
+        height: 41px;
+        padding: 8px 0;
+
+        > div > b {
+            height: 23px;
+            margin-top: 9px;
+        }
+    }
+
+    .chosen-drop {
+        border-left: 0;
+        border-right: 0;
+        color: #444;
+    }
+
+    .chosen-results > li {
+        text-align: left;
+    }
+}

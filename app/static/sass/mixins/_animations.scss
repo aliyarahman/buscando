@@ -1,0 +1,69 @@
+@mixin transform($transform) {
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -ms-transform: $transform;
+    -o-transform: $transform;
+    transform: $transform;
+}
+
+@mixin transform-style($transform) {
+    -webkit-transform-style: $transform;
+    -moz-transform-style: $transform;
+    -ms-transform-style: $transform;
+    transform-style: $transform;
+}
+
+@mixin animation-name($name) {
+    -webkit-animation-name: $name;
+    -moz-animation-name: $name;
+    -ms-animation-name: $name;
+    -o-animation-name: $name;
+    animation-name: $name;
+}
+
+@mixin animation-timing-function($timing) {
+    -webkit-animation-timing-function: $timing;
+    -moz-animation-timing-function: $timing;
+    -ms-animation-timing-function: $timing;
+    -o-animation-timing-function: $timing;
+    animation-timing-function: $timing;
+}
+
+@mixin animation-duration($duration) {
+    -webkit-animation-duration: $duration;
+    -moz-animation-duration: $duration;
+    -ms-animation-duration: $duration;
+    -o-animation-duration: $duration;
+    animation-duration: $duration;
+}
+
+@mixin animation-fill-mode($mode) {
+    -webkit-animation-fill-mode: $mode;
+    -moz-animation-fill-mode: $mode;
+    -ms-animation-fill-mode: $mode;
+    -o-animation-fill-mode: $mode;
+    animation-fill-mode: $mode;
+}
+
+@mixin perspective($perspective) {
+    -webkit-perspective: $perspective;
+    -moz-perspective: $perspective;
+    -ms-perspective: $perspective;
+    -o-perspective: $perspective;
+    perspective: $perspective;
+}
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+    @-ms-keyframes #{$name} {
+        @content;
+    }
+    @keyframes #{$name} {
+        @content;
+    }
+}

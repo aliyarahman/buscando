@@ -1,6 +1,12 @@
 @import "bootstrap-theme";
 @import "bootstrap";
 
+@import "mixins/animations";
+@import "mixins/polyfills";
+
+@import "modules/chosen";
+@import "modules/landing";
+
 /* Bootstrap Overrides */
 
 body {
@@ -94,11 +100,6 @@ footer a:focus {
     margin-top: 20px;
     margin-bottom: 50px;
 }
-.jumbotron input.form-control {
-    font-size: 18px;
-    padding: 20px;
-    border-radius: 0;
-}
 
 .jumbotron select.form-control {
     padding: 20px;
@@ -106,14 +107,6 @@ footer a:focus {
     position: relative;
     left: -5px;
     border-radius: 0;
-}
-.jumbotron .btn {
-    padding: 10px 20px;
-    z-index: 1;
-    border-radius: 0;
-    margin: 0;
-    left: -12px;
-    position: relative;
 }
 
 /* Resources page */
