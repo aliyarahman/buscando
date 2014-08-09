@@ -72,6 +72,7 @@ DATABASES = {
      'PASSWORD': 'Popcorn13',
      'HOST': 'localhost',
      'PORT':'5432',
+     }
 }
 
 # Internationalization
