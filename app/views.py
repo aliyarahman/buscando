@@ -29,11 +29,11 @@ def resources(request):
 
     zipcode = request.POST.get('zipcode')
     resource = request.POST.get('resource')
-	render_page = request.POST.get('page')
- 
+    render_page = request.POST.get('page')
+
     if not zipcode and not resource:
         return render(request, render_page)
-        
+
     if zipcode and resource:
         # Save the search
         search = Search(**{
@@ -54,7 +54,7 @@ def resources(request):
             return HttpResponseRedirect('/app')
         else:
             return HttpResponseRedirect('/app/resources')
-        else:
+    else:
         try:
             zipcode_coords = ZipcodeCoordinates.objects.get(zipcode=zipcode)
         except:
@@ -67,9 +67,9 @@ def resources(request):
     except:
         messages.error(request, "Please choose a resource and try again.")
         if render_page == 'index.html':
-           return HttpResponseRedirect('/app')
+            return HttpResponseRedirect('/app')
         else:
-           return HttpResponseRedirect('/app/resources')
+            return HttpResponseRedirect('/app/resources')
     else:
         locations = Location.objects.select_related('provider').filter(
             resources_available=resource).exclude(provider__approved=False)
