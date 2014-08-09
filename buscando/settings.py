@@ -37,6 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'south',
+    'widget_tweaks',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,19 +54,24 @@ ROOT_URLCONF = 'buscando.urls'
 
 WSGI_APPLICATION = 'buscando.wsgi.application'
 
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',) 
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'buscando',
-	'USER': 'aliya',
-	'PASSWORD': 'Popcorn13',
-	'HOST': 'localhost',
-	'PORT':'5432',
-    }
+   # 'default': {
+   #      'ENGINE': 'django.db.backends.sqlite3',
+   #      'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+   #  }
+
+     'default': {
+     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+     'NAME': 'buscando',
+     'USER': 'aliya',
+     'PASSWORD': 'Popcorn13',
+     'HOST': 'localhost',
+     'PORT':'5432',
 }
 
 # Internationalization

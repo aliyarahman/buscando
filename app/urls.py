@@ -20,4 +20,5 @@ urlpatterns = patterns('',
     url(r'^organization/register/$', views.organization_register, name='organization_register'), #temporary until integrate bootstrap
     url(r'^provider/(?P<provider_id>\d+)/edit/$', views.edit_provider, name='edit_provider'),
     url(r'^provider/(?P<provider_id>\d+)/$', views.provider_detail, name='provider_detail'),
+    url(r'^provider/(?P<provider_id>\d+)/delete/$', views.delete_provider, name='delete_provider'),
 )

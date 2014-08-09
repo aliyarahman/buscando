@@ -11,6 +11,8 @@ from app.models import Provider, Resource, Location, Search, ZipcodeCoordinates
 from app.forms import ProviderForm, LocationFormset, LocationForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 from geopy.distance import vincenty
+from django.forms.formsets import formset_factory
+import requests
 
 RADIUS_DISTANCE = 35 # miles
 
@@ -27,10 +29,11 @@ def resources(request):
 
     zipcode = request.POST.get('zipcode')
     resource = request.POST.get('resource')
-
+	render_page = request.POST.get('page')
+ 
     if not zipcode and not resource:
-        return render(request, 'resources.html')
-
+        return render(request, render_page)
+        
     if zipcode and resource:
         # Save the search
         search = Search(**{
@@ -47,8 +50,11 @@ def resources(request):
             zipcode = '0{0}'.format(zipcode)
     except:
         messages.error(request, "Sorry, I didn't recognize that zipcode. Please try again.")
-        return HttpResponseRedirect('/app')
-    else:
+        if render_page == 'index.html':
+            return HttpResponseRedirect('/app')
+        else:
+            return HttpResponseRedirect('/app/resources')
+        else:
         try:
             zipcode_coords = ZipcodeCoordinates.objects.get(zipcode=zipcode)
         except:
@@ -60,7 +66,10 @@ def resources(request):
         resource = Resource.objects.get(name=resource.lower())
     except:
         messages.error(request, "Please choose a resource and try again.")
-        return HttpResponseRedirect('/app')
+        if render_page == 'index.html':
+           return HttpResponseRedirect('/app')
+        else:
+           return HttpResponseRedirect('/app/resources')
     else:
         locations = Location.objects.select_related('provider').filter(
             resources_available=resource).exclude(provider__approved=False)
@@ -115,32 +124,57 @@ def logout_page(request):
 	return HttpResponseRedirect(reverse('index'))
 
 def add_provider(request):
-	if request.method == "POST":
-		admin_form = UserCreationForm(request.POST)
-		provider_form = ProviderForm(request.POST)
-		location_form = LocationForm(request.POST)
-
-		if admin_form.is_valid() and provider_form.is_valid() and location_form.is_valid():
-			admin = admin_form.save()
-			provider = provider_form.save(commit=False)
-			provider.admin = admin
-			provider.save()
-			location = location_form.save(commit=False)
-			location.provider = provider
-			location.save()
-			location_form.save_m2m()
-			return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
-
+	# users should only be able to make one provider
+	if request.user.is_authenticated():
+		return HttpResponseRedirect(reverse('index'))
 	else:
-		admin_form = UserCreationForm()
-		provider_form = ProviderForm()
-		location_form = LocationForm()
+		LocationFormset = formset_factory(LocationForm)
+		if request.method == "POST":
+			admin_form = UserCreationForm(request.POST)
+			provider_form = ProviderForm(request.POST)
+			#location_form = LocationForm(request.POST)
+			location_formset = LocationFormset(request.POST, request.FILES)
 
-	return render(request, "provider/new.html", { 
-												'provider_form': provider_form, 
-												'location_form': location_form,
-												'admin_form': admin_form,
-												 })
+			if admin_form.is_valid() and provider_form.is_valid() and location_formset.is_valid():
+				u_name = admin_form.cleaned_data.get('username')
+				u_pass = admin_form.cleaned_data.get('password2')
+				admin = admin_form.save()
+				provider = provider_form.save(commit=False)
+				provider.admin = admin
+				provider.save()
+				for location_form in location_formset:
+					location = location_form.save(commit=False)
+					location.provider = provider
+					location.save()
+					location_form.save_m2m()
+				user = authenticate(username=u_name,
+									password=u_pass)
+				login(request, user)
+				return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+
+		else:
+			admin_form = UserCreationForm()
+			provider_form = ProviderForm()
+			#location_form = LocationForm()
+			location_formset = LocationFormset()
+
+		return render(request, "provider/new.html", { 
+													'provider_form': provider_form, 
+													'location_formset': location_formset,
+													'admin_form': admin_form,
+													 })
+
+
+@login_required
+def delete_provider(request, provider_id):
+	provider = get_object_or_404(Provider, id=provider_id)
+	admin_user = provider.admin
+	if request.user == admin_user: # only the provider's registered user can delete
+		provider.delete()
+		admin_user.delete()
+		return HttpResponseRedirect(reverse('index'))
+	else:
+		return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
 
 @login_required
 def edit_provider(request, provider_id):
@@ -154,10 +188,12 @@ def edit_provider(request, provider_id):
 	if request.user == admin_user: # only the provider's registered user can edit page
 
 		if request.method == 'POST':
+			password_change_form = PasswordChangeForm(request.POST,user=admin_user)
 			provider_form = ProviderForm(request.POST,instance=provider)
 			location_form = LocationForm(request.POST,instance=location)
 
-			if provider_form.is_valid() and location_form.is_valid():
+			if password_change_form.is_valid() and provider_form.is_valid() and location_form.is_valid():
+				password_change_form.save()
 				provider = provider_form.save(commit=False)
 				provider.admin = admin_user
 				provider.save()
@@ -168,12 +204,15 @@ def edit_provider(request, provider_id):
 				return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
 
 		else:
+			password_change_form = PasswordChangeForm(user=admin_user)
 			provider_form = ProviderForm(instance=provider)
-			location_form = LocationForm(instance=location) #todo: turn into formsets--right now this is creating a new loca
+			location_form = LocationForm(instance=location) 
+			#todo: turn into formsets--right now this is creating a new location
 
 		return render(request, "provider/edit.html", { 
+												'provider': provider,
 												'provider_form': provider_form, 
-												'location_form': location_form
+												'location_form': location_form,
 												 })
 
 	else:

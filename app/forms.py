@@ -3,7 +3,22 @@ from app.models import Provider, Resource, Location
 from django.forms import ModelForm
 from django.forms.models import modelformset_factory
 
+class ResourcesChoiceField(forms.ModelMultipleChoiceField):
+	def label_from_instance(self, obj):
+	    return obj.name    
+
 class LocationForm(ModelForm):
+	resources_needed = ResourcesChoiceField(
+							queryset = Resource.objects, 
+							widget=forms.CheckboxSelectMultiple(),
+							required=False,
+							)
+	resources_available = ResourcesChoiceField(
+							queryset = Resource.objects, 
+							widget=forms.CheckboxSelectMultiple(),
+							required=False,
+							)
+
 	class Meta:
 		model = Location
 		fields = (
@@ -21,37 +36,15 @@ class LocationForm(ModelForm):
 			'resources_available',
 			)
 
+	# def __init__(self, *args, **kwargs):
+	# 	super(LocationForm, self).__init__(*args,**kwards)
+	# 	self.fields['POC_firstname'].widget = TextInput(attrs={
+	# 		'class': ''
+	# 		})
+
 class ProviderForm(ModelForm):
 	class Meta:
 		model = Provider
-		fields = ('admin_firstname2', 'admin_lastname2', 'name', 'logo', 'URL', )
-
-	# def is_valid(self):
-	# 	result = super(ProviderForm, self).is_valid()
-
-	# 	if hasattr(self.form, 'nested'):
-	# 		for location_form in form.nested
-
-	def add_fields (self, form, index):
-
-		# create the Provider fields
-		super(ProviderForm, self).add_fields(form, index)
-
-		# create the Location formset
-		try:
-			instance = self.get_queryset()[index]
-			pk_value = instance.pk
-		except IndexError:
-			instance=None
-			pk_value = hash(form.prefix)
-
-		# store formset in the .nested property
-		form.nested = [
-			LocationFormset( 
-								instance = instance,
-								queryset = Location.objects.filter(provider = pk_value) ,
-								prefix = 'locations_%s' % pk_value ,
-							)
-						]
+		fields = ('name', 'logo', 'URL', )
 
 LocationFormset = modelformset_factory(Location, extra=1)
