@@ -1,20 +1,28 @@
 from django.db import models
 from django.contrib.auth.models import User
-#from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser
 
 from geopy.geocoders import GoogleV3
 
 import datetime
 
+class Role(models.Model):
+	name = models.CharField(max_length=255)
+	access_level = models.IntegerField(default=0)
+
+	def __unicode__(self):
+		return '{0} (Access level {1})'.format(self.name, self.access_level)
+
 # class User is built in to Django: has firsrtname, lastname, username, email, password
 # That User is referenced via foreign key to attach to the Provider profile
 
-# class User(AbstractBaseUser):
-# 	"""
-# 	Custom user class to include firstname2 and lastname2.
-# 	"""
-# 	firstname2 = models.CharField(max_length=45, null=True, blank=True)
-# 	lastname2 = models.CharField(max_length=45, null=True, blank=True)
+class User(AbstractBaseUser):
+	"""
+	Custom user class to include firstname2 and lastname2.
+	"""
+	firstname2 = models.CharField(max_length=45, null=True, blank=True)
+	lastname2 = models.CharField(max_length=45, null=True, blank=True)
+	role = models.ForeignKey(Role, related_name='user')
 
 class Provider(models.Model):
 	admin = models.ForeignKey(User) # This is what I just typed
@@ -91,9 +99,9 @@ class ZipcodeCoordinates(models.Model):
 
 class Search(models.Model):
 
-	"One search for resources near a zipcode."
+	"One search for resources near a location."
 
-	zipcode = models.CharField(max_length=10)
+	location = models.CharField(max_length=255)
 	resource = models.CharField(max_length=255)
 
 	# Auto-generated timestamps
@@ -101,4 +109,4 @@ class Search(models.Model):
 	updated_at = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
 
 	def __unicode__(self):
-		return '{0}: {1} ({2})'.format(self.zipcode, self.resource, self.created_at)
+		return '{0}: {1} ({2})'.format(self.location, self.resource, self.created_at)

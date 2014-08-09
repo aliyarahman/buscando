@@ -1,23 +1,41 @@
 from django.contrib.auth.models import User
 from app.views import *
 import csv
+import os
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "buscando.settings")
 
 # Add resources
 for resource in ["food", "clothing", "language", "legal services", "transportation", "medical care", "education and enrollment", "religious services", "counseling", "housing"]:
 	r = Resource(name=resource)
 	r.save()
 
+# Add roles
+for role, access in [('Volunteer', 1), ('Organization Staff', 2), ('Task Force Staff', 3), \
+	('Buscando Staff', 90)]:
+	r = Role(**{
+			'role': role,
+			'access': access
+		})
+	r.save()
+
 # Load user
-aliya = User.objects.filter(username="aliya").first()
+fake_user = User.objects.create_user(username="test_user", email = "test_user_email", password = "test_password", first_name = "test_first_name", last_name = "test_last_name", role=r)
+fake_user.save()
+
+user = User.objects.filter(username="test_user").first()
 
 # Add providers
+# to make things easier on the partner orgs, we let them enter a line for each of their locations. We will deal with separating the provider (name, logo, url) and the location (specific information about the location, hours, lat/log, etc). We need to dedup for provider names, but then load each location, so we'll loop through this file twice.
 with open('providers.csv', 'rb') as csvfile:
 	providers = csv.reader(csvfile, delimiter=',', quotechar='"')
-	name=""
+	name="" #we don't want to add duplicates, so we just need the variable name to be defined
 	for index, row in enumerate(providers):
 		if index >0:
-			p = Provider(admin = aliya, name = row[0], logo=row[2], URL=row[3])
-			if row[0] != name:
+
+			p = Provider(admin = user, name = row[0], logo=row[2], URL=row[3])
+			if row[0] != name: #make this work to deal with duplicates even if the list is not in order
+
 				p.save()
 				name=row[0]
 # Add locations
@@ -34,8 +52,12 @@ with open('providers.csv', 'rb') as csvfile:
 	providers = csv.reader(csvfile, delimiter=',', quotechar='"')
 	for index, row in enumerate(providers):
 		if index >0:
+            
+            #broken below: we need to get all locations for a provider and get the appropriate resources. below is just getting resources for the first location for each provider.
 			p = Provider.objects.filter(name=row[0]).first()
 			l= Location.objects.filter(provider=p).first()
+            
+            
 			food = Resource.objects.filter(name="food").first()
 			clothing = Resource.objects.filter(name="clothing").first()
 			language = Resource.objects.filter(name="language").first()
@@ -45,6 +67,8 @@ with open('providers.csv', 'rb') as csvfile:
 			school = Resource.objects.filter(name="education and enrollment").first()
 			counseling = Resource.objects.filter(name="counseling").first()
 			housing = Resource.objects.filter(name="housing").first()
+            
+            #fix below to deal with case and whitespace
 			if row[12] =='yes' or row[12]=='Yes':
 				l.resources_needed.add(food)
 				l.resources_available.add(food)
