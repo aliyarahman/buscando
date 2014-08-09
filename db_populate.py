@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from app.models import Role
+#from app.models import Role
 from app.views import *
 import csv
 import os
@@ -14,6 +14,7 @@ for resource in ["food", "clothing", "language", "legal services", "transportati
         r.save()
 
 # Add roles
+""""
 for role, access in [('Volunteer', 1), ('Organization Staff', 2), ('Task Force Staff', 3), \
 	('Buscando Staff', 90)]:
 	r = Role(**{
@@ -21,7 +22,7 @@ for role, access in [('Volunteer', 1), ('Organization Staff', 2), ('Task Force S
 			'access_level': access
 		})
 	r.save()
-
+"""
 # Load user
 
 
