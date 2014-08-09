@@ -32,11 +32,17 @@ function updateElementIndex(el, prefix, ndx) {
 function addForm(btn, prefix) {
     var formCount = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
     var row = $('.dynamic-form:first').clone(true).get(0);
-    $(row).removeAttr('id').insertAfter($('.dynamic-form:last')).children('.hidden').removeClass('hidden');
-    $(row).children().not(':last').children().each(function() {
-      updateElementIndex(this, prefix, formCount);
-      alert($(this).val());
+    $(row)
+      .removeAttr('id')
+      .attr('id','form-'+formCount+'-row')
+      .insertAfter($('.dynamic-form:last'))
+      .children('.hidden').removeClass('hidden'); // show remove link
+    $(row).find('input').each(function() {
+      updateElementIndex(this, prefix, formCount); // formCount should be the newest ID
       $(this).val('');
+    });
+    $(row).find('label').each(function() {
+      updateElementIndex(this, prefix, formCount); // formCount should be the newest ID
     });
     $(row).find('.delete-row').click(function() {
       deleteForm(this, prefix);
