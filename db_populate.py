@@ -1,6 +1,9 @@
 from django.contrib.auth.models import User
 from app.views import *
 import csv
+import os
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "buscando.settings")
 
 # Add resources
 for resource in ["food", "clothing", "language", "legal services", "transportation", "medical care", "education and enrollment", "religious services", "counseling", "housing"]:
