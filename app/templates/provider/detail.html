@@ -6,7 +6,8 @@
 
 
 {% if can_edit %}
-	<a href="{% url 'edit_provider' provider.id %}">Edit</a>
+	<!-- currently links are styled to be green so without style its invisible -->
+	<a style="color:black;" href="{% url 'edit_provider' provider.id %}">Edit</a>
 {% endif %}
 
 <h1>Provider info</h1>
