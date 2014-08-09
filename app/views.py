@@ -24,11 +24,7 @@ def index(request):
 def about(request):
 	return render(request, "about.html")
 
-def organization_register(request):
-	return render(request, "organization_register.html")
-
 def resources(request):
-
     searched_location = request.POST.get('location')
     resource = request.POST.get('resource')
 
