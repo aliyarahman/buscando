@@ -24,7 +24,7 @@ class Provider(models.Model):
 
 class Resource(models.Model):
 	name = models.CharField(max_length=30, unique=True)
-#	details = models.CharField(max_length=255, null = True, blank = True)
+	details = models.CharField(max_length=255, null = True, blank = True)
 
 	def __unicode__(self):
 		return self.name
