@@ -57,183 +57,110 @@
 
 </div>
 
-<h2>Login information</h2>
+<h2>Account information</h2>
 <div class="admin-form">
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ admin_form.username.auto_id }}">
-		{{ admin_form.username.label }}
-	</label>
+	<label>Organization</label>
 	<div>
-	{% render_field admin_form.username class+="form-control" %}
+	{% render_field provider_form.name %}
+	</div>
+	</div>
+
+
+	<div class="form-group{% if field.errors %} has-error{% endif %}">
+	<label>Contact email</label>
+	<div>
+	{% render_field admin_form.username %}
 	</div>
 	</div>
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ admin_form.password1.auto_id }}">
-		{{ admin_form.password1.label }}
-	</label>
+	<label>Password</label>
 	<div>
-	{% render_field admin_form.password1 class+="form-control" %}
+	{% render_field admin_form.password1 %}
 	</div>
 	</div>
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ admin_form.password2.auto_id }}">
-		{{ admin_form.password2.label }}
-	</label>
+	<label>Retype password</label>
 	<div>
-	{% render_field admin_form.password2 class+="form-control" %}
+	{% render_field admin_form.password2 %}
+	</div>
+	</div>
+
+	<div class="form-group{% if field.errors %} has-error{% endif %}">
+	<label>Website</label>
+	<div>
+	{% render_field provider_form.URL type="URL" %}
 	</div>
 	</div>
 
 </div>
-<h2>Organization information</h2>
-<div class="provider-form">
 
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ provider_form.name.auto_id }}">
-		{{ provider_form.name.label }}
-	</label>
-	<div>
-	{% render_field provider_form.name class+="form-control" %}
-	</div>
-	</div>
 
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ provider_form.logo.auto_id }}">
-		{{ provider_form.logo.label }}
-	</label>
-	<div>
-	{% render_field provider_form.logo type="file" onchange="readURL(this);" %}
-	<img id="logo" src="#" alt="logo" style="display:none;" />
-	</div>
-	</div>
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ provider_form.URL.auto_id }}">
-		{{ provider_form.URL.label }}
-	</label>
-	<div>
-	{% render_field provider_form.URL type="URL" class+="form-control" %}
-	</div>
-	</div>
-
-</div>
 
 <h1>Locations</h1>
 <div class="location-formset">
 
 {% for location_form in location_formset %}
 <div class="location-form dynamic-form" id="{{ location_form.prefix }}-row">
-	<h3>Location information</h3>
+	<h1>Location information</h1>
 	<div {% if forloop.first %} class="hidden"{% endif %}> {{ location_form.operand }}</div>
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ location_form.POC_firstname.auto_id }}">
-		{{ location_form.POC_firstname.label }}
-	</label>
+	<label>Staff firstnames</label>
 	<div>
-	{% render_field location_form.POC_firstname class+="form-control" %}
+	{% render_field location_form.POC_firstname  %} {% render_field location_form.POC_firstname2 %}
 	</div>
 	</div>
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ location_form.POC_firstname2.auto_id }}">
-		{{ location_form.POC_firstname2.label }}
-	</label>
+	<label>Staff lastnames</label>
 	<div>
-	{% render_field location_form.POC_firstname2 class+="form-control" %}
+	{% render_field location_form.POC_lastname %} {% render_field location_form.POC_lastname2 %}
 	</div>
 	</div>
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ location_form.POC_lastname.auto_id }}">
-		{{ location_form.POC_lastname.label }}
-	</label>
+	<label>Address</label>
 	<div>
-	{% render_field location_form.POC_lastname class+="form-control" %}
+	{% render_field location_form.address %}
 	</div>
 	</div>
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ location_form.POC_lastname2.auto_id }}">
-		{{ location_form.POC_lastname2.label }}
-	</label>
+	<label>Phone</label>
 	<div>
-	{% render_field location_form.POC_lastname2 class+="form-control" %}
+	{% render_field location_form.phone %}
 	</div>
 	</div>
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ location_form.address.auto_id }}">
-		{{ location_form.address.label }}
-	</label>
+	<label>Is this location your main office?</label>
 	<div>
-	{% render_field location_form.address class+="form-control" %}
+	{% render_field location_form.is_headquarters %}
 	</div>
 	</div>
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ location_form.latitude.auto_id }}">
-		{{ location_form.latitude.label }}
-	</label>
+	<label>Hours of operation</label>
 	<div>
-	{% render_field location_form.latitude class+="form-control" %}
+	{% render_field location_form.hours_open %}
 	</div>
 	</div>
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ location_form.longitude.auto_id }}">
-		{{ location_form.longitude.label }}
-	</label>
+	<label>Resources needed (hold "Ctrl" to select more than one)</label>
 	<div>
-	{% render_field location_form.longitude class+="form-control" %}
+	{% render_field location_form.resources_needed %}
 	</div>
 	</div>
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ location_form.phone.auto_id }}">
-		{{ location_form.phone.label }}
-	</label>
+	<label>Resources available (hold "Ctrl" to select more than one)</label>
 	<div>
-	{% render_field location_form.phone class+="form-control" %}
-	</div>
-	</div>
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ location_form.is_headquarters.auto_id }}">
-		{{ location_form.is_headquarters.label }}
-	</label>
-	<div>
-	{% render_field location_form.is_headquarters class+="form-control" %}
-	</div>
-	</div>
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ location_form.hours_open.auto_id }}">
-		{{ location_form.hours_open.label }}
-	</label>
-	<div>
-	{% render_field location_form.hours_open class+="form-control" %}
-	</div>
-	</div>
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ location_form.resources_needed.auto_id }}">
-		{{ location_form.resources_needed.label }}
-	</label>
-	<div>
-	{% render_field location_form.resources_needed class+="form-control" %}
-	</div>
-	</div>
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label class="control-label" for="{{ location_form.resources_available.auto_id }}">
-		{{ location_form.resources_available.label }}
-	</label>
-	<div>
-	{% render_field location_form.resources_available class+="form-control" %}
+	{% render_field location_form.resources_available %}
 	</div>
 	</div>
    

@@ -1,27 +1,36 @@
 from django.contrib.auth.models import User
+#from app.models import Role
 from app.views import *
 import csv
 import os
+from django.db.utils import IntegrityError
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "buscando.settings")
 
 # Add resources
-for resource in ["food", "clothing", "language", "legal services", "transportation", "medical care", "education and enrollment", "religious services", "counseling", "housing"]:
-	r = Resource(name=resource)
-	r.save()
+for resource in ["food", "clothing", "language", "legal services", "transportation", "medical care", "education and enrollment", "religious services", "counseling", "housing", "recreation", "volunteers", "other"]:
+    if len(Resource.objects.filter(name=resource)) == 0:
+        r = Resource(name=resource)
+        r.save()
 
 # Add roles
+""""
 for role, access in [('Volunteer', 1), ('Organization Staff', 2), ('Task Force Staff', 3), \
 	('Buscando Staff', 90)]:
 	r = Role(**{
-			'role': role,
-			'access': access
+			'name': role,
+			'access_level': access
 		})
 	r.save()
-
+"""
 # Load user
-fake_user = User.objects.create_user(username="test_user", email = "test_user_email", password = "test_password", first_name = "test_first_name", last_name = "test_last_name", role=r)
-fake_user.save()
+
+
+try:
+	fake_user = User.objects.create_user(username="test_user", email = 		"test_user_email", password = "test_password", first_name = "test_first_name", 		last_name = "test_last_name")
+	fake_user.save()
+except IntegrityError:
+	pass
 
 user = User.objects.filter(username="test_user").first()
 
@@ -29,15 +38,15 @@ user = User.objects.filter(username="test_user").first()
 # to make things easier on the partner orgs, we let them enter a line for each of their locations. We will deal with separating the provider (name, logo, url) and the location (specific information about the location, hours, lat/log, etc). We need to dedup for provider names, but then load each location, so we'll loop through this file twice.
 with open('providers.csv', 'rb') as csvfile:
 	providers = csv.reader(csvfile, delimiter=',', quotechar='"')
-	name="" #we don't want to add duplicates, so we just need the variable name to be defined
+
 	for index, row in enumerate(providers):
 		if index >0:
 
-			p = Provider(admin = user, name = row[0], logo=row[2], URL=row[3])
-			if row[0] != name: #make this work to deal with duplicates even if the list is not in order
+			if len(Provider.objects.filter(name=row[0])) == 0:
+				p = Provider(admin = user, name = row[0], logo=row[2], URL=row[3])
 
 				p.save()
-				name=row[0]
+
 # Add locations
 with open('providers.csv', 'rb') as csvfile:
 	providers = csv.reader(csvfile, delimiter=',', quotechar='"')
@@ -55,7 +64,8 @@ with open('providers.csv', 'rb') as csvfile:
             
             #broken below: we need to get all locations for a provider and get the appropriate resources. below is just getting resources for the first location for each provider.
 			p = Provider.objects.filter(name=row[0]).first()
-			l= Location.objects.filter(provider=p).first()
+			provider_locations = Location.objects.filter(provider=p)
+            
             
             
 			food = Resource.objects.filter(name="food").first()
@@ -69,34 +79,35 @@ with open('providers.csv', 'rb') as csvfile:
 			housing = Resource.objects.filter(name="housing").first()
             
             #fix below to deal with case and whitespace
-			if row[12] =='yes' or row[12]=='Yes':
-				l.resources_needed.add(food)
-				l.resources_available.add(food)
-			if row[13] =='yes' or row[13]=='Yes':
-				l.resources_needed.add(clothing)
-				l.resources_available.add(clothing)
-			if row[14] =='yes' or row[14]=='Yes':
-				l.resources_needed.add(legal)
-				l.resources_available.add(legal)
-			if row[15] =='yes' or row[15]=='Yes':
-				l.resources_needed.add(language)
-				l.resources_available.add(language)
-			if row[16] =='yes' or row[16]=='Yes':
-				l.resources_needed.add(medical)
-				l.resources_available.add(medical)
-			if row[17] =='yes' or row[17]=='Yes':
-				l.resources_needed.add(school)
-				l.resources_available.add(school)
-			if row[18] =='yes' or row[18]=='Yes':
-				l.resources_needed.add(school)
-				l.resources_available.add(school)
-			if row[19] =='yes' or row[19]=='Yes':
-				l.resources_needed.add(transportation)
-				l.resources_available.add(transportation)
-			if row[20] =='yes' or row[20]=='Yes':
-				l.resources_needed.add(counseling)
-				l.resources_available.add(counseling)
-			if row[21] =='yes' or row[21]=='Yes':
-				l.resources_needed.add(housing)
-				l.resources_available.add(housing)
-			l.save()
+			for l in provider_locations:
+				if row[12].lower().strip() =='yes':
+					l.resources_needed.add(food)
+					l.resources_available.add(food)
+				if row[13].lower().strip() =='yes':
+					l.resources_needed.add(clothing)
+					l.resources_available.add(clothing)
+				if row[14].lower().strip() =='yes':
+					l.resources_needed.add(legal)
+					l.resources_available.add(legal)
+				if row[15].lower().strip() =='yes':
+					l.resources_needed.add(language)
+					l.resources_available.add(language)
+				if row[16].lower().strip() =='yes':
+					l.resources_needed.add(medical)
+					l.resources_available.add(medical)
+				if row[17].lower().strip() =='yes':
+					l.resources_needed.add(school)
+					l.resources_available.add(school)
+				if row[18].lower().strip() =='yes':
+					l.resources_needed.add(school)
+					l.resources_available.add(school)
+				if row[19].lower().strip() =='yes':
+					l.resources_needed.add(transportation)
+					l.resources_available.add(transportation)
+				if row[20].lower().strip() =='yes':
+					l.resources_needed.add(counseling)
+					l.resources_available.add(counseling)
+				if row[21].lower().strip() =='yes':
+					l.resources_needed.add(housing)
+					l.resources_available.add(housing)
+				l.save()

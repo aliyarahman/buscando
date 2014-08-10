@@ -24,11 +24,7 @@ def index(request):
 def about(request):
 	return render(request, "about.html")
 
-def organization_register(request):
-	return render(request, "organization_register.html")
-
 def resources(request):
-
     searched_location = request.POST.get('location')
     resource = request.POST.get('resource')
 
@@ -171,7 +167,7 @@ def add_provider(request):
 				for location_form in location_formset:
 					location = location_form.save(commit=False)
 					location.provider = provider
-					#location.save()
+					location.save()
 					location_form.save_m2m()
 				location_formset.save()
 				user = authenticate(username=u_name,
