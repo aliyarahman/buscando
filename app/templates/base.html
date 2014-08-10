@@ -51,7 +51,7 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="{% url 'resources' %}">Find/Give Resources</a></li>
-            <li><a href="{% url 'organization_register' %}">Organizations</a></li>
+            <li><a href="{% url 'add_provider' %}">Organizations</a></li>
             <li><a href="{% url 'about' %}">About</a></li>
             {% if user.is_authenticated %}
               <li><a href="{% url 'organization_home' %}">Profile</a></li>

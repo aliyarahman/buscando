@@ -8,7 +8,7 @@ from django.db.utils import IntegrityError
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "buscando.settings")
 
 # Add resources
-for resource in ["food", "clothing", "language", "legal services", "transportation", "medical care", "education and enrollment", "religious services", "counseling", "housing"]:
+for resource in ["food", "clothing", "language", "legal services", "transportation", "medical care", "education and enrollment", "religious services", "counseling", "housing", "recreation", "volunteers", "other"]:
     if len(Resource.objects.filter(name=resource)) == 0:
         r = Resource(name=resource)
         r.save()
