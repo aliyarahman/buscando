@@ -5,7 +5,10 @@
 @import "mixins/polyfills";
 
 @import "modules/chosen";
+@import "modules/footer";
+@import "modules/intro";
 @import "modules/landing";
+@import "modules/tooltip";
 
 /* Bootstrap Overrides */
 
@@ -14,16 +17,15 @@ body {
     font-size: 16px;
     line-height: 1.5;
     color: #333;
-    background-color: #1abc9c;
 }
 
 a {
-    color: #1abc9c;
+    color: $brand-primary;
 }
 
 a:hover,
 a:focus {
-    color: #1abc9c;
+    color: $brand-primary;
 }
 
 .btn {
@@ -31,17 +33,12 @@ a:focus {
 }
 
 .btn-primary {
-  background-color: #1abc9c;
-  border-color: #1abc9c;
+  border: none;
 }
 
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
-  background-color: #1abc9c;
-  border-color: #1abc9c;
+  background-color: $brand-primary;
+  border-color: $brand-primary;
 }
 
 /* Navigation & Brand */
@@ -53,7 +50,7 @@ a:focus {
 }
 
 .navbar-brand {
-    color: #1abc9c;
+    color: $brand-primary;
 }
 
 .navbar-brand > .glyphicon {
@@ -65,18 +62,7 @@ a:focus {
 }
 
 .navbar-toggle .icon-bar {
-    background-color: #1abc9c;
-}
-
-/* Footer */
-
-footer a {
-    color: #fff;
-}
-
-footer a:hover,
-footer a:focus {
-    color: #fff;
+    background-color: $brand-primary;
 }
 
 /* Resources page */

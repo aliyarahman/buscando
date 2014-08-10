@@ -45,7 +45,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{% url 'index' %}"><span class="glyphicon glyphicon-transfer"></span> Buscando</a>
+          <a class="navbar-brand" href="{% url 'index' %}"><span class="glyphicon glyphicon-map-marker"></span> Buscando</a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -72,9 +72,11 @@
 	{% endblock %}
 	
 	{% block footer %}
-	<footer class="container">
+	<footer id="footer">
 		<hr>
-    		<p><a href="{% url 'about' %}">About Buscando</a></p>
+        <div class="container">
+            <a href="{% url 'about' %}">About Buscando</a>
+        </div>
 	</footer>
     {% endblock %}
 

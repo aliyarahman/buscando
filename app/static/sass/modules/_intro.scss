@@ -1,0 +1,45 @@
+.intro {
+    text-align: center;
+
+    @media screen and (min-width: $screen-sm-min) {
+        margin: {
+            bottom: 120px;
+            top: 70px;
+        };
+        text-align: left;
+    }
+
+    h2 {
+        font-weight: 700;
+        margin: {
+            bottom: 20px;
+            top: 50px;
+        };
+    }
+
+    .col-sm-6 + .col-sm-6 {
+        margin: {
+            bottom: 50px;
+            top: 80px;
+        };
+
+        @media screen and (min-width: $screen-sm-min) {
+            margin: {
+                bottom: 0;
+                top: 0;
+            };
+        }
+    }
+
+    .btn {
+        border-radius: 0;
+        padding: 15px 25px;
+        margin-top: 15px;
+    }
+
+    .intro-login {
+        left: 5px;
+        position: relative;
+        top: 11px;
+    }
+}
