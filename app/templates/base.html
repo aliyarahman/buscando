@@ -8,7 +8,6 @@
 	{% load staticfiles %}
   {% load base_page_helpers %}
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/application.css' %}" rel="stylesheet">
 
     <!-- Twitter cards -->
@@ -46,7 +45,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{% url 'index' %}"><span class="glyphicon glyphicon-transfer"></span> Buscando</a>
+          <a class="navbar-brand" href="{% url 'index' %}"><span class="glyphicon glyphicon-map-marker"></span> Buscando</a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -73,15 +72,18 @@
 	{% endblock %}
 	
 	{% block footer %}
-	<footer class="container">
+	<footer id="footer">
 		<hr>
-    		<p><a href="{% url 'about' %}">About Buscando</a></p>
+        <div class="container">
+            <a href="{% url 'about' %}">About Buscando</a>
+        </div>
 	</footer>
     {% endblock %}
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'js/lodash.compat.min.js' %}"></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/application.js' %}"></script>
   </body>

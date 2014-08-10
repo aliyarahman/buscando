@@ -1,0 +1,158 @@
+.landing {
+    @include poly-background-size();
+    background-color: #444;
+    background-image: url(../img/kite.jpg);
+    background-position: 26% 0;
+    background-size: cover;
+    height: 550px;
+    color: #fff;
+    text-align: center;
+
+    @media screen and (min-width: $screen-xs-min) {
+        background-position: 35% 0;
+    }
+
+    @media screen and (min-width: $screen-sm-min) {
+        background-position: bottom center;
+    }
+
+    > h1 {
+        margin-top: 30px;
+        font-size: 4em;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+
+        @media screen and (min-width: $screen-xs-min) {
+            margin-top: 50px;
+        }
+
+        @media screen and (min-width: $screen-sm-min) {
+            margin-top: 100px;
+        }
+    }
+
+    .landing--tagline {
+        font-size: 18px;
+        margin: {
+            bottom: 50px;
+            top: 20px;
+        };
+
+        @media screen and (min-width: $screen-sm-min) {
+            font-size: 21px;
+        }
+    }
+
+    .landing--form {
+        @include background-rgba(rgba(0, 0, 0, .6));
+        margin: 0 -30px 0 -30px;
+        padding: 20px 0;
+
+        @media screen and (min-width: $screen-sm-min) {
+            margin: 70px -30px 0 -30px;
+        }
+    }
+
+    .landing--location {
+        border: {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 2px solid #ccc;
+        };
+        border-radius: 0;
+        box-shadow: none;
+        font-size: 18px;
+        left: 0;
+        margin: 0 auto;
+        padding: 23px 20px 24px 20px;
+        position: relative;
+        text-align: center;
+        width: 80%;
+
+        @media screen and (min-width: $screen-sm-min) {
+            border: {
+                bottom: 0;
+                left: 2px solid #ccc;
+                right: 0;
+                top: 0;
+            };
+            font-size: 16px;
+            left: -4px;
+            padding: 20px 20px 21px 20px;
+            text-align: left;
+            width: 241px;
+        }
+    }
+
+    .landing--location-container {
+        margin-bottom: 0;
+    }
+
+    .landing--need-container {
+        margin: 0 auto;
+        width: 80%;
+
+        @media screen and (min-width: $screen-sm-min) {
+            width: 220px;
+        }
+    }
+
+    .btn.btn-primary {
+        border-radius: 0;
+        left: 0;
+        font-size: 18px;
+        margin: 0;
+        padding: 11px 20px;
+        position: relative;
+        width: 80%;
+        z-index: 1;
+
+        @media screen and (min-width: $screen-sm-min) {
+            font-size: 16px;
+            left: -8px;
+            padding: 10px 20px 9px 20px;
+            width: 88px;
+        }
+    }
+
+    .chosen-container > .chosen-single {
+        background: #fff;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        font-size: 18px;
+        height: 49px;
+        padding: 12px 0;
+
+        > span {
+            margin-right: 0;
+        }
+
+        @media screen and (min-width: $screen-sm-min) {
+            font-size: 16px;
+            height: 41px;
+            padding: 8px 0;
+        }
+
+        > div > b {
+            height: 23px;
+            margin-top: 12px;
+
+            @media screen and (min-width: $screen-sm-min) {
+                margin-top: 9px;
+            }
+        }
+    }
+
+    .chosen-drop {
+        border-left: 0;
+        border-right: 0;
+        color: #444;
+    }
+
+    .chosen-results > li {
+        text-align: left;
+    }
+}
