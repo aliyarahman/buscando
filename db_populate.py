@@ -82,7 +82,7 @@ with open('providers.csv', 'rb') as csvfile:
 	for index, row in enumerate(providers):
 		if index >0:
             
-            #broken below: we need to get all locations for a provider and get the appropriate resources. below is just getting resources for the first location for each provider.
+
 			p = Provider.objects.filter(name=row['provider_name'].strip()).first()
 			provider_locations = Location.objects.filter(provider=p)
             
@@ -98,7 +98,7 @@ with open('providers.csv', 'rb') as csvfile:
 			counseling = Resource.objects.filter(name="counseling").first()
 			housing = Resource.objects.filter(name="housing").first()
             
-            #fix below to deal with case and whitespace
+
 			for l in provider_locations:
 				if row['food'].lower().strip() =='yes':
 					l.resources_needed.add(food)
