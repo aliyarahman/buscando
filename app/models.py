@@ -24,7 +24,7 @@ class Provider(models.Model):
 
 class Resource(models.Model):
 	name = models.CharField(max_length=30, unique=True)
-#	details = models.CharField(max_length=255, null = True, blank = True)
+	details = models.CharField(max_length=255, null = True, blank = True)
 
 	def __unicode__(self):
 		return self.name
@@ -38,8 +38,8 @@ class Location(models.Model):
 	POC_lastname2 = models.CharField(max_length=45, null=True, blank=True)
 	provider = models.ForeignKey(Provider)
 	address = models.CharField(max_length=140)
-	latitude = models.FloatField(default=0)
-	longitude = models.FloatField(default=0)
+	latitude = models.FloatField(default=0, null=True, blank=True)
+	longitude = models.FloatField(default=0, null=True, blank=True)
 	phone = models.CharField(max_length=20)
 	is_headquarters = models.BooleanField(default=False)
 	hours_open = models.CharField(max_length=200)

@@ -36,15 +36,10 @@ class LocationForm(ModelForm):
 			'resources_available',
 			)
 
-	# def __init__(self, *args, **kwargs):
-	# 	super(LocationForm, self).__init__(*args,**kwards)
-	# 	self.fields['POC_firstname'].widget = TextInput(attrs={
-	# 		'class': ''
-	# 		})
 
 class ProviderForm(ModelForm):
 	class Meta:
 		model = Provider
-		fields = ('name', 'logo', 'URL', )
+		fields = ('name', 'URL', )
 
 LocationFormset = modelformset_factory(Location, extra=1)
