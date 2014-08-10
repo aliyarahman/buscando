@@ -11,7 +11,7 @@ class Provider(models.Model):
 	admin_firstname2 = models.CharField(max_length=45, null=True, blank=True)
 	admin_lastname2 = models.CharField(max_length=45, null=True, blank=True)
 	name = models.CharField(max_length=140)
-	logo = models.CharField(max_length=140)
+	logo = models.CharField(max_length=140, null=True, blank = True)
 	URL = models.CharField(max_length=140)
 	approved = models.BooleanField(default = True) # Change this in production
 
