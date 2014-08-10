@@ -50,7 +50,7 @@ user = User.objects.filter(username="test_user").first()
 
 with open('providers.csv', 'rb') as csvfile:
 	providers = csv.DictReader(csvfile, delimiter=',', quotechar='"')
-	provider_names = [p.name.strip().lower() for p in Provider.object.all()]#creating a list for searching to dedup provider names
+	provider_names = [p.name.strip().lower() for p in Provider.objects.all()]#creating a list for searching to dedup provider names
 		#creating this list is probably not the fastest, but allows us to dedup easily based on caps/spacing without losing that formatting
 		#in the name that goes into the database. this list ensures deduping against what's currently in the DB as well
 
