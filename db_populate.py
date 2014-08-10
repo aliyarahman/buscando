@@ -6,6 +6,12 @@ import os
 from django.db.utils import IntegrityError
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "buscando.settings")
+#Rachel and Shannon had a really tough time figuring out exactly how to
+#get DJANGO_SETTINGS_MODULE set properly, and eventually Rachel just ran
+#export DJANGO_SETTINGS_MODULE=buscando.settings
+#from the command line which worked on a mac and made this scrip run-able
+#I'm not really sure if the above line is doing anything anymore.
+
 
 # Add resources
 for resource in ["food", "clothing", "language", "legal services", "transportation", "medical care", "education and enrollment", "religious services", "counseling", "housing"]:
