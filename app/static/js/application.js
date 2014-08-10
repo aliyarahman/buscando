@@ -64,3 +64,5 @@ function deleteForm(btn, prefix) {
 }
 
 $('.landing--need').chosen({ width: '220px', disable_search_threshold: 20 });
+
+$('.landing--location').tooltip({});
