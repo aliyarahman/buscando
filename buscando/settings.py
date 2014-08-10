@@ -1,3 +1,4 @@
+from settings_hidden import *
 """
 Django settings for buscando project.
 
@@ -16,9 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'foppa=%-xpfn3klk_rptns$!fl9swmhq8j6l@m0e-_ee4+_cq3'
-
+SECRET_KEY = hidden_secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -65,8 +64,8 @@ DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.postgresql_psycopg2',
          'NAME': 'buscando',
-         'USER': 'aliya',
-         'PASSWORD': 'Popcorn13',
+         'USER': hidden_db_user,
+         'PASSWORD': hidden_db_password,
          'HOST': 'localhost',
          'PORT':'5432',
      }}
