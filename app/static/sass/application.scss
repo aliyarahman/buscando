@@ -79,37 +79,6 @@ footer a:focus {
     color: #fff;
 }
 
-/* Jumbotron */
-
-.jumbotron {
-    background-color: #444;
-    background-image: url(../img/kite.jpg);
-    background-position: bottom center;
-    background-size: cover;
-    height: 550px;
-    color: #fff;
-    text-align: center;
-}
-.jumbotron h1 {
-    margin-top: 100px;
-    font-size: 4em;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-}
-.jumbotron .tagline {
-    margin-top: 20px;
-    margin-bottom: 50px;
-}
-
-.jumbotron select.form-control {
-    padding: 20px;
-    height: 42px;
-    position: relative;
-    left: -5px;
-    border-radius: 0;
-}
-
 /* Resources page */
 .white_text {
     color: #fff;

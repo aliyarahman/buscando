@@ -3,7 +3,7 @@
 
 <div class="landing jumbotron">
         <h1>Help is near.</h1>
-        <p class="tagline">Find food, clothing, and other resources in your area for undocumented minors.</p>
+        <p class="landing--tagline">Find food, clothing, and other resources in your area for undocumented minors.</p>
         
         {% if messages %}
           {% for message in messages %}
@@ -15,7 +15,7 @@
 
         <form class="landing--form form-inline" role="form" method="post" action="resources/">
             {% csrf_token %}
-            <div class="form-group">
+            <div class="landing--need-container form-group">
                 <label class="sr-only" for="resource">Resource</label>
                 <select class="landing--need form-control" data-placeholder="What do you need?" name="resource">
                     <option></option>
@@ -31,7 +31,7 @@
                     <option value="Recreation">Recreation</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="landing--location-container form-group">
                 <input type="hidden" name="page" value="index.html">
                 <label class="sr-only" for="zipcode">Zipcode</label>
                 <input class="landing--location form-control" type="text" placeholder="Location" name="location" data-toggle="tooltip" data-placement="bottom" title="Address, City or ZIP Code">

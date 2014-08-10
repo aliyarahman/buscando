@@ -63,6 +63,6 @@ function deleteForm(btn, prefix) {
     return false;
 }
 
-$('.landing--need').chosen({ width: '220px', disable_search_threshold: 20 });
+$('.landing--need').chosen({ width: '100%', disable_search_threshold: 20 });
 
 $('.landing--location').tooltip({});
