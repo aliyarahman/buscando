@@ -15,4 +15,6 @@ urlpatterns = patterns('',
     url(r'^provider/(?P<provider_id>\d+)/edit/$', views.edit_provider, name='edit_provider'),
     url(r'^provider/(?P<provider_id>\d+)/$', views.provider_detail, name='provider_detail'),
     url(r'^provider/(?P<provider_id>\d+)/delete/$', views.delete_provider, name='delete_provider'),
+    url(r'^volunteer/new/$', views.add_volunteer, name='add_volunteer'),
+
 )

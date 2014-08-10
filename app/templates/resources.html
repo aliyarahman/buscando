@@ -33,6 +33,7 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-info">Find available resources</button>
+                <a class="btn btn-danger" href="{% url 'add_volunteer' %}" role="button">Register »</a>
             </form>
             {% if messages %}
               {% for message in messages %}
