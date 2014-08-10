@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse
 from app.models import Provider, Resource, Location, Search, ZipcodeCoordinates
-from app.forms import ProviderForm, LocationFormset, LocationForm
+from app.forms import ProviderForm, LocationFormset, LocationForm, UserForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 from geopy.distance import vincenty
 from geopy.geocoders import GoogleV3
@@ -240,3 +240,34 @@ def provider_detail(request, provider_id):
 													'locations': locations, 
 													'can_edit': can_edit,
 													})
+
+
+
+def add_volunteer(request):
+	if request.user.is_authenticated():
+		return HttpResponseRedirect(reverse('index')) # Logged in users shouldn't be able to sign up
+	else:
+		if request.method == "POST":
+			user_form = UserCreationForm(request.POST)
+			profile_form = UserForm(request.POST)
+			if user_form.is_valid() and profile_form.is_valid():
+				u_name = user_form.cleaned_data.get('username')
+				u_pass = user_form.cleaned_data.get('password2')
+				user = user_form.save() # Save the basic user with email/username and password
+				user.first_name = profile_form.cleaned_data.get("first_name")
+				user.last_name = profile_form.cleaned_data.get("last_name")
+				user.phone = profile_form.cleaned_data.get("phone")
+				user.address = profile_form.cleaned_data.get("address")
+				user.save()
+				# Still need to add skills they have here
+				user = authenticate(username=u_name,
+									password=u_pass)
+				login(request, user)
+				return HttpResponseRedirect(reverse('resources'))
+		else:
+			user_form = UserCreationForm()
+			profile_form = UserForm()
+		return render(request, "volunteer/new.html", { 
+													'user_form': user_form, 
+													'profile_form': profile_form,
+													 })
