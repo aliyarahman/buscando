@@ -4,10 +4,12 @@
 @import "mixins/animations";
 @import "mixins/polyfills";
 
+@import "modules/btn";
 @import "modules/chosen";
 @import "modules/footer";
 @import "modules/intro";
 @import "modules/landing";
+@import "modules/navbar";
 @import "modules/tooltip";
 
 /* Bootstrap Overrides */
@@ -26,43 +28,6 @@ a {
 a:hover,
 a:focus {
     color: $brand-primary;
-}
-
-.btn {
-  border-radius: 3px;
-}
-
-.btn-primary {
-  border: none;
-}
-
-.open > .dropdown-toggle.btn-primary {
-  background-color: $brand-primary;
-  border-color: $brand-primary;
-}
-
-/* Navigation & Brand */
-
-.navbar {
-    border-radius: 0;
-    background-color: #fff;
-    margin-bottom: 0;
-}
-
-.navbar-brand {
-    color: $brand-primary;
-}
-
-.navbar-brand > .glyphicon {
-    top: 3px;
-}
-
-.nav .navbar-nav {
-    color: #fff;
-}
-
-.navbar-toggle .icon-bar {
-    background-color: $brand-primary;
 }
 
 /* Resources page */

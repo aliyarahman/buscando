@@ -1,0 +1,24 @@
+.navbar {
+    border-radius: 0;
+    background-color: #fff;
+    margin-bottom: 0;
+
+    .navbar-brand {
+        color: $brand-primary;
+    }
+
+    .navbar-brand > .glyphicon {
+        top: 3px;
+    }
+
+    .nav.navbar-nav {
+        color: #fff;
+        border-top: 1px solid #ccc;
+        margin-top: 0;
+        padding-top: 7.5px;
+    }
+
+    .navbar-toggle .icon-bar {
+        background-color: $brand-primary;
+    }
+}
