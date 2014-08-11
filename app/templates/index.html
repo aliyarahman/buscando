@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 {% block container %}
 
-<div class="jumbotron">
-    <div class="container">
+<section class="landing jumbotron">
         <h1>Help is near.</h1>
-        <p class="tagline">Find food, clothing, and other resources in your area for undocumented minors.</p>
-        
+        <p class="landing--tagline">Find food, clothing, and other resources in your area for Central American children seeking refuge.</p>
+
         {% if messages %}
           {% for message in messages %}
                 <div id="message" class="alert alert-{% if 'error' in message.tags %}danger{% else %}{{ message.tags }}{% endif %}">
@@ -14,17 +13,12 @@
           {% endfor %}
         {% endif %}
 
-        <form class="form-inline" role="form" method="post" action="resources/">
+        <form class="landing--form form-inline" role="form" method="post" action="resources/">
             {% csrf_token %}
-            <div class="form-group">
-                <input type="hidden" name="page" value="index.html">
-                <label class="sr-only" for="zipcode">Zipcode</label>
-                <input id="location" class="form-control" type="text" placeholder="Enter your address, city, or zipcode" name="location">
-            </div>
-            <div class="form-group">
+            <div class="landing--need-container form-group">
                 <label class="sr-only" for="resource">Resource</label>
-                <select class="form-control" name="resource">
-                    <option value="" disabled selected>What do you need?</option>
+                <select class="landing--need form-control" data-placeholder="What do you need?" name="resource">
+                    <option></option>
                     <option value="Food">Food</option>
                     <option value="Clothing">Clothing</option>
                     <option value="Language">Language</option>
@@ -34,39 +28,41 @@
                     <option value="Education/Enrollment">Education/Enrollment</option>
                     <option value="Religious Services">Religious Services</option>
                     <option value="Counseling">Counseling</option>
+                    <option value="Recreation">Recreation</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Find available resources</button>
+            <div class="landing--location-container form-group">
+                <input type="hidden" name="page" value="index.html">
+                <label class="sr-only" for="zipcode">ZIP Code</label>
+                <input class="landing--location form-control" type="text" placeholder="Location" name="location" data-toggle="tooltip" data-placement="bottom" title="Address, City or ZIP Code">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
         </form>
-    </div>
-</div>
+</section>
 
-<main class="container">
+<main class="intro container">
     <div class="row">
-            <div class="col-md-4">
-                <h2>I'm looking for help</h2>
-                    <p>I'm caring for an undocumented minor and want to find help or resources near me.</p>
-            <p><a class="btn btn-default" href="{% url 'resources' %}" role="button">Look for help near you»</a></p>
-            </div>
-            <div class="col-md-4">
-                    <h2>I can help</h2>
-                    <p>I'm an individual who wants to volunteer resources or items.</p>
-                    <p><a class="btn btn-default" href="{% url 'resources' %}" role="button">Find drop-off points »</a></p>
-            </div>
-        <div class="col-md-4">
-                    <h2>I'm an Organization</h2>
-                    <p>I'm an organization with resources and want to register or update my information.</p>
-                    <p>
-                    {% if user.is_authenticated %}
-                    <a class="btn btn-default" href="{% url 'organization_home' %}" role="button">Go to my organization profile</a>
-                    {% else %}
-                        <a class="btn btn-default" href="{% url 'add_provider' %}" role="button">Register »</a>
-                        <a class="btn btn-default" href="{% url 'login' %}" role="button">Login »</a>
-                    {% endif %}
-                    </p>
-            </div>
+        <div class="col-sm-6">
+            <h2>I can help</h2>
+            <p>I'm an individual who wants to volunteer resources or items.</p>
+            <p><a class="btn btn-primary" href="{% url 'resources' %}" role="button">Offer assistance</a></p>
+        </div>
+        <div class="col-sm-6">
+            <h2>I'm an Organization</h2>
+            <p>I'm an organization with resources and want to register or update my information.</p>
+            <p>
+            {% if user.is_authenticated %}
+            <a class="btn btn-default" href="{% url 'organization_home' %}" role="button">Go to my organization profile</a>
+            {% else %}
+                <a class="btn btn-primary" href="{% url 'add_provider' %}" role="button">Register</a>
+                <span class="intro-login">
+                    or
+                    <a href="{% url 'login' %}" role="button">Login</a>
+                </span>
+            {% endif %}
+            </p>
+        </div>
     </div>
-
 </main>
 
 {% endblock %}

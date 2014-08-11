@@ -1,35 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.auth.models import AbstractBaseUser
-
 from geopy.geocoders import GoogleV3
 
 import datetime
 
-# class Role(models.Model):
-# 	name = models.CharField(max_length=255)
-# 	access_level = models.IntegerField(default=0)
 
-# 	def __unicode__(self):
-# 		return '{0} (Access level {1})'.format(self.name, self.access_level)
-
-# # class User is built in to Django: has firsrtname, lastname, username, email, password
-# # That User is referenced via foreign key to attach to the Provider profile
-
-# class User(AbstractBaseUser):
-# 	"""
-# 	Custom user class to include firstname2 and lastname2.
-# 	"""
-# 	firstname2 = models.CharField(max_length=45, null=True, blank=True)
-# 	lastname2 = models.CharField(max_length=45, null=True, blank=True)
-# 	role = models.ForeignKey(Role, related_name='user')
 
 class Provider(models.Model):
 	admin = models.ForeignKey(User) # This is what I just typed
 	admin_firstname2 = models.CharField(max_length=45, null=True, blank=True)
 	admin_lastname2 = models.CharField(max_length=45, null=True, blank=True)
 	name = models.CharField(max_length=140)
-	logo = models.CharField(max_length=140)
+	logo = models.CharField(max_length=140, null=True, blank = True)
 	URL = models.CharField(max_length=140)
 	approved = models.BooleanField(default = True) # Change this in production
 
@@ -42,9 +24,12 @@ class Provider(models.Model):
 
 class Resource(models.Model):
 	name = models.CharField(max_length=30, unique=True)
+	details = models.CharField(max_length=255, null = True, blank = True)
 
 	def __unicode__(self):
 		return self.name
+
+
 
 class Location(models.Model):
 	POC_firstname = models.CharField(max_length=45)
@@ -53,8 +38,8 @@ class Location(models.Model):
 	POC_lastname2 = models.CharField(max_length=45, null=True, blank=True)
 	provider = models.ForeignKey(Provider)
 	address = models.CharField(max_length=140)
-	latitude = models.FloatField(default=0)
-	longitude = models.FloatField(default=0)
+	latitude = models.FloatField(default=0, null=True, blank=True)
+	longitude = models.FloatField(default=0, null=True, blank=True)
 	phone = models.CharField(max_length=20)
 	is_headquarters = models.BooleanField(default=False)
 	hours_open = models.CharField(max_length=200)
@@ -76,6 +61,22 @@ class Location(models.Model):
 			except:
 				pass
 		super(Location, self).save()
+
+
+
+class Volunteer(models.Model):
+	user = models.ForeignKey(User) # User object this is attached to
+	phone = models.CharField(max_length=15)
+	address = models.CharField(max_length=255)
+	has_resources = models.ManyToManyField(Resource, related_name="has_resources", null=True, blank=True)
+
+	created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())
+	updated_at = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
+
+	def __unicode__(self):
+ 		return self.user.username
+
+
 
 class ZipcodeCoordinates(models.Model):
 

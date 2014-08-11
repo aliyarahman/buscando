@@ -1,0 +1,20 @@
+@mixin poly-background-size() {
+    behavior: url('/css/polyfills/backgroundsize.htc');
+}
+
+@mixin poly-radius-shadow() {
+    behavior: url('/css/polyfills/pie.htc');
+}
+
+@mixin display-inline-block() {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+}
+
+@mixin background-rgba($rgba) {
+    background: transparent;
+    background: $rgba;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($rgba)}', endColorstr='#{ie-hex-str($rgba)}');
+    zoom: 1;
+}

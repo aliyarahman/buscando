@@ -1,0 +1,30 @@
+.navbar {
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    background-color: #fff;
+    margin-bottom: 0;
+
+    .navbar-brand {
+        color: $brand-primary;
+    }
+
+    .navbar-brand > .glyphicon {
+        top: 3px;
+    }
+
+    .nav.navbar-nav {
+        border-top: 1px solid #ccc;
+        margin-top: 0;
+        padding-top: 7.5px;
+
+        @media screen and (min-width: $screen-sm-min) {
+            background-position: bottom center;
+            border-top: none;
+            padding-top: 0;
+        }
+    }
+
+    .navbar-toggle .icon-bar {
+        background-color: $brand-primary;
+    }
+}

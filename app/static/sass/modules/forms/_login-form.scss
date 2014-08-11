@@ -1,0 +1,70 @@
+.login-form {
+    margin: {
+        bottom: 100px;
+        top: 30px;
+    };
+
+    @media screen and (min-width: $screen-sm-min) {
+        margin: {
+            bottom: 100px;
+            top: 100px;
+        };
+    }
+
+    .login-form--option {
+        text-align: center;
+
+        > span {
+            display: inline-block;
+            font-size: 30px;
+            margin: {
+                right: 20%;
+                top: 14px;
+            };
+        }
+    }
+
+    .login-form--not-registered {
+        background: #f2f2f2;
+        padding: 5px 25px 25px;
+    }
+
+    .login-form--visible {
+        margin-top: 55px;
+
+        @media screen and (min-width: $screen-sm-min) {
+            margin-top: 0;
+        }
+    }
+
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    p {
+        margin: {
+            bottom: 5px;
+            top: 25px;
+        }
+    }
+
+    form {
+        margin-top: 38px;
+    }
+
+    .form-control {
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .btn.btn-primary {
+        border-radius: 0;
+        margin-top: 25px;
+        padding: 11px 20px;
+    }
+
+    .is-error {
+        color: #a94442;
+        padding: 20px;
+    }
+}
