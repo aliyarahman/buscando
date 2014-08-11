@@ -11,9 +11,10 @@
 @import "modules/tooltip";
 
 @import "modules/footer";
+@import "modules/forms/login-form";
+@import "modules/forms/organization-form";
 @import "modules/intro";
 @import "modules/landing";
-@import "modules/login-form";
 
 body {
     font-size: 16px;
