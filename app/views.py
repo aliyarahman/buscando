@@ -14,6 +14,7 @@ from geopy.distance import vincenty
 from geopy.geocoders import GoogleV3
 from django.forms.formsets import formset_factory
 from django.forms.models import modelformset_factory
+from django.core.mail import send_mass_mail
 import requests
 
 RADIUS_DISTANCE = 35 # miles
@@ -164,12 +165,60 @@ def add_provider(request):
 				provider = provider_form.save(commit=False)
 				provider.admin = admin
 				provider.save()
+
+				resources_needed = []
+				resources_available = []
 				for location_form in location_formset:
 					location = location_form.save(commit=False)
 					location.provider = provider
 					location.save()
 					location_form.save_m2m()
+
+					# If there are resources needed or available, add those to the running list
+					if location.resources_needed.count() > 0:
+						resources_needed = resources_needed + [resource.name for resource in location.resources_needed.all() if resource.name not in resources_needed]
+					if location.resources_available.count() > 0:
+						resources_available = resources_available + [resource.name for resource in location.resources_available.all() if resource.name not in resources_available]
 				location_formset.save()
+
+				# Transform resources lists into strings (or 'None' if none)
+				if len(resources_needed) > 0:
+					resources_needed = ', '.join(resources_needed)
+				else:
+					resources_needed = 'None'
+
+				if len(resources_available) > 0:
+					resources_available = ', '.join(resources_available)
+				else:
+					resources_available = 'None'
+
+				# Grab current language value (if not already grabbed)
+				language = 'english'
+
+				# Grab email set dependent on language value (may need to change values)
+				if language == 'english':
+					from email_texts import english_version_emails as emails
+				elif language == 'spanish':
+					from email_texts import spanish_version_emails as emails
+
+				# Grab admin email list (if not already grabbed or stored somewhere else)
+				admin_email_list = ['adamloganunger@gmail.com']
+
+				# Build confirmation email
+				email = emails['provider_signup']['confirmation']
+				email['body'] = email['body'].format(org_username=provider.admin.username,
+													 resources_needed=resources_needed,
+													 resources_available=resources_available)
+				confirmation_email = (email['subject'], email['body'], email['from'], [provider.admin.username])
+
+				# Build admin notification email
+				email = emails['provider_signup']['admin']
+				email['body'] = email['body'].format(org_username=provider.admin.username)
+				admin_email = (email['subject'], email['body'], email['from'], admin_email_list)
+
+				# Send Them
+				send_mass_mail((admin_email, confirmation_email), fail_silently=False)
+
 				user = authenticate(username=u_name,
 									password=u_pass)
 				login(request, user)
@@ -259,6 +308,40 @@ def add_volunteer(request):
 				user.phone = profile_form.cleaned_data.get("phone")
 				user.address = profile_form.cleaned_data.get("address")
 				user.save()
+
+				'''
+				if profile_form.has_resources.count() > 0:
+					resources_available = [resource.name for resource in profile_form.has_resources.all()]
+				'''
+				resources_available = 'None'
+
+				# Grab current language value (if not already grabbed)
+				language = 'english'
+
+				# Grab email set dependent on language value (may need to change values)
+				if language == 'english':
+					from email_texts import english_version_emails as emails
+				elif language == 'spanish':
+					from email_texts import spanish_version_emails as emails
+
+				# Grab admin email list (if not already grabbed or stored somewhere else)
+				admin_email_list = ['adamloganunger@gmail.com']
+
+				# Build confirmation email
+				email = emails['volunteer_signup']['confirmation']
+				email['body'] = email['body'].format(firstname=user.first_name,
+													 vol_username=user.username,
+													 resources_available=resources_available)
+				confirmation_email = (email['subject'], email['body'], email['from'], [user.username])
+
+				# Build admin notification email
+				email = emails['volunteer_signup']['admin']
+				email['body'] = email['body'].format(vol_username=user.username)
+				admin_email = (email['subject'], email['body'], email['from'], admin_email_list)
+
+				# Send Them
+				send_mass_mail((admin_email, confirmation_email), fail_silently=False)
+
 				# Still need to add skills they have here
 				user = authenticate(username=u_name,
 									password=u_pass)
