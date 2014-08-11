@@ -1,18 +1,19 @@
 @import "bootstrap-theme";
 @import "bootstrap";
+@import "modules/chosen";
 
 @import "mixins/animations";
 @import "mixins/polyfills";
 
+/* Overrides */
 @import "modules/btn";
-@import "modules/chosen";
-@import "modules/footer";
-@import "modules/intro";
-@import "modules/landing";
 @import "modules/navbar";
 @import "modules/tooltip";
 
-/* Bootstrap Overrides */
+@import "modules/footer";
+@import "modules/intro";
+@import "modules/landing";
+@import "modules/login-form";
 
 body {
     font-size: 16px;

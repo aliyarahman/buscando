@@ -1,26 +1,36 @@
 {% extends "base.html" %}
-
+{% load widget_tweaks %}
 {% block content %}
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+<main class="login-form container">
+    <div class="row">
+        <div class="login-form--not-registered col-sm-5">
+            <h2>Not yet registered?</h2>
+            <p>I'm an organization with resources and want to register or update my information.</p>
+            <a class="btn btn-primary" href="{% url 'add_provider' %}" role="button">Register</a>
+        </div>
+        <div class="login-form--visible col-sm-5 col-sm-offset-2">
+            <h2>Login</h2>
+            <form method="post" action=".">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Email</label>
+                    {% render_field form.username class+="form-control" %}
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    {% render_field form.password class+="form-control" %}
+                </div>
 
-<form method="post" action=".">
-{% csrf_token %}
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
+                {% if form.errors %}
+                <p class="is-error bg-danger">Your email and/or password didn't match. Please try again.</p>
+                {% endif %}
 
-<input type="submit" value="login" />
-<input type="hidden" name="next" value="{{ next }}" />
-</form>
+                <input type="submit" value="Login" class="btn btn-primary" />
+                <input type="hidden" name="next" value="{{ next }}" />
+            </form>
+        </div>
+    </div>
+</main>
 
 {% endblock %}
