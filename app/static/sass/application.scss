@@ -1,19 +1,22 @@
 @import "bootstrap-theme";
 @import "bootstrap";
+@import "modules/chosen";
 
 @import "mixins/animations";
 @import "mixins/polyfills";
 
-@import "modules/chosen";
-@import "modules/footer";
-@import "modules/intro";
-@import "modules/landing";
+/* Overrides */
+@import "modules/btn";
+@import "modules/navbar";
 @import "modules/tooltip";
 
-/* Bootstrap Overrides */
+@import "modules/footer";
+@import "modules/forms/login-form";
+@import "modules/forms/organization-form";
+@import "modules/intro";
+@import "modules/landing";
 
 body {
-    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
     color: #333;
@@ -28,47 +31,7 @@ a:focus {
     color: $brand-primary;
 }
 
-.btn {
-  border-radius: 3px;
-}
-
-.btn-primary {
-  border: none;
-}
-
-.open > .dropdown-toggle.btn-primary {
-  background-color: $brand-primary;
-  border-color: $brand-primary;
-}
-
-/* Navigation & Brand */
-
-.navbar {
-    border-radius: 0;
-    background-color: #fff;
-    margin-bottom: 0;
-}
-
-.navbar-brand {
-    color: $brand-primary;
-}
-
-.navbar-brand > .glyphicon {
-    top: 3px;
-}
-
-.nav .navbar-nav {
-    color: #fff;
-}
-
-.navbar-toggle .icon-bar {
-    background-color: $brand-primary;
-}
-
 /* Resources page */
-.white_text {
-    color: #fff;
-}
 
 .result_card {
     border-radius: 10%;
