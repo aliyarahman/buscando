@@ -196,7 +196,7 @@ def edit_provider(request, provider_id):
 	provider = get_object_or_404(Provider, id=provider_id)
 	admin_user = provider.admin
 
-	if request.user == admin_user: # only the provider's registered user can edit page
+	if request.user and request.user == admin_user: # only the provider's registered user can edit page
 
 		if request.method == 'POST':
 			password_change_form = PasswordChangeForm(request.POST)
@@ -211,8 +211,8 @@ def edit_provider(request, provider_id):
 				for location_form in location_formset:
 					location = location_form.save(commit=False)
 					location.provider = provider
-					#location.save()
-					location_form.save_m2m()
+					# location.save()
+					# location_form.save_m2m()
 				location_formset.save()
 				return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
 
