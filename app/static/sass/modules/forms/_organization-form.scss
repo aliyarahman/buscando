@@ -1,3 +1,16 @@
 .organization-form {
+	margin-top: 50px;
 
+	h1 {
+		margin-bottom: 50px;
+	}
+	.organization-form--section {
+		border-top: 1px dashed $brand-primary;
+		margin-bottom: 40px;
+		padding-top: 40px;
+	}
+
+	.button-group {
+		margin-top: 20px;
+	}
 }
