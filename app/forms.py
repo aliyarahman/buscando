@@ -40,7 +40,7 @@ class LocationForm(ModelForm):
 class ProviderForm(ModelForm):
 	class Meta:
 		model = Provider
-		fields = ('name', 'URL', )
+		fields = ('name', 'URL',)
 
 LocationFormset = modelformset_factory(Location, extra=1)
 
