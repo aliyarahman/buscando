@@ -85,3 +85,4 @@ $('.resource-form--panel #location').keypress(function (e) {
 });
 
 $('.landing--location').tooltip({});
+$('#location').tooltip({});
