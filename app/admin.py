@@ -1,5 +1,5 @@
 from django.contrib import admin
-from app.models import Provider, Resource, Location
+from app.models import Provider, Resource, Location, Volunteer
 
 class LocationInline(admin.StackedInline):
     model = Location
@@ -15,3 +15,4 @@ class ProviderAdmin(admin.ModelAdmin):
 admin.site.register(Provider)
 admin.site.register(Location)
 admin.site.register(Resource)
+admin.site.register(Volunteer)

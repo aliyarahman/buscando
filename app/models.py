@@ -65,7 +65,9 @@ class Location(models.Model):
 
 
 class Volunteer(models.Model):
-	user = models.ForeignKey(User) # User object this is attached to
+	first_name = models.CharField(max_length=15)
+	last_name = models.CharField(max_length=15)
+	email = models.EmailField(max_length=255)
 	phone = models.CharField(max_length=15)
 	address = models.CharField(max_length=255)
 	has_resources = models.ManyToManyField(Resource, related_name="has_resources", null=True, blank=True)
@@ -74,7 +76,7 @@ class Volunteer(models.Model):
 	updated_at = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
 
 	def __unicode__(self):
- 		return self.user.username
+ 		return self.email
 
 
 

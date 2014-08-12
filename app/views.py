@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse
-from app.models import Provider, Resource, Location, Search, ZipcodeCoordinates
+from app.models import Provider, Resource, Location, Search, ZipcodeCoordinates, Volunteer
 from app.forms import ProviderForm, LocationFormset, LocationForm, UserForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 from geopy.distance import vincenty
@@ -253,23 +253,17 @@ def add_volunteer(request):
 		return HttpResponseRedirect(reverse('index')) # Logged in users shouldn't be able to sign up
 	else:
 		if request.method == "POST":
-			user_form = UserCreationForm(request.POST)
 			profile_form = UserForm(request.POST)
-			if user_form.is_valid() and profile_form.is_valid():
-				u_name = user_form.cleaned_data.get('username')
-				u_pass = user_form.cleaned_data.get('password2')
-				user = user_form.save() # Save the basic user with email/username and password
+			if profile_form.is_valid():
+				user = Volunteer()
 				user.first_name = profile_form.cleaned_data.get("first_name")
 				user.last_name = profile_form.cleaned_data.get("last_name")
+				user.email = profile_form.cleaned_data.get("email")
 				user.phone = profile_form.cleaned_data.get("phone")
 				user.address = profile_form.cleaned_data.get("address")
 				user.save()
-				# Still need to add skills they have here
+				# Still need to check for saving of skills they have here
 				return HttpResponseRedirect(reverse('resources'))
 		else:
-			user_form = UserCreationForm()
 			profile_form = UserForm()
-		return render(request, "volunteer/new.html", { 
-													'user_form': user_form, 
-													'profile_form': profile_form,
-													 })
+		return render(request, "volunteer/new.html", { 'profile_form': profile_form})

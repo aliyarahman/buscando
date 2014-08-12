@@ -44,14 +44,28 @@ class ProviderForm(ModelForm):
 
 LocationFormset = modelformset_factory(Location, extra=1)
 
+VOLUNTEER_CHOICES = (('food', 'Food'),
+                     ('clothing', 'Clothing'),
+                     ('language', 'English-Spanish translation'),
+                     ('legal services', 'Legal services'),
+                     ('transportation', 'Transportation'),	
+                     ('medical care', 'Medical care'),
+                     ('education and enrollment', 'Help with education and enrollment'),
+                     ('religious services', 'Religious services'),
+                     ('counseling', 'Mental health and counseling'),
+                     ('recreation', 'Recreation'),
+                     ('volunteers', 'Volunteer recruitment'),
+                     ('other', 'Other'),)
 
 class UserForm(forms.Form):
 	first_name = forms.CharField(max_length=45)
 	last_name = forms.CharField(max_length=45)
-	has_resources = ResourcesChoiceField(
-							queryset = Resource.objects, 
+	email = forms.CharField(max_length=45)	
+	has_resources = forms.MultipleChoiceField(
+							choices = VOLUNTEER_CHOICES,
 							widget=forms.CheckboxSelectMultiple(),
 							required=True,
 							)
+	other = forms.CharField(max_length = 45)
 	phone = forms.CharField(max_length=15)
 	address = forms.CharField(max_length=255)
