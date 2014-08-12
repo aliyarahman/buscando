@@ -3,7 +3,13 @@
 {% block content %}
 
 <main class="organization-form">
-
+    <h2>Account Profile</h2>
+    <form role="form" action='.' method='post'>
+        <div class="form-group{% if field.errors %} has-error{% endif %}">
+            <label>Organization Name</label>
+            {% render_field provider_form.name class+="form-control" %}
+        </div>
+    </form>
 </main>
 
 <h1>Organization Profile</h1>
