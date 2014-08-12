@@ -64,7 +64,7 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="{% url 'resources' %}">Give Resources</a></li>
+            <li><a href="{% url 'resources' %}?type=volunteer">Give Resources</a></li>
             <!-- <li><a href="{% url 'add_provider' %}">Organizations</a></li> -->
             {% if user.is_authenticated %}
               <li><a href="{% url 'organization_home' %}">Profile</a></li>
@@ -87,7 +87,6 @@
 	
 	{% block footer %}
 	<footer id="footer">
-		<hr>
         <div class="container">
             <a href="{% url 'about' %}">About Buscando</a>
         </div>

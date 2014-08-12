@@ -17,6 +17,7 @@
             {% csrf_token %}
             <div class="landing--need-container form-group">
                 <label class="sr-only" for="resource">Resource</label>
+                <input type="hidden" name="type" value="search">
                 <select class="landing--need form-control" data-placeholder="What do you need?" name="resource">
                     <option></option>
                     <option value="Food">Food</option>
@@ -25,7 +26,7 @@
                     <option value="Transportation">Transportation</option>
                     <option value="Legal Services">Legal Services</option>
                     <option value="Medical Care">Medical Care</option>
-                    <option value="Education/Enrollment">Education/Enrollment</option>
+                    <option value="Education and Enrollment">Education/Enrollment</option>
                     <option value="Religious Services">Religious Services</option>
                     <option value="Counseling">Counseling</option>
                     <option value="Recreation">Recreation</option>
@@ -45,7 +46,7 @@
         <div class="col-sm-6">
             <h2>I can help</h2>
             <p>I'm an individual who wants to volunteer resources or items.</p>
-            <p><a class="btn btn-primary" href="{% url 'resources' %}" role="button">Offer assistance</a></p>
+            <p><a class="btn btn-primary" href="{% url 'resources' %}?type=volunteer" role="button">Offer assistance</a></p>
         </div>
         <div class="col-sm-6">
             <h2>I'm an Organization</h2>

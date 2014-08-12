@@ -116,43 +116,4 @@
             width: 88px;
         }
     }
-
-    .chosen-container > .chosen-single {
-        background: #fff;
-        border: 0;
-        border-radius: 0;
-        box-shadow: none;
-        font-size: 18px;
-        height: 49px;
-        padding: 12px 0;
-
-        > span {
-            margin-right: 0;
-        }
-
-        @media screen and (min-width: $screen-sm-min) {
-            font-size: 16px;
-            height: 41px;
-            padding: 8px 0;
-        }
-
-        > div > b {
-            height: 23px;
-            margin-top: 12px;
-
-            @media screen and (min-width: $screen-sm-min) {
-                margin-top: 9px;
-            }
-        }
-    }
-
-    .chosen-drop {
-        border-left: 0;
-        border-right: 0;
-        color: #444;
-    }
-
-    .chosen-results > li {
-        text-align: left;
-    }
 }

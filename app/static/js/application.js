@@ -64,5 +64,24 @@ function deleteForm(btn, prefix) {
 }
 
 $('.landing--need').chosen({ width: '100%', disable_search_threshold: 20 });
+$('.resource-form--need')
+    .chosen({ width: '100%', disable_search_threshold: 20 })
+    .change(function () {
+        if ($('.resource-form--panel #location').val() != '') {
+            $('form').submit();
+        }
+    });
+
+$(document).on('change', '.resource-form--panel #location', function () {
+    if ($('.resource-form--need').val() != '') {
+        $('form').submit();
+    }
+});
+
+$('.resource-form--panel #location').keypress(function (e) {
+    if (e.which == 13) {
+        $('form').submit();
+    }
+});
 
 $('.landing--location').tooltip({});

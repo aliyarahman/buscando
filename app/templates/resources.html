@@ -3,106 +3,80 @@
 
 {% block container %}
 
-<main class="container-fluid">
-    <section>
-        <!-- <div class="col-md-8"> -->
-        <form class="form-inline" role="form" method="post">
-            {% csrf_token %}
-
-            <div class="form-group">
-                <input type="hidden" name="page" value="resources.html">
-                <label for="zipcode">Location</label>
-                <input id="location" class="form-control" type="text" placeholder="Your location" name="location">
-            </div>
-
-            <div class="form-group">
-                <label for="resource">Resources</label>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Food"> Food
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Clothing"> Clothing
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Language"> Language
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Transportation"> Transportation
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Legal Services"> Legal Services
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Medical Care"> Medical Care
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Education/Enrollment"> Education/Enrollment
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Medical Care"> Religious Services
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="Counseling"> Counseling
-                        </label>
-                    </div>
-            </div>
-
-            <button type="submit" class="btn btn-info">Find available resources</button>
-            <!-- <a class="btn btn-danger" href="{% url 'add_volunteer' %}" role="button">Register »</a> -->
-        </form>
-        {% if messages %}
-          {% for message in messages %}
-                <div id="message" class="alert alert-{% if 'error' in message.tags %}danger{% else %}{{ message.tags }}{% endif %}">
-                {{ message }}
-                </div>
-          {% endfor %}
-        {% endif %}
-        <!-- </div> -->
-    </section>
-
+<main class="resource-form container-fluid">
     <div class="row">
+        <div class="resource-form--filter-panel col-sm-6">
+            <div class="resource-form--panel">
+            <form class="form-horizontal" role="form" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="page" value="resources.html">
+                <input type="hidden" name="type" value="{{ type }}">
 
-    {% if zipcode and resource %}
-        <h4>Showing results for {{ resource|title }} near {{ searched_location }}</h4>
-    {% endif %}
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="zipcode">Location</label>
+                    <div class="col-sm-9">
+                        <input id="location" class="form-control" type="text" placeholder="Your location" name="location" value="{{ location }}">
+                    </div>
+                </div>
 
-    <section class="results">
-        <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="resource">Resources</label>
+                    <div class="col-sm-9">
+                        <select class="resource-form--need form-control" data-placeholder="{% if type == 'volunteer' %}What can you give?{% else %}What do you need?{% endif %}" name="resource">
+                            <option></option>
+                            <option value="Food" {% ifequal "food" resource.name %}selected="selected"{% endifequal %}>Food</option>
+                            <option value="Clothing" {% ifequal "clothing" resource.name %}selected="selected"{% endifequal %}>Clothing</option>
+                            <option value="Language" {% ifequal "language" resource.name %}selected="selected"{% endifequal %}>Language</option>
+                            <option value="Transportation" {% ifequal "transportation" resource.name %}selected="selected"{% endifequal %}>Transportation</option>
+                            <option value="Legal Services" {% ifequal "legal services" resource.name %}selected="selected"{% endifequal %}>Legal Services</option>
+                            <option value="Medical Care" {% ifequal "medical care" resource.name %}selected="selected"{% endifequal %}>Medical Care</option>
+                            <option value="Education and Enrollment" {% ifequal "education and enrollment" resource.name %}selected="selected"{% endifequal %}>Education/Enrollment</option>
+                            <option value="Religious Services" {% ifequal "religious services" resource.name %}selected="selected"{% endifequal %}>Religious Services</option>
+                            <option value="Counseling" {% ifequal "counseling" resource.name %}selected="selected"{% endifequal %}>Counseling</option>
+                            <option value="Recreation" {% ifequal "recreation" resource.name %}selected="selected"{% endifequal %}>Recreation</option>
+                        </select>
+                    </div>
+                </div>
+
+                {% ifequal resource null %}
+                <div class="col-xs-offset-3">
+                    <button type="submit" class="btn btn-primary">Find available resources</button>
+                </div>
+                {% endifequal %}
+            </form>
+            {% if messages %}
+              {% for message in messages %}
+                    <div id="message" class="alert alert-{% if 'error' in message.tags %}danger{% else %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                    </div>
+              {% endfor %}
+            {% endif %}
+
+            <div class="resource-form--results-label">
+                {{ within_radius | length }} locations found
+                {% if within_radius and type == 'volunteer' %}
+                <a href="{% url 'add_volunteer' %}" class="btn btn-primary resource-form--register">Sign up as a Volunteer</a>
+                {% endif %}
+            </div>
+
+            <section class="resource-form--results">
             {% for location in within_radius %}
-                <div class="result_card">
+                <div class="resource-form--result">
                 <h3>{{ location.provider.name }}</h3>
-                <h4>{{ location.address }}</h4>
+                <p><span class="glyphicon glyphicon-map-marker"></span>{{ location.address }}</p>
                 {% if location.phone %}
-                    <h4>Phone: <a href="tel:{{ location.phone }}">{{ location.phone }}</a>
-                    </h4>
+                    <p><span class="glyphicon glyphicon-earphone"></span><a href="tel:{{ location.phone }}">{{ location.phone }}</a></p>
                 {% endif %}
                 {% if location.hours_open %}
-                    <h4>Hours: {{ location.hours_open }}</h4>
+                    <p>Hours: {{ location.hours_open }}</p>
                 {% endif %}
                 {% if location.provider.url %}
-                    <h4><a href="{{ location.provider.url }}" target="_blank">{{ location.provider.url }}</a></h4>
+                    <p><a href="{{ location.provider.url }}" target="_blank">{{ location.provider.url }}</a></p>
                 {% endif %}
 
                 {% for available in location.resources_available.all %}
                     {% if forloop.first %}
-                        <h4>Resources available</h4>
+                        <p>Resources available</p>
                             <ul>
                     {% endif %}
 
@@ -116,23 +90,20 @@
                 </div>
 
             {% endfor %}
+            </section>
+            </div>
         </div>
         
-        <div class="col-md-6">
-            {% if within_radius %}
-                <div id="map-canvas" class="img-responsive" style="height: 40em;"> </div>
-            {% endif %}
+        <div class="resource-form--map-panel col-sm-6 hidden-xs" style="height: 100%;">
+            <div id="map-canvas" class="img-responsive"></div>
         </div>
-    </section>
     </div>
 </main>
-
-
-{% if search_from.latitude and search_from.longitude %}
 
 <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwAJNgrVKvQmN_oHe6TxNx0nFdxLdUZag">
 </script>
+{% if search_from.latitude and search_from.longitude %}
 <script type="text/javascript">
   function initialize() {
     var mapOptions = {
@@ -177,6 +148,21 @@
             infowindow{{ forloop.counter0 }}.open(map,marker{{ forloop.counter0 }});
           });
     {% endfor %}
+
+    }
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+{% else %}
+
+<script type="text/javascript">
+  function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng(38.912068, -77.0190228),
+      zoom: 11
+    };
+    var map = new google.maps.Map(document.getElementById("map-canvas"),
+        mapOptions);
 
     }
   google.maps.event.addDomListener(window, 'load', initialize);
