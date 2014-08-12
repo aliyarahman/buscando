@@ -3,37 +3,46 @@
 
 {% block container %}
 
-<div class="row">
-    <main class="col-md-8 col-md-offset-2">
-        <section class="filter">
-            <div class="row col-md-4">
-                <h3 class="white_text">Search for a Resource or Dropoff Point</h3>
-            </div>
-            <div class="col-md-8" style="padding-top: 1em;">
-            <form class="form-inline" role="form" method="post">
+<main class="resource-form container-fluid">
+    <div class="row">
+        <div class="resource-form--filter-panel col-sm-6">
+            <div class="resource-form--panel">
+            <form class="form-horizontal" role="form" method="post">
                 {% csrf_token %}
+                <input type="hidden" name="page" value="resources.html">
+                <input type="hidden" name="type" value="{{ type }}">
+
                 <div class="form-group">
-                    <input type="hidden" name="page" value="resources.html">
-                    <label class="sr-only" for="zipcode">Zipcode</label>
-                    <input id="location" class="form-control" type="text" placeholder="Enter your address, city, or zipcode" name="location">
+                    <label class="control-label col-sm-3" for="zipcode">Location</label>
+                    <div class="col-sm-9">
+                        <input id="location" class="form-control" type="text" placeholder="Your location" name="location" value="{{ location }}" data-toggle="tooltip" data-placement="bottom" title="Address, City or ZIP Code">
+                    </div>
                 </div>
+
                 <div class="form-group">
-                    <label class="sr-only" for="resource">Resource</label>
-                    <select class="form-control" name="resource">
-                        <option value="" disabled selected>What do you need?</option>
-                        <option value="Food">Food</option>
-                        <option value="Clothing">Clothing</option>
-                        <option value="Language">Language</option>
-                        <option value="Transportation">Transportation</option>
-                        <option value="Legal Services">Legal Services</option>
-                        <option value="Medical Care">Medical Care</option>
-                        <option value="Education/Enrollment">Education/Enrollment</option>
-                        <option value="Religious Services">Religious Services</option>
-                        <option value="Counseling">Counseling</option>
-                    </select>
+                    <label class="control-label col-sm-3" for="resource">Resources</label>
+                    <div class="col-sm-9">
+                        <select class="resource-form--need form-control" data-placeholder="{% if type == 'volunteer' %}What can you give?{% else %}What do you need?{% endif %}" name="resource">
+                            <option></option>
+                            <option value="Food" {% ifequal "food" resource.name %}selected="selected"{% endifequal %}>Food</option>
+                            <option value="Clothing" {% ifequal "clothing" resource.name %}selected="selected"{% endifequal %}>Clothing</option>
+                            <option value="Language" {% ifequal "language" resource.name %}selected="selected"{% endifequal %}>Language</option>
+                            <option value="Transportation" {% ifequal "transportation" resource.name %}selected="selected"{% endifequal %}>Transportation</option>
+                            <option value="Legal Services" {% ifequal "legal services" resource.name %}selected="selected"{% endifequal %}>Legal Services</option>
+                            <option value="Medical Care" {% ifequal "medical care" resource.name %}selected="selected"{% endifequal %}>Medical Care</option>
+                            <option value="Education and Enrollment" {% ifequal "education and enrollment" resource.name %}selected="selected"{% endifequal %}>Education/Enrollment</option>
+                            <option value="Religious Services" {% ifequal "religious services" resource.name %}selected="selected"{% endifequal %}>Religious Services</option>
+                            <option value="Counseling" {% ifequal "counseling" resource.name %}selected="selected"{% endifequal %}>Counseling</option>
+                            <option value="Recreation" {% ifequal "recreation" resource.name %}selected="selected"{% endifequal %}>Recreation</option>
+                        </select>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-info">Find available resources</button>
-                <a class="btn btn-danger" href="{% url 'add_volunteer' %}" role="button">Register »</a>
+
+                {% ifequal resource null %}
+                <div class="col-xs-offset-3">
+                    <button type="submit" class="btn btn-primary">Find available resources</button>
+                </div>
+                {% endifequal %}
             </form>
             {% if messages %}
               {% for message in messages %}
@@ -42,112 +51,122 @@
                     </div>
               {% endfor %}
             {% endif %}
-            </div>
-        </section>
 
-        <div class="row" style="margin-bottom: 2em;"></div>
-
-        {% if zipcode and resource %}
-            <h4 class="white_text">Showing results for {{ resource|title }} near {{ searched_location }}</h4>
-        {% endif %}
-
-        <section class="results">
-            <div class="col-md-4">
-                {% for location in within_radius %}
-                    <div class="result_card">
-                    <h3 class="white_text">{{ location.provider.name }}</h3>
-                    <h4 class="white_text">{{ location.address }}</h4>
-                    {% if location.phone %}
-                        <h4 class="white_text">Phone: <a class="white_text" href="tel:{{ location.phone }}">{{ location.phone }}</a>
-                        </h4>
-                    {% endif %}
-                    {% if location.hours_open %}
-                        <h4 class="white_text">Hours: {{ location.hours_open }}</h4>
-                    {% endif %}
-                    {% if location.provider.url %}
-                        <h4><a class="white_text" href="{{ location.provider.url }}" target="_blank">{{ location.provider.url }}</a></h4>
-                    {% endif %}
-
-                    {% for available in location.resources_available.all %}
-                        {% if forloop.first %}
-                            <h4 class="white_text">Resources available</h4>
-                                <ul>
-                        {% endif %}
-
-                        <li class="white_text">{{ available|title }}</li>
-
-                        {% if forloop.last %}
-                            </ul>
-                        {% endif %}
-
-                    {% endfor %}
-                    </div>
-
-                {% endfor %}
-            </div>
-            
-            <div class="col-md-8">
-                {% if within_radius %}
-                    <div id="map-canvas" class="img-responsive" style="height: 40em;"> </div>
+            <div class="resource-form--results-label">
+                {{ within_radius | length }} locations found
+                {% if within_radius and type == 'volunteer' %}
+                <a href="{% url 'add_volunteer' %}" class="btn btn-primary resource-form--register">Sign up as a Volunteer</a>
                 {% endif %}
             </div>
-        </section>
-    </main>
-</div>
 
-{% if search_from.latitude and search_from.longitude %}
+            <section class="resource-form--results">
+            {% for location in within_radius %}
+                <div class="resource-form--result">
+                <h3>{{ location.provider.name }}</h3>
+                <p><span class="glyphicon glyphicon-map-marker"></span>{{ location.address }}</p>
+                {% if location.phone %}
+                    <p><span class="glyphicon glyphicon-earphone"></span><a href="tel:{{ location.phone }}">{{ location.phone }}</a></p>
+                {% endif %}
+                {% if location.hours_open %}
+                    <p>Hours: {{ location.hours_open }}</p>
+                {% endif %}
+                {% if location.provider.url %}
+                    <p><a href="{{ location.provider.url }}" target="_blank">{{ location.provider.url }}</a></p>
+                {% endif %}
 
-    <script type="text/javascript"
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwAJNgrVKvQmN_oHe6TxNx0nFdxLdUZag">
-    </script>
-    <script type="text/javascript">
-      function initialize() {
-        var mapOptions = {
-          center: new google.maps.LatLng({{ search_from.latitude }}, {{ search_from.longitude }}),
-          zoom: 11
-        };
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
-            mapOptions);
-
-        {% for location in within_radius %}
-            var marker{{ forloop.counter0 }} = new google.maps.Marker({
-                position: new google.maps.LatLng({{ location.latitude }}, {{ location.longitude }}),
-                map: map,
-                title: "{{ location.provider.name }}"
-            });
-
-            var contentString{{ forloop.counter0 }} = '<b>{{ location.provider.name }}</b> <br>' +
-            '{{ location.address }} <br>' +
-            {% if location.phone %} 'Phone: <a href="tel:{{ location.phone }}">{{ location.phone }}</a><br>' + {% endif %}
-            {% if location.hours %} 'Hours: {{ location.hours_open }} <br>' + {% endif %}
-            '<a href="{{ location.provider.url }}">{{ location.provider.url }}</a><br>' +
                 {% for available in location.resources_available.all %}
-                    
                     {% if forloop.first %}
-                        '<b>Resources available</b><br> <ul>' +
+                        <p>Resources available</p>
+                            <ul>
                     {% endif %}
 
-                    '<li>{{ available|title }}</li>' +
+                    <li>{{ available|title }}</li>
 
                     {% if forloop.last %}
-                        '</ul>' +
+                        </ul>
                     {% endif %}
 
                 {% endfor %}
-            '';
+                </div>
 
-            var infowindow{{ forloop.counter0 }} = new google.maps.InfoWindow({
-                  content: contentString{{ forloop.counter0 }}
-              });
+            {% endfor %}
+            </section>
+            </div>
+        </div>
+        
+        <div class="resource-form--map-panel col-sm-6 hidden-xs" style="height: 100%;">
+            <div id="map-canvas" class="img-responsive"></div>
+        </div>
+    </div>
+</main>
 
-            google.maps.event.addListener(marker{{ forloop.counter0 }}, 'click', function() {
-                infowindow{{ forloop.counter0 }}.open(map,marker{{ forloop.counter0 }});
-              });
-        {% endfor %}
+<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwAJNgrVKvQmN_oHe6TxNx0nFdxLdUZag">
+</script>
+{% if search_from.latitude and search_from.longitude %}
+<script type="text/javascript">
+  function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng({{ search_from.latitude }}, {{ search_from.longitude }}),
+      zoom: 11
+    };
+    var map = new google.maps.Map(document.getElementById("map-canvas"),
+        mapOptions);
 
-        }
-      google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+    {% for location in within_radius %}
+        var marker{{ forloop.counter0 }} = new google.maps.Marker({
+            position: new google.maps.LatLng({{ location.latitude }}, {{ location.longitude }}),
+            map: map,
+            title: "{{ location.provider.name }}"
+        });
+
+        var contentString{{ forloop.counter0 }} = '<b>{{ location.provider.name }}</b> <br>' +
+        '{{ location.address }} <br>' +
+        {% if location.phone %} 'Phone: <a href="tel:{{ location.phone }}">{{ location.phone }}</a><br>' + {% endif %}
+        {% if location.hours %} 'Hours: {{ location.hours_open }} <br>' + {% endif %}
+        '<a href="{{ location.provider.url }}">{{ location.provider.url }}</a><br>' +
+            {% for available in location.resources_available.all %}
+                
+                {% if forloop.first %}
+                    '<b>Resources available</b><br> <ul>' +
+                {% endif %}
+
+                '<li>{{ available|title }}</li>' +
+
+                {% if forloop.last %}
+                    '</ul>' +
+                {% endif %}
+
+            {% endfor %}
+        '';
+
+        var infowindow{{ forloop.counter0 }} = new google.maps.InfoWindow({
+              content: contentString{{ forloop.counter0 }}
+          });
+
+        google.maps.event.addListener(marker{{ forloop.counter0 }}, 'click', function() {
+            infowindow{{ forloop.counter0 }}.open(map,marker{{ forloop.counter0 }});
+          });
+    {% endfor %}
+
+    }
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+{% else %}
+
+<script type="text/javascript">
+  function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng(38.912068, -77.0190228),
+      zoom: 11
+    };
+    var map = new google.maps.Map(document.getElementById("map-canvas"),
+        mapOptions);
+
+    }
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
 
 {% endif %}
 

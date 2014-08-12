@@ -2,15 +2,15 @@
 {% load widget_tweaks %}
 {% block content %}
 
-<main class="login-form">
+<section class="login-form">
     <div class="row">
         <div class="login-form--not-registered col-sm-5">
             <h2>Not yet registered?</h2>
-            <p>I'm an organization with resources and want to register or update my information.</p>
+            <p>Register to list your organization's resources and contact information on Buscando.</p>
             <a class="btn btn-primary" href="{% url 'add_provider' %}" role="button">Register</a>
         </div>
         <div class="login-form--visible col-sm-5 col-sm-offset-2">
-            <h2>Login</h2>
+            <h2>Provider Login</h2>
             <form method="post" action=".">
                 {% csrf_token %}
                 <div class="form-group">
@@ -31,6 +31,6 @@
             </form>
         </div>
     </div>
-</main>
+</section>
 
 {% endblock %}

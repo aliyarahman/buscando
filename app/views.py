@@ -27,9 +27,13 @@ def about(request):
 def resources(request):
     searched_location = request.POST.get('location')
     resource = request.POST.get('resource')
+    type = request.POST.get('type')
+
+    if not type:
+        type = request.GET.get('type')
 
     if not searched_location and not resource:
-        return render(request, 'resources.html')
+        return render(request, 'resources.html', { 'type': type })
 
     if searched_location and resource:
         # Save the search
@@ -73,7 +77,7 @@ def resources(request):
 
     if not coords:
         messages.error(request, "Sorry, I couldn't find that location. Please try again. You can also search by city or by zipcode.")
-        return HttpResponseRedirect('/app/resources')
+        return HttpResponseRedirect('/app/resources?type' + type)
 
     try:
         resource = Resource.objects.get(name=resource.lower())
@@ -96,6 +100,7 @@ def resources(request):
         'location': searched_location,
         'resource': resource,
         'search_from': coords,
+        'type': type
     }
 
     print context

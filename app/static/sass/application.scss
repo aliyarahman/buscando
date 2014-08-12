@@ -7,14 +7,21 @@
 
 /* Overrides */
 @import "modules/btn";
+@import "modules/chosen-overrides";
 @import "modules/navbar";
 @import "modules/tooltip";
 
 @import "modules/footer";
 @import "modules/forms/login-form";
 @import "modules/forms/organization-form";
+@import "modules/forms/resource-form";
 @import "modules/intro";
 @import "modules/landing";
+
+html,
+body {
+    height: 100%;
+}
 
 body {
     font-size: 16px;
@@ -29,17 +36,4 @@ a {
 a:hover,
 a:focus {
     color: $brand-primary;
-}
-
-/* Resources page */
-
-.result_card {
-    border-radius: 10%;
-    padding: 1.5em;
-    margin-bottom: 1em;
-    background-color: #3adcbc;
-}
-
-#map-canvas {
-    height: 100%;
 }

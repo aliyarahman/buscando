@@ -2,192 +2,192 @@
 {% load widget_tweaks %}
 {% block content %}
 
-<main class="organization-form">
+<section class="organization-form">
 
-</main>
+    <div class="form-errors">
 
-<h1>Organization Profile</h1>
-<form class="form-horizontal" role="form" action='.' method='post'>
-{% csrf_token %}
+        {% if admin_form.errors %}
+            {% for field in admin_form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-error">
+                        {{ field.label }} - {{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in admin_form.non_field_errors %}
+                <div class="alert alert-error">
+                    {{ error|escape }}
+                </div>
+            {% endfor %}
+        {% endif %}
 
-<div class="form-errors">
+        {% if provider_form.errors %}
+            {% for field in provider_form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-error">
+                        {{ field.label }} - {{ error|escape }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in provider_form.non_field_errors %}
+                <div class="alert alert-error">
+                    {{ error|escape }}
+                </div>
+            {% endfor %}
+        {% endif %}
 
-	{% if admin_form.errors %}
-	    {% for field in admin_form %}
-	        {% for error in field.errors %}
-	            <div class="alert alert-error">
-	                {{ field.label }} - {{ error|escape }}</strong>
-	            </div>
-	        {% endfor %}
-	    {% endfor %}
-	    {% for error in admin_form.non_field_errors %}
-	        <div class="alert alert-error">
-	            {{ error|escape }}
-	        </div>
-	    {% endfor %}
-	{% endif %}
+        {% for location_form in location_formset %}
+            {% if location_form.errors %}
+                {% for field in location_form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-error">
+                            {{ field.label }} - {{ error|escape }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in location_form.non_field_errors %}
+                    <div class="alert alert-error">
+                        {{ error|escape }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
 
-	{% if provider_form.errors %}
-	    {% for field in provider_form %}
-	        {% for error in field.errors %}
-	            <div class="alert alert-error">
-	                {{ field.label }} - {{ error|escape }}
-	            </div>
-	        {% endfor %}
-	    {% endfor %}
-	    {% for error in provider_form.non_field_errors %}
-	        <div class="alert alert-error">
-	            {{ error|escape }}
-	        </div>
-	    {% endfor %}
-	{% endif %}
+    </div>
 
-	{% for location_form in location_formset %}
-		{% if location_form.errors %}
-		    {% for field in location_form %}
-		        {% for error in field.errors %}
-		            <div class="alert alert-error">
-		                {{ field.label }} - {{ error|escape }}
-		            </div>
-		        {% endfor %}
-		    {% endfor %}
-		    {% for error in location_form.non_field_errors %}
-		        <div class="alert alert-error">
-		            {{ error|escape }}
-		        </div>
-		    {% endfor %}
-		{% endif %}
-	{% endfor %}
+    <h1>Create a new provider account</h1>
+    
+    <form role="form" action='.' method='post'>
+        {% csrf_token %}
+    <div class="organization-form--section row">
+        <div class="col-sm-4">
+            <h2>Organization Profile</h2>
+        </div>
+        <div class="col-sm-5 col-sm-offset-1">
+            <div class="admin-form">
+                <div class="form-group{% if field.errors %} has-error{% endif %}">
+                    <label>Organization Name</label>
+                    {% render_field provider_form.name class+="form-control" %}
+                </div>
+                
+                <div class="form-group{% if field.errors %} has-error{% endif %}">
+                    <label>Organization Website</label>
+                    {% render_field provider_form.URL class+="form-control" placeholder+="http://" %}
+                </div>
 
-</div>
+                <div class="form-group{% if field.errors %} has-error{% endif %}">
+                    <label>Contact Email</label>
+                    {% render_field admin_form.username class+="form-control "%}
+                </div>
 
-<h2>Account information</h2>
-<div class="admin-form">
+                <div class="form-group{% if field.errors %} has-error{% endif %}">
+                    <label>Password</label>
+                    {% render_field admin_form.password1 class+="form-control" %}
+                </div>
 
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Organization</label>
-	<div>
-	{% render_field provider_form.name %}
-	</div>
-	</div>
+                <div class="form-group{% if field.errors %} has-error{% endif %}">
+                    <label>Retype password</label>
+                    {% render_field admin_form.password2 class+="form-control" %}
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="dynamic-form organization-form--section row">
+        <div class="col-sm-4">
+            <h2>Location</h2>
+        </div>
+        
+        <div class="location-form col-sm-5 col-sm-offset-1" id="{{ location_form.prefix }}-row">
+        {% for location_form in location_formset %}
 
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Contact email</label>
-	<div>
-	{% render_field admin_form.username %}
-	</div>
-	</div>
+            <div {% if forloop.first %} class="hidden"{% endif %}> {{ location_form.operand }}</div>
+            
+            <div class="form-group{% if field.errors %} has-error{% endif %}">
+                <label>Address</label>
+                {% render_field location_form.address class+="form-control" %}
+            </div>
 
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Password</label>
-	<div>
-	{% render_field admin_form.password1 %}
-	</div>
-	</div>
+            <div class="checkbox{% if field.errors %} has-error{% endif %}">
+                <label>This location is our main office
+                {% render_field location_form.is_headquarters %}
+                </label>
+            </div>
+            
+            <div class="form-group{% if field.errors %} has-error{% endif %}"> 
+                <label>Primary Contact</label>
+                <div class="row">
+                    <div class="col-xs-6">
+                        {% render_field location_form.POC_firstname class+="form-control" placeholder+="First Name" %}
+                    </div>
+                    <div class="col-xs-6">
+                        {% render_field location_form.POC_lastname class+="form-control" placeholder+="Last Name" %}
+                    </div>
+                </div>
+            </div>
 
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Retype password</label>
-	<div>
-	{% render_field admin_form.password2 %}
-	</div>
-	</div>
+            <div class="form-group{% if field.errors %} has-error{% endif %}">
+                <label>Secondary Contact</label>
+                <div class="row">
+                    <div class="col-xs-6">
+                        {% render_field location_form.POC_firstname2 class+="form-control" placeholder+="First Name" %}
+                    </div>
+                    <div class="col-xs-6">
+                        {% render_field location_form.POC_lastname2 class+="form-control" placeholder+="Last Name" %}
+                    </div>
+                </div>
+            </div>
 
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Website</label>
-	<div>
-	{% render_field provider_form.URL %}
-	</div>
-	</div>
+            <div class="form-group{% if field.errors %} has-error{% endif %}">
+                <label>Phone</label>
+                {% render_field location_form.phone class+="form-control" %}
+            </div>
+            
+            <div class="form-group{% if field.errors %} has-error{% endif %}">
+                <label>Hours of operation</label>
+                {% render_field location_form.hours_open class+="form-control" %}
+            </div>
 
-</div>
+            <div class="form-group{% if field.errors %} has-error{% endif %}">
+                <label>Resources needed (hold "Ctrl" to select more than one)</label>
+                {% render_field location_form.resources_needed class+="form-control" size="13" %}
+            </div>
 
-
-
-<h1>Locations</h1>
-<div class="location-formset">
-
-{% for location_form in location_formset %}
-<div class="location-form dynamic-form" id="{{ location_form.prefix }}-row">
-	<h1>Location information</h1>
-	<div {% if forloop.first %} class="hidden"{% endif %}> {{ location_form.operand }}</div>
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Staff firstnames</label>
-	<div>
-	{% render_field location_form.POC_firstname  %} {% render_field location_form.POC_firstname2 %}
-	</div>
-	</div>
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Staff lastnames</label>
-	<div>
-	{% render_field location_form.POC_lastname %} {% render_field location_form.POC_lastname2 %}
-	</div>
-	</div>
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Address</label>
-	<div>
-	{% render_field location_form.address %}
-	</div>
-	</div>
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Phone</label>
-	<div>
-	{% render_field location_form.phone %}
-	</div>
-	</div>
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Is this location your main office?</label>
-	<div>
-	{% render_field location_form.is_headquarters %}
-	</div>
-	</div>
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Hours of operation</label>
-	<div>
-	{% render_field location_form.hours_open %}
-	</div>
-	</div>
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Resources needed (hold "Ctrl" to select more than one)</label>
-	<div>
-	{% render_field location_form.resources_needed %}
-	</div>
-	</div>
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Resources available (hold "Ctrl" to select more than one)</label>
-	<div>
-	{% render_field location_form.resources_available %}
-	</div>
-	</div>
+            <div class="form-group{% if field.errors %} has-error{% endif %}">
+                <label>Resources available (hold "Ctrl" to select more than one)</label>
+                {% render_field location_form.resources_available class+="form-control" size="13" %}
+            </div>
    
-	
-	<div {% if forloop.first %} class="hidden"{% endif %}>
-		<a style="color:black" id="remove-{{ location_form.prefix }}-row" href="javascript:void(0)" class="delete-row">Remove location</a>
-	</div>
+        </div>
+        
+        <div {% if forloop.first %} class="hidden col-sm-5 col-sm-offset-5"{% endif %}>
+            <button id="remove-{{ location_form.prefix }}-row" type="button" class="delete-row btn btn-danger btn-lg btn-block">Remove this Location</button>
+        </div>
 
-	<hr>
-</div>
+        {% endfor %}
+    </div>
 
-{% endfor %}
-<div><a style="color:black" href="javascript:void(0)" class="add-row">Add Location</a></div>
+<div>
 
 {{ location_formset.management_form }}
 </div>
 
-<div class="form-group">
-	<div>
-		<button class="btn btn-default" type="submit" value="Submit">Register</button>
-	</div>
+<div class="form-group organization-form--section">
+    <div class="col-sm-4">
+        <h2>Finish Up</h2>
+    </div>
+    <div class="col-sm-5 col-sm-offset-1 button-group">
+        <div class="row">
+            <div class="col-md-6">
+                <button type="button" class="add-row btn btn-default btn-lg btn-block">Add another Location</button>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-primary btn-lg btn-block" type="submit" value="Submit">Register Now</button>
+            </div>
+        <div>
+    </div>
 </div>
 
 </form>
-
+</section>
 {% endblock %}
