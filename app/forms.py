@@ -5,7 +5,7 @@ from django.forms.models import modelformset_factory
 
 class ResourcesChoiceField(forms.ModelMultipleChoiceField):
 	def label_from_instance(self, obj):
-	    return obj.name    
+	    return obj.name
 
 class LocationForm(ModelForm):
 	resources_needed = ResourcesChoiceField(
@@ -40,7 +40,7 @@ class LocationForm(ModelForm):
 class ProviderForm(ModelForm):
 	class Meta:
 		model = Provider
-		fields = ('name', 'URL', )
+		fields = ('name', 'URL',)
 
 LocationFormset = modelformset_factory(Location, extra=1)
 
@@ -51,7 +51,7 @@ class UserForm(forms.Form):
 	has_resources = ResourcesChoiceField(
 							queryset = Resource.objects, 
 							widget=forms.CheckboxSelectMultiple(),
-							required=False,
+							required=True,
 							)
 	phone = forms.CharField(max_length=15)
 	address = forms.CharField(max_length=255)
