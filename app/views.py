@@ -260,9 +260,6 @@ def add_volunteer(request):
 				user.address = profile_form.cleaned_data.get("address")
 				user.save()
 				# Still need to add skills they have here
-				user = authenticate(username=u_name,
-									password=u_pass)
-				login(request, user)
 				return HttpResponseRedirect(reverse('resources'))
 		else:
 			user_form = UserCreationForm()
