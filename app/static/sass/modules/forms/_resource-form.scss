@@ -1,0 +1,129 @@
+.resource-form {
+    height: initial;
+    margin-top: -116px;
+    padding-top: 116px;
+
+    @media screen and (min-width: $screen-sm-min) {
+        height: 100%;
+    }
+
+    > .row,
+    > .row > .col-md-6,
+    .resource-form--panel,
+    .resource-form--filter-panel {
+        height: 100%;
+    }
+
+    .resource-form--panel {
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+
+    .resource-form--map-panel {
+        padding: 0;
+    }
+
+    .resource-form--filter-panel {
+        padding: 0;
+    }
+
+    form {
+        margin-top: 25px;
+        padding: 0 15px;
+    }
+
+    .chosen-container {
+        > .chosen-single {
+            border: 1px solid #ddd;
+            padding-left: 20px;
+        }
+
+        &.chosen-container-active.chosen-with-drop .chosen-single {
+            background: #fff;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+        }
+
+        .chosen-drop {
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            color: #444;
+        }
+    }
+
+    #location {
+        border-color: #ddd;
+        border-radius: 0;
+        box-shadow: none;
+        font-size: 16px;
+        left: 0;
+        margin: 0 auto;
+        padding: 20px 20px 21px 20px;
+    }
+
+    .form-horizontal .control-label {
+        font-weight: 400;
+        text-align: left;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group + .form-group {
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+    }
+
+    .resource-form--results {
+        margin-top: 20px;
+        padding: 0 15px;
+    }
+
+    .resource-form--result {
+        padding: 15px 15px 5px;
+        margin-bottom: 25px;
+        border-left: 3px solid #ccc;
+        @include transition(border-color 100ms linear, background 100ms linear);
+
+        .glyphicon {
+            margin-right: 10px;
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 0;
+        }
+
+        &:hover {
+            border-color: $brand-primary;
+            background: lighten($brand-primary, 55.3%);
+        }
+    }
+
+    .resource-form--results-label {
+        background: #f2f2f2;
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        margin-top: 35px;
+        padding: 20px 15px;
+    }
+
+    #map-canvas {
+        height: 100%;
+    }
+
+    .btn-primary {
+        border-radius: 0;
+        margin-left: 7px;
+        margin-top: 5px;
+        padding: 11px 20px;
+    }
+
+    .resource-form--register {
+        float: right;
+        margin-top: -9px;
+    }
+}
