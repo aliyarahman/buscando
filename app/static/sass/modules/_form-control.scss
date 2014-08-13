@@ -1,0 +1,9 @@
+.form-control {
+    border-radius: 0;
+    box-shadow: none;
+
+    &:focus {
+        @include box-shadow(none);
+        border-color: $input-focus-color;
+    }
+}

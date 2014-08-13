@@ -1,5 +1,12 @@
 .btn {
-  border-radius: 3px;
+  border-radius: 0;
+
+  &.is-expanded {
+      padding: {
+          bottom: 11px;
+          top: 11px;
+      };
+  }
 }
 
 .btn-primary {

@@ -3,6 +3,7 @@
 {% load widget_tweaks %}
 {% block content %}
 
+<section class="signup-form_volunteer">
 <h1>{% trans "Volunteer Signup" %}</h1>
 
 <form class="form-horizontal" role="form" action='.' method='post'>
@@ -42,76 +43,64 @@
 
 </div>
 
-<div class="admin-form">
+<div class="signup-form--section row">
+	<div class="col-sm-3">
+		<h2>Contact Information</h2>
+	</div>
+    <div class="col-sm-6 col-sm-offset-1">
+			<div class="form-group{% if field.errors %} has-error{% endif %}">
+				<label>{% trans "First Name" %}</label>
+				{% render_field profile_form.first_name class+="form-control" required="true" %}
+			</div>
 
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>{% trans "First name" %}</label>
-    <span class="required">*</span>
-	<div>
-	{% render_field profile_form.first_name %}
-	</div>
-	</div>
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>{% trans "Last name" %}</label>
-    <span class="required">*</span>
-	<div>
-	{% render_field profile_form.last_name %}
-	</div>
-	</div>
+			<div class="form-group{% if field.errors %} has-error{% endif %}">
+				<label>{% trans "Last Name" %}</label>
+				{% render_field profile_form.last_name class+="form-control" required="true" %}
+			</div>
 
 
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>{% trans "Email" %}</label>
-    <span class="required">*</span>
-	<div>
-	{% render_field profile_form.email %}
-	</div>
-	</div>
+			<div class="form-group{% if field.errors %} has-error{% endif %}">
+				<label>{% trans "Email Address" %}</label>
+				{% render_field profile_form.email class+="form-control" type="email" required="true" placeholder="name@example.com" %}
+			</div>
 
 
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>{% trans "Phone" %}</label>
-    <span class="required">*</span>
-	<div>
-	{% render_field profile_form.phone %}
-	</div>
-	</div>
+			<div class="form-group{% if field.errors %} has-error{% endif %}">
+				<label>{% trans "Phone Number" %}</label>
+				{% render_field profile_form.phone class+="form-control" required="true" placeholder="(000) 000-0000" %}
+			</div>
 
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>{% trans "Address" %}</label>
-    <span class="required">*</span>
-	<div>
-	{% render_field profile_form.address %}
+			<div class="form-group{% if field.errors %} has-error{% endif %}">
+				<label>{% trans "Address" %}</label>
+				{% render_field profile_form.address class+="form-control" required="true" placeholder="Street, City, State, and Zipcode" %}
+			</div>
 	</div>
-	</div>
-
-
-	<div class="form-group{% if field.errors %} has-error{% endif %}">
-        
-	<label>{% trans "I can help by providing:" %}</label>
-    <span class="required">*</span>
-	<div>
-	{% render_field profile_form.has_resources %}
-	</div>
-	</div>
-
-
 </div>
-<div class="explain-required">
-    {% trans 'Fields marked with <span class="required">*</span> are required' %}
-</div>
-	<hr>
+	
+<div class="signup-form--section row">
+	<div class="col-sm-3">
+		<h2>I can help with…</h2>
+	</div>
+    <div class="col-sm-6 col-sm-offset-1">
+		<div class="form-group{% if field.errors %} has-error{% endif %}">        
+			<label>{% trans "I can help by providing" %}</label>
+			{% render_field profile_form.has_resources %}
+		</div>
+	</div>
 </div>
 
+<div class="form-group signup-form--section">
+    <div class="col-sm-4">
+        <h2>{% trans "Finish Up" %}</h2>
+    </div>
 
-
-<div class="form-group">
-	<div>
-		<button class="btn btn-default" type="submit" value="Submit">{% trans "Register" %}</button>
-	</div>
+    <div class="col-sm-6">
+		<button class="btn btn-primary is-expanded btn-block" type="submit" value="Submit">{% trans "Sign up to volunteer" %}</button>
+    </div>
 </div>
 
 </form>
+
+</section>
 
 {% endblock %}

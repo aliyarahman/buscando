@@ -1,0 +1,48 @@
+.signup-form {
+    margin-top: 50px;
+
+    h1 {
+        margin-bottom: 50px;
+    }
+
+    h2 {
+        color: $brand-primary;
+        font-weight: 400;
+        margin-top: 0;
+    }
+
+    .signup-form--section {
+        border-top: 1px dashed $brand-primary;
+        margin-bottom: 40px;
+        padding-top: 40px;
+    }
+
+    .button-group {
+        margin-top: 30px;
+
+        @media screen and (min-width: $screen-sm-min) {
+            margin-top: -4px;
+        }
+    }
+
+    form {
+        margin-bottom: 135px;
+    }
+
+    .signup-form--section-start {
+        margin-top: 20px;
+    }
+}
+
+.signup-form_volunteer {
+    @extend .signup-form;
+
+    #id_has_resources {
+        padding-left: 0;
+
+        li {
+            @extend .checkbox;
+            list-style-type: none;
+        }
+    }
+}

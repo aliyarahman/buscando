@@ -3,7 +3,7 @@
 {% load i18n %}
 {% block content %}
 
-<section class="organization-form">
+<section class="signup-form">
 
     <div class="form-errors">
 
@@ -57,65 +57,45 @@
 
     </div>
 
-    <h1>{% trans "Create a new organization account" %}</h1>
+    <h1>{% trans "Organization Profile" %}</h1>
     
     
     
-    <form role="form" action='.' method='post'>
+	<form id="provider_edit_form" class="form-horizontal" role="form" action="/provider/{{provider_id}}/edit/" method="post">
         {% csrf_token %}
-    <div class="organization-form--section row">
-        <div class="col-sm-4">
-            <h2>{% trans "Organization Profile" %}</h2>
+    <div class="signup-form--section row">
+        <div class="col-sm-3">
+            <h2>{% trans "Profile" %}</h2>
         </div>
-        <div class="col-sm-5 col-sm-offset-1">
+        <div class="col-sm-6 col-sm-offset-1">
             <div class="admin-form">
                 <div class="form-group{% if field.errors %} has-error{% endif %}">
                     <label>{% trans "Organization Name" %}</label>
-                    <span class="required">*</span>
-                    {% render_field provider_form.name class+="form-control" %}
+                    <input class="form-control" id="id_name" maxlength="140" name="name" type="text" value="{{ provider.name }}">
                 </div>
                 
                 <div class="form-group{% if field.errors %} has-error{% endif %}">
                     <label>{% trans "Organization Website" %}</label>
-                    <span class="required">*</span>
-                    {% render_field provider_form.URL class+="form-control" placeholder+="http://" %}
-                </div>
-
-                <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>{% trans "Contact Email" %}</label>
-                    <span class="required">*</span>
-                    {% render_field admin_form.username class+="form-control "%}
-                </div>
-
-                <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>{% trans "Password" %}</label>
-                    <span class="required">*</span>
-                    {% render_field admin_form.password1 class+="form-control" %}
-                </div>
-
-                <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>{% trans "Retype password" %}</label>
-                    <span class="required">*</span>
-                    {% render_field admin_form.password2 class+="form-control" %}
+                    {% render_field provider_form.URL class+="form-control" required="true" placeholder+="http://" %}
+                    <input class="form-control" id="id_URL" maxlength="140" name="URL" placeholder="http://" required="true" type="text" value="{{ provider.URL }}">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="dynamic-form organization-form--section row">
-        <div class="col-sm-4">
+    <div class="dynamic-form signup-form--section row">
+        <div class="col-sm-3">
             <h2>{% trans "Location" %}</h2>
         </div>
         
-        <div class="location-form col-sm-5 col-sm-offset-1" id="{{ location_form.prefix }}-row">
+        <div class="location-form col-sm-6 col-sm-offset-1" id="{{ location_form.prefix }}-row">
         {% for location_form in location_formset %}
 
             <div {% if forloop.first %} class="hidden"{% endif %}> {{ location_form.operand }}</div>
             
             <div class="form-group{% if field.errors %} has-error{% endif %}">
                 <label>{% trans "Address" %}</label>
-                <span class="required">*</span>
-                {% render_field location_form.address class+="form-control" %}
+                {% render_field location_form.address class+="form-control" required="true" placeholder="Street, City, State, and Zipcode" %}
             </div>
 
             <div class="checkbox{% if field.errors %} has-error{% endif %}">
@@ -124,49 +104,145 @@
                 </label>
             </div>
             
-            <div class="form-group{% if field.errors %} has-error{% endif %}"> 
+            <div class="form-group signup-form--section-start{% if field.errors %} has-error{% endif %}">
                 <label>{% trans "Primary Contact's Name" %}</label>
-                <span class="required">*</span>
                 <div class="row">
                     <div class="col-xs-6">
-                        {% render_field location_form.POC_firstname class+="form-control" %}
+                        {% render_field location_form.POC_firstname class+="form-control" required="true" placeholder="First Name" %}
                     </div>
                     <div class="col-xs-6">
-                        {% render_field location_form.POC_lastname class+="form-control" %}
+                        {% render_field location_form.POC_lastname class+="form-control" required="true" placeholder="Last Name" %}
                     </div>
                 </div>
             </div>
 
             <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>{% trans "Phone" %}</label>
-                <span class="required">*</span>
-                {% render_field location_form.phone class+="form-control" %}
+                <label>{% trans "Phone Number" %}</label>
+                {% render_field location_form.phone class+="form-control" required="true" placeholder="(000) 000-0000" %}
             </div>
             
             <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>{% trans "Hours of operation" %}</label>
-                <span class="required">*</span>
-                {% render_field location_form.hours_open class+="form-control" %}
+                <label>{% trans "Hours of Operation" %}</label>
+                {% render_field location_form.hours_open class+="form-control" required="true" placeholder="M-F, 8am-4pm" %}
+            </div>
+
+            {# I know this is not the ideal way to do this #}
+            {# But my friends, it seems that django-widget-tweaks #}
+            {# is incompatible with translations and doesn't allow you #}
+            {# to loop through the selects (as far as I know) #}
+
+            <div class="form-group{% if field.errors %} has-error{% endif %}">
+                <label>{% trans 'Resources Available' %}</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="1"> {% trans "Food" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="2"> {% trans "Clothing" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="2"> {% trans "Language" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="4"> {% trans "Legal services" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="5"> {% trans "Transportation" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="6"> {% trans "Medical care" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="7"> {% trans "Education and enrollment" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="8"> {% trans "Religious services" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="9"> {% trans "Counseling" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="10"> {% trans "Housing" %}
+                    </label>
+                </div>
             </div>
 
             <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>{% trans 'Resources needed (hold "Ctrl" or "⌘" to select more than one)' %}</label>
-                {% render_field location_form.resources_needed class+="form-control" size="13" %}
-            </div>
-
-            <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>{% trans 'Resources available (hold "Ctrl" or "⌘" to select more than one)' %}</label>
-                {% render_field location_form.resources_available class+="form-control" size="13" %}
-            </div>
-            
-            <div class="explain-required">
-                {% trans 'Fields marked with <span class="required">*</span> are required' %}
+                <label>{% trans 'Resources Needed' %}</label>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="1"> {% trans "Food" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="2"> {% trans "Clothing" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="3"> {% trans "Language" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="4"> {% trans "Legal Services" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="5"> {% trans "Transportation" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="6"> {% trans "Medical care" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="7"> {% trans "Education and enrollment" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="8"> {% trans "Religious services" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="9"> {% trans "Counseling" %}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="10"> {% trans "Housing" %}
+                    </label>
+                </div>
             </div>
    
         </div>
         
-        <div {% if forloop.first %} class="hidden col-sm-5 col-sm-offset-5"{% endif %}>
-            <button id="remove-{{ location_form.prefix }}-row" type="button" class="delete-row btn btn-danger btn-lg btn-block">{% trans "Remove this Location" %}</button>
+        <div {% if forloop.first %} class="hidden col-sm-6 col-sm-offset-4"{% endif %}>
+            <button id="remove-{{ location_form.prefix }}-row" type="button" class="delete-row btn btn-danger is-expanded btn-block">{% trans "Remove this Location" %}</button>
         </div>
 
         {% endfor %}
@@ -177,17 +253,17 @@
 {{ location_formset.management_form }}
 </div>
 
-<div class="form-group organization-form--section">
+<div class="form-group signup-form--section">
     <div class="col-sm-4">
         <h2>{% trans "Finish Up" %}</h2>
     </div>
     <div class="col-sm-5 col-sm-offset-1 button-group">
         <div class="row">
             <div class="col-md-6">
-                <button type="button" class="add-row btn btn-default btn-lg btn-block">{% trans "Add another Location" %}</button>
+                <button type="button" class="add-row btn btn-default is-expanded btn-block">{% trans "Add another location" %}</button>
             </div>
             <div class="col-md-6">
-                <button class="btn btn-primary btn-lg btn-block" type="submit" value="Submit">{% trans "Register Now" %}</button>
+                <button class="btn btn-primary is-expanded btn-block" type="submit" value="Submit">{% trans "Register Organization" %}</button>
             </div>
         <div>
     </div>
