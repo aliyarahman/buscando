@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block container %}
+{% load i18n %}
 
 <section class="landing jumbotron">
-        <h1>Help is near.</h1>
-        <p class="landing--tagline">Find food, clothing, and other resources in your area for Central American children seeking refuge.</p>
+        <h1>{% trans "Help is near." %}</h1>
+        <p class="landing--tagline">{% trans "Find food, clothing, and other resources in your area for Central American children seeking refuge." %}</p>
 
         {% if messages %}
           {% for message in messages %}

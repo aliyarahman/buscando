@@ -7,6 +7,7 @@
     <title>Buscando</title>
 	{% load staticfiles %}
   {% load base_page_helpers %}
+  {% load i18n %}
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
     <link href="{% static 'css/application.css' %}" rel="stylesheet">
 
@@ -72,6 +73,20 @@
             {% else %}
             <li><a href="{% url 'login' %}" role="button">Provider Login</a></li>
             {% endif %}
+           <li style="margin: 0.8em 0.1em 0.8em 1em">
+              <form name="setLangEnglish" action="/i18n/setlang/" method="POST">{% csrf_token %}
+                  <input name="next" type="hidden" value="/" />
+                  <input type="hidden" name="language" value="en" />
+                  <a href="#" style="color:#686868" onclick="document.setLangEnglish.submit();return false;">[English]</a>
+              </form>
+          </li>
+          <li style="margin: 0.8em 0em 0.8em 0.3em;;">
+              <form name="setLangSpanish" action="/i18n/setlang/" method="POST">{% csrf_token %}
+                  <input name="next" type="hidden" value="/" />
+                  <input type="hidden" name="language" value="es" />
+                  <a href="#" style="color:#686868" onclick="document.setLangSpanish.submit();return false;">[Español]</a>
+              </form>
+          </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
