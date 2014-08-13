@@ -14,6 +14,7 @@ from geopy.distance import vincenty
 from geopy.geocoders import GoogleV3
 from django.forms.formsets import formset_factory
 from django.forms.models import modelformset_factory
+from django.utils.translation import ugettext as _
 import requests
 
 RADIUS_DISTANCE = 35 # miles
