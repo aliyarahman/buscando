@@ -1,6 +1,6 @@
 import urlparse
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -16,6 +16,8 @@ from django.forms.formsets import formset_factory
 from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext as _
 import requests
+from django.shortcuts import render_to_response
+from django.utils import simplejson
 
 RADIUS_DISTANCE = 35 # miles
 
@@ -192,45 +194,163 @@ def add_provider(request):
 													'admin_form': admin_form,
 													 })
 
+def provider_partial(request, provider_id):
+	provider = get_object_or_404(Provider, id=provider_id)
+
+	return render(request, 'provider/provider_profile.html', {
+													'provider': provider, 
+													})
+
+def location_partial(request, location_id):
+	location = get_object_or_404(Location, id=location_id)
+
+	return render(request, 'location/profile.html', {
+													'current_location': location, 
+													})
+@login_required
+def delete_location(request, location_id):
+	location = get_object_or_404(Location, id=location_id)
+	provider = location.provider
+	admin_user = provider.admin
+	if request.user == admin_user: # only the provider's registered user
+		location.delete()
+		data = {'success': True}
+		# currently it's deleting but not returning good data
+		return HttpResponse(simplejson.dumps(data), content_type='application/json')
+	else:
+		return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+
+@login_required
+def new_location(request, provider_id):
+	provider = get_object_or_404(Provider, id=provider_id)
+	admin_user = provider.admin
+	if request.user == admin_user: # only the provider's registered user
+		if request.method == "POST":
+			location_form = LocationForm(request.POST)
+			if location_form.is_valid():
+				location = location_form.save(commit=False)
+				location.provider = provider
+				location.save()
+				data = {
+					'location_id': location.id,
+				}
+				return HttpResponse(simplejson.dumps(data), content_type="application/json")
+			else:
+				errors_dict = {}
+				if location_form.errors:
+					for error in location_form.errors:
+						e = location_form.errors[error]
+						errors_dict[error] = unicode(e)
+
+				return HttpResponseBadRequest(simplejson.dumps(errors_dict))
+
+		else:
+			template = 'location/new.html'
+			data = {
+				'location_form': LocationForm(),
+				'provider_id': provider.id,
+
+			}
+			return render(request, template, data)
+	else:
+		return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+
+
+@login_required
+def edit_location(request, location_id):
+	location = get_object_or_404(Location, id=location_id)
+	provider = location.provider
+	admin_user = provider.admin
+	if request.user == admin_user: # only the provider's registered user
+		if request.method == "POST":
+			location_form = LocationForm(request.POST,instance=location)
+			if location_form.is_valid():
+				location = location_form.save()
+				template = 'location/profile.html'
+				return HttpResponse('OK')
+			else:
+				errors_dict = {}
+				if location_form.errors:
+					for error in location_form.errors:
+						e = location_form.errors[error]
+						errors_dict[error] = unicode(e)
+
+				return HttpResponseBadRequest(simplejson.dumps(errors_dict))
+		else:
+			template = 'location/edit.html'
+			data = {
+						'location_form': LocationForm(instance=location),
+						'location_id': location.id,
+					}
+			return render(request, template, data)
+	else:
+		return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+
 @login_required
 def edit_provider(request, provider_id):
 
 	provider = get_object_or_404(Provider, id=provider_id)
 	admin_user = provider.admin
 
-	if request.user == admin_user: # only the provider's registered user can edit page
+	if request.user and request.user == admin_user: # only the provider's registered user can edit page
 
-		if request.method == 'POST':
-			password_change_form = PasswordChangeForm(request.POST)
-			provider_form = ProviderForm(request.POST,instance=provider)
-			location_formset = LocationForm(request.POST,request.FILES)
+		if request.is_ajax():
+			if request.method == 'POST': #and request.is_ajax():
+				provider_form = ProviderForm(request.POST,instance=provider)
+				if provider_form.is_valid():
+					provider = provider_form.save()
+					template = 'provider/provider_profile.html'
+					data = {
+						'provider_id': provider.id,
+					}
+					return HttpResponse(simplejson.dumps(data), content_type="application/json")
+				else:
+					errors_dict = {}
+					if provider_form.errors:
+						for error in provider_form.errors:
+							e = provider_form.errors[error]
+							errors_dict[error] = unicode(e)
 
-			if password_change_form.is_valid() and provider_form.is_valid() and location_form.is_valid():
-				password_change_form.save()
-				provider = provider_form.save(commit=False)
-				provider.admin = admin_user
-				provider.save()
-				for location_form in location_formset:
-					location = location_form.save(commit=False)
-					location.provider = provider
-					#location.save()
-					location_form.save_m2m()
-				location_formset.save()
-				return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+					return HttpResponseBadRequest(simplejson.dumps(errors_dict))
+			else:
+					template = 'provider/provider_edit.html'
+					data = {
+						'provider_form': ProviderForm(instance=provider),
+						'provider_id': provider.id,
+					}
+			return render(request, template, data)
 
 		else:
-			password_change_form = PasswordChangeForm(user=admin_user)
-			provider_form = ProviderForm(instance=provider)
-			location_formset = LocationFormset(queryset=Location.objects.filter(provider__pk = provider_id))
+			if request.method == 'POST':
+				provider_form = ProviderForm(request.POST,instance=provider)
+				password_change_form = PasswordChangeForm(request.POST)
+				location_formset = LocationForm(request.POST,request.FILES)
 
-		return render(request, "provider/edit.html", { 
-												'provider': provider,
-												'provider_form': provider_form, 
-												'location_formset': location_formset,
-												 })
+				if password_change_form.is_valid() and provider_form.is_valid() and location_form.is_valid():
+					password_change_form.save()
+					provider = provider_form.save(commit=False)
+					provider.admin = admin_user
+					provider.save()
+					for location_form in location_formset:
+						location = location_form.save(commit=False)
+						location.provider = provider
+					location_formset.save()
+					return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+
+			else:
+				password_change_form = PasswordChangeForm(user=admin_user)
+				provider_form = ProviderForm(instance=provider)
+				location_formset = LocationFormset(queryset=Location.objects.filter(provider__pk = provider_id))
+
+			return render(request, "provider/edit.html", { 
+													'provider': provider,
+													'provider_form': provider_form, 
+													'location_formset': location_formset,
+													'password_change_form': password_change_form,
+													 })
 
 	else:
-		return HttpResponseRedirect(reverse('index'))
+		return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
 
 def provider_detail(request, provider_id):
 	provider = get_object_or_404(Provider, id=provider_id)

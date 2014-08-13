@@ -1,0 +1,190 @@
+{% load widget_tweaks %}
+{% block content %}
+
+<style>
+.errorlist {
+    color: red;
+}
+</style>
+
+<script>
+
+$(function() {
+
+    $("#edit_loc_{{location_id}}_loading").hide();
+    
+    function block_form() {
+        $("#edit_loc_{{location_id}}_loading").show();
+        $('textarea').attr('disabled', 'disabled');
+        $('input').attr('disabled', 'disabled');
+        $('#edit_{{location_id}}_submit_button').attr('disabled', true);
+    }
+
+    function unblock_form() {
+        $("#edit_loc_{{location_id}}_loading").hide();
+        $('textarea').removeAttr('disabled');
+        $('input').removeAttr('disabled');
+        $('#edit_{{location_id}}_submit_button').removeAttr('disabled');
+        $('.errorlist').remove();
+    }
+
+    $('#location_{{location_id}}_edit_form').submit(function(e){
+        $.ajax({
+            type: $(this).attr('method'),
+            data: $(this).serialize(), //get the form data
+            url: $(this).attr('action'),
+            success: function(response) {
+                unblock_form();
+                $('#location_{{location_id}}_wrapper').load("/location/{{location_id}}/");
+            },
+            error: function(response) {
+                unblock_form();
+                $("#location_{{location_id}}_error").show();
+                // render errors in form fields
+                var errors = JSON.parse(response.responseText);
+                for (error in errors){
+                    var id="#id_"+error;
+                    $(id).closest('.form-group').prepend(errors[error]);
+                }
+            }
+        })
+        $("#location_{{location_id}}_loading").show();
+        block_form();
+        e.preventDefault();
+
+        return false;
+    });
+})
+</script>
+
+<form id="location_{{location_id}}_edit_form" class="form-horizontal" role="form" action="/location/{{location_id}}/edit/" method='post'>
+<div id="ajaxwrapper">
+{% csrf_token %}
+{{location_form.non_field_errors}}
+
+<div class="location-form dynamic-form" id="{{ location_form.prefix }}-row">
+    <h3>Location information</h3>
+    <div {% if forloop.first %} class="hidden"{% endif %}> {{ location_form.operand }}</div>
+
+    <div class="form-group{% if POC_firstname.errors %} has-error{% endif %}">
+    <label class="control-label" for="{{ location_form.POC_firstname.auto_id }}">
+        {{ location_form.POC_firstname.label }}
+    </label>
+    <div>
+    {% render_field location_form.POC_firstname class+="form-control" %}
+    </div>
+    </div>
+
+    <div class="form-group{% if POC_firstname2.errors %} has-error{% endif %}">
+    <label class="control-label" for="{{ location_form.POC_firstname2.auto_id }}">
+        {{ location_form.POC_firstname2.label }}
+    </label>
+    <div>
+    {% render_field location_form.POC_firstname2 class+="form-control" %}
+    </div>
+    </div>
+
+    <div class="form-group{% if POC_lastname.errors %} has-error{% endif %}">
+    <label class="control-label" for="{{ location_form.POC_lastname.auto_id }}">
+        {{ location_form.POC_lastname.label }}
+    </label>
+    <div>
+    {% render_field location_form.POC_lastname class+="form-control" %}
+    </div>
+    </div>
+
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label class="control-label" for="{{ location_form.POC_lastname2.auto_id }}">
+        {{ location_form.POC_lastname2.label }}
+    </label>
+    <div>
+    {% render_field location_form.POC_lastname2 class+="form-control" %}
+    </div>
+    </div>
+
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label class="control-label" for="{{ location_form.address.auto_id }}">
+        {{ location_form.address.label }}
+    </label>
+    <div>
+    {% render_field location_form.address class+="form-control" %}
+    </div>
+    </div>
+
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label class="control-label" for="{{ location_form.latitude.auto_id }}">
+        {{ location_form.latitude.label }}
+    </label>
+    <div>
+    {% render_field location_form.latitude class+="form-control" %}
+    </div>
+    </div>
+
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label class="control-label" for="{{ location_form.longitude.auto_id }}">
+        {{ location_form.longitude.label }}
+    </label>
+    <div>
+    {% render_field location_form.longitude class+="form-control" %}
+    </div>
+    </div>
+
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label class="control-label" for="{{ location_form.phone.auto_id }}">
+        {{ location_form.phone.label }}
+    </label>
+    <div>
+    {% render_field location_form.phone class+="form-control" %}
+    </div>
+    </div>
+
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label class="control-label" for="{{ location_form.is_headquarters.auto_id }}">
+        {{ location_form.is_headquarters.label }}
+    </label>
+    <div>
+    {% render_field location_form.is_headquarters class+="form-control" %}
+    </div>
+    </div>
+
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label class="control-label" for="{{ location_form.hours_open.auto_id }}">
+        {{ location_form.hours_open.label }}
+    </label>
+    <div>
+    {% render_field location_form.hours_open class+="form-control" %}
+    </div>
+    </div>
+
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label class="control-label" for="{{ location_form.resources_needed.auto_id }}">
+        {{ location_form.resources_needed.label }}
+    </label>
+    <div>
+    {% render_field location_form.resources_needed class+="form-control" %}
+    </div>
+    </div>
+
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label class="control-label" for="{{ location_form.resources_available.auto_id }}">
+        {{ location_form.resources_available.label }}
+    </label>
+    <div>
+    {% render_field location_form.resources_available class+="form-control" %}
+    </div>
+    </div>
+
+
+
+<div class="form-group">
+    <div>
+        <button id="edit_{{location_id}}_submit_button" class="btn btn-default" type="submit" value="Submit">Save</button>
+        <span id="edit_loc_{{location_id}}_loading" class="display:none;">Saving profile, please wait.</span>
+        <span id="location_{{location_id}}_error" style="display:none; color:red;">The form has errors.</span>
+    </div>
+</div>
+
+</div>
+</form>
+
+{% endblock %}
