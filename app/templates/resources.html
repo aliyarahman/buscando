@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block container %}
-
+{% load i18n %}
 <main class="resource-form container-fluid">
     <div class="row">
         <div class="resource-form--filter-panel col-sm-6">
@@ -77,7 +77,7 @@
 
                 {% for available in location.resources_available.all %}
                     {% if forloop.first %}
-                        <p>{% trans "Resources available" %}</p>
+                        <p>{% if type == 'volunteer' %}{% trans "Resources needed" %}{% else %}{% trans "Resources available" %}{% endif %}</p>
                             <ul>
                     {% endif %}
 
