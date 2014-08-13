@@ -1,28 +1,29 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load i18n %}
 
 {% block content %}
 
-<h1>About</h1>
+<h1>{% trans "About" %}</h1>
 
 <div class="row">
 	<div class="col-md-6">
 <br>
 
-<i><p>Buscando is the place where needs meet services.</p>
-<p>Here volunteer families in Maryland and the children seeking refuge from violence in Central America connect with local community organizations and resources.</p></i>
+<i><p>{% trans "Buscando is the place where needs meet services." %}</p>
+<p>{% trans "Here volunteer families in Maryland and the children seeking refuge from violence in Central America connect with local community organizations and resources." %}</p></i>
 
-<p>In 2014, an estimated 30,000 Central American children seeking refuge from violence in their home countries have arrived in the United States. As a state and a nation, we have a humanitarian responsibility to provide family-based care for vulnerable children, wherever they come from. These children deserve the chance to learn, to feel safe at night, and to live the life of a kid while they go through this unique federal legal process.</p>
+<p>{% trans "In 2014, an estimated 30,000 Central American children seeking refuge from violence in their home countries have arrived in the United States. As a state and a nation, we have a humanitarian responsibility to provide family-based care for vulnerable children, wherever they come from. These children deserve the chance to learn, to feel safe at night, and to live the life of a kid while they go through this unique federal legal process." %}</p>
 
-<p>Through July 31, 2,804 children have been placed with sponsors living in Maryland. This represents roughly 7.5% of the total number of children who have been released to sponsors throughout the United States, a larger than normal share due to Maryland’s large population of immigrants from El Salvador, Guatemala, and Honduras. Governor O’Malley has called on the people of Maryland to come together and ensure these children have their basic human needs met, have a safe home environment and the resources they need while they go through the next steps in the federal process.</p> 
+<p>{% trans "Through July 31, 2,804 children have been placed with sponsors living in Maryland. This represents roughly 7.5% of the total number of children who have been released to sponsors throughout the United States, a larger than normal share due to Maryland’s large population of immigrants from El Salvador, Guatemala, and Honduras. Governor O’Malley has called on the people of Maryland to come together and ensure these children have their basic human needs met, have a safe home environment and the resources they need while they go through the next steps in the federal process." %}</p> 
 
-<p>To answer that call, a collective of D.C.-area technologists created Buscando, the primary technological tool to support the coordination of efforts across communities, partnering individual, community groups and state government departments to care for the children when they arrive in Maryland. Buscando is the bridge between organizations with capacity and the children who need assistance.</p>
+<p>{% trans "To answer that call, a collective of D.C.-area technologists created Buscando, the primary technological tool to support the coordination of efforts across communities, partnering individual, community groups and state government departments to care for the children when they arrive in Maryland. Buscando is the bridge between organizations with capacity and the children who need assistance." %}</p>
 
-<p>While this is a federally managed program and we do not know how many additional children will arrive in the coming months, we do know these children and the families who provide them care have additional needs that can be met on the local level. Wherever they are placed, these children will need with food and clothing, legal services for immigration proceedings, access to health care and other basic human needs.</p>
+<p>{% trans "While this is a federally managed program and we do not know how many additional children will arrive in the coming months, we do know these children and the families who provide them care have additional needs that can be met on the local level. Wherever they are placed, these children will need with food and clothing, legal services for immigration proceedings, access to health care and other basic human needs." %}</p>
 
-<p>We are honored to be playing a role in matching the expertise and compassion that Maryland has in such abundance with the needs of these brave children who are fleeing from brutal drug cartels, gangs and corrupt police forces.</p>
+<p>{% trans "We are honored to be playing a role in matching the expertise and compassion that Maryland has in such abundance with the needs of these brave children who are fleeing from brutal drug cartels, gangs and corrupt police forces." %}</p>
 
-<p>No one person or group is the answer. We must all work together to meet this challenge. Buscando will help us ensure that the children and the families that are taking them in have the support, resources and answers they so that these children can enjoy the joys of being children once again.</p>
+<p>{% trans "No one person or group is the answer. We must all work together to meet this challenge. Buscando will help us ensure that the children and the families that are taking them in have the support, resources and answers they so that these children can enjoy the joys of being children once again." %}</p>
 
 <br><br><br>
 
@@ -32,27 +33,27 @@
 	<div class="col-md-3">
 		<figure>
 			<a href="http://instagram.com/p/q6780oSQZk/">
-				<img class="img-responsive" src="{% static 'img/buscando-brainstorm.jpg' %}" alt="Brainstorm session for Buscano at DC Techlady Hackathon"/>
+				<img class="img-responsive" src="{% static 'img/buscando-brainstorm.jpg' %}" alt="{% trans "Brainstorm session for Buscano at DC Techlady Hackathon" %}"/>
 			</a>
 			<figcaption>
-				Brainstorm session for Buscando at <a href="http://techladyhackathon.org/">DC Techlady Hackathon<a>
+				{% trans "Brainstorm session for Buscando at " %}<a href="http://techladyhackathon.org/">{% trans "DC Techlady Hackathon" %}<a>
 			</figcaption>
 		</figure>
 	</div>
 	<div class="col-md-3">
 		<figure>
 			<a href="http://instagram.com/p/q7Kw86SQWJ/">
-				<img class="img-responsive" src="{% static 'img/buscando-wireframes.jpg' %}" alt="Set of wireframes in progess for the app"/>
+				<img class="img-responsive" src="{% static 'img/buscando-wireframes.jpg' %}" alt="{% trans "Set of wireframes in progess for the app" %}"/>
 			</a>
 			<figcaption>
-				Set of wireframes in progress for the app
+				{% trans "Set of wireframes in progress for the app" %}
 			</figcaption>
 		</figure>
 	</div>
 	<div class="col-md-6">
 		<br><br>
-		<h3>Buscando is an open-source project</h3>
-		<p><a href="">Learn more about who built it</a>, or <a href="http://www.github.com/aliyarahman/buscando">view the code</a>.</p>
+		<h3>{% trans "Buscando is an open-source project" %}</h3>
+		<p><a href="">{% trans "Learn more about who built it" %}</a>, {% trans "or" %} <a href="http://www.github.com/aliyarahman/buscando">{% trans "view the code" %}</a>.</p>
 	</div>
 </div>
 
