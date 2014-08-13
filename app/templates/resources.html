@@ -13,49 +13,50 @@
                 <input type="hidden" name="type" value="{{ type }}">
 
                 <div class="form-group">
-                    <label class="control-label col-sm-3" for="zipcode">Location</label>
+                    <label class="control-label col-sm-3" for="zipcode">{% trans "Location" %}</label>
                     <div class="col-sm-9">
-                        <input id="location" class="form-control" type="text" placeholder="Your location" name="location" value="{{ location }}" data-toggle="tooltip" data-placement="bottom" title="Address, City or ZIP Code">
+                        <input id="location" class="form-control" type="text" placeholder="Your location" name="location" value="{{ location }}" data-toggle="tooltip" data-placement="bottom" title="{% trans "Address, City or ZIP Code" %}">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-3" for="resource">Resources</label>
+                    <label class="control-label col-sm-3" for="resource">{% trans "Resources" %}</label>
                     <div class="col-sm-9">
-                        <select class="resource-form--need form-control" data-placeholder="{% if type == 'volunteer' %}What can you give?{% else %}What do you need?{% endif %}" name="resource">
+                        <select class="resource-form--need form-control" data-placeholder="{% if type == 'volunteer' %}
+                        {% trans "What can you give?" %} {% else %} {% trans "What do you need?" %}{% endif %}" name="resource">
                             <option></option>
-                            <option value="Food" {% ifequal "food" resource.name %}selected="selected"{% endifequal %}>Food</option>
-                            <option value="Clothing" {% ifequal "clothing" resource.name %}selected="selected"{% endifequal %}>Clothing</option>
-                            <option value="Language" {% ifequal "language" resource.name %}selected="selected"{% endifequal %}>Language</option>
-                            <option value="Transportation" {% ifequal "transportation" resource.name %}selected="selected"{% endifequal %}>Transportation</option>
-                            <option value="Legal Services" {% ifequal "legal services" resource.name %}selected="selected"{% endifequal %}>Legal Services</option>
-                            <option value="Medical Care" {% ifequal "medical care" resource.name %}selected="selected"{% endifequal %}>Medical Care</option>
-                            <option value="Education and Enrollment" {% ifequal "education and enrollment" resource.name %}selected="selected"{% endifequal %}>Education/Enrollment</option>
-                            <option value="Religious Services" {% ifequal "religious services" resource.name %}selected="selected"{% endifequal %}>Religious Services</option>
-                            <option value="Counseling" {% ifequal "counseling" resource.name %}selected="selected"{% endifequal %}>Counseling</option>
-                            <option value="Recreation" {% ifequal "recreation" resource.name %}selected="selected"{% endifequal %}>Recreation</option>
+                            <option value="Food" {% ifequal "food" resource.name %}selected="selected"{% endifequal %}>{% trans "Food" %}</option>
+                            <option value="Clothing" {% ifequal "clothing" resource.name %}selected="selected"{% endifequal %}>{% trans "Clothing" %}</option>
+                            <option value="Language" {% ifequal "language" resource.name %}selected="selected"{% endifequal %}>{% trans "Language" %}</option>
+                            <option value="Transportation" {% ifequal "transportation" resource.name %}selected="selected"{% endifequal %}>{% trans "Transportation" %}</option>
+                            <option value="Legal Services" {% ifequal "legal services" resource.name %}selected="selected"{% endifequal %}>{% trans "Legal Services" %}</option>
+                            <option value="Medical Care" {% ifequal "medical care" resource.name %}selected="selected"{% endifequal %}>{% trans "Medical Care" %}</option>
+                            <option value="Education and Enrollment" {% ifequal "education and enrollment" resource.name %}selected="selected"{% endifequal %}>{% trans "Education/Enrollment" %}</option>
+                            <option value="Religious Services" {% ifequal "religious services" resource.name %}selected="selected"{% endifequal %}>{% trans "Religious Services" %}</option>
+                            <option value="Counseling" {% ifequal "counseling" resource.name %}selected="selected"{% endifequal %}>{% trans "Counseling" %}</option>
+                            <option value="Recreation" {% ifequal "recreation" resource.name %}selected="selected"{% endifequal %}>{% trans "Recreation" %}</option>
                         </select>
                     </div>
                 </div>
 
                 {% ifequal resource null %}
                 <div class="col-xs-offset-3">
-                    <button type="submit" class="btn btn-primary">{% if type == 'volunteer' %}Give resources{% else %}Find available resources{% endif %}</button>
+                    <button type="submit" class="btn btn-primary">{% if type == 'volunteer' %}{% trans "Give resources" %}{% else %}{% trans "Find available resources" %}{% endif %}</button>
                 </div>
                 {% endifequal %}
             </form>
             {% if messages %}
               {% for message in messages %}
                     <div id="message" class="alert alert-{% if 'error' in message.tags %}danger{% else %}{{ message.tags }}{% endif %}">
-                    {{ message }}
+                    {% trans message %}
                     </div>
               {% endfor %}
             {% endif %}
 
             <div class="resource-form--results-label">
-                {{ within_radius | length }} locations found
+                {{ within_radius | length }} {% trans "locations found" %}
                 {% if within_radius and type == 'volunteer' %}
-                <a href="{% url 'add_volunteer' %}" class="btn btn-primary resource-form--register">Sign up as a Volunteer</a>
+                <a href="{% url 'add_volunteer' %}" class="btn btn-primary resource-form--register">{% trans "Sign up as a Volunteer" %}</a>
                 {% endif %}
             </div>
 
@@ -76,7 +77,7 @@
 
                 {% for available in location.resources_available.all %}
                     {% if forloop.first %}
-                        <p>Resources available</p>
+                        <p>{% trans "Resources available" %}</p>
                             <ul>
                     {% endif %}
 

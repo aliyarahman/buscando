@@ -9,7 +9,7 @@
         {% if messages %}
           {% for message in messages %}
                 <div id="message" class="alert alert-{% if 'error' in message.tags %}danger{% else %}{{ message.tags }}{% endif %}">
-                {{ message }}
+                {% trans message %}
                 </div>
           {% endfor %}
         {% endif %}
@@ -17,49 +17,49 @@
         <form class="landing--form form-inline" role="form" method="post" action="resources/">
             {% csrf_token %}
             <div class="landing--need-container form-group">
-                <label class="sr-only" for="resource">Resource</label>
+                <label class="sr-only" for="resource">{% trans "Resource" %}</label>
                 <input type="hidden" name="type" value="search">
-                <select class="landing--need form-control" data-placeholder="What do you need?" name="resource">
+                <select class="landing--need form-control" data-placeholder="{% trans "What do you need?" %}" name="resource">
                     <option></option>
-                    <option value="Food">Food</option>
-                    <option value="Clothing">Clothing</option>
-                    <option value="Language">Language</option>
-                    <option value="Transportation">Transportation</option>
-                    <option value="Legal Services">Legal Services</option>
-                    <option value="Medical Care">Medical Care</option>
-                    <option value="Education and Enrollment">Education/Enrollment</option>
-                    <option value="Religious Services">Religious Services</option>
-                    <option value="Counseling">Counseling</option>
-                    <option value="Recreation">Recreation</option>
+                    <option value="Food">{% trans "Food" %}</option>
+                    <option value="Clothing">{% trans "Clothing" %}</option>
+                    <option value="Language">{% trans "Language" %}</option>
+                    <option value="Transportation">{% trans "Transportation" %}</option>
+                    <option value="Legal Services">{% trans "Legal Services" %}</option>
+                    <option value="Medical Care">{% trans "Medical Care" %}</option>
+                    <option value="Education and Enrollment">{% trans "Education/Enrollment" %}</option>
+                    <option value="Religious Services">{% trans "Religious Services" %}</option>
+                    <option value="Counseling">{% trans "Counseling" %}</option>
+                    <option value="Recreation">{% trans "Recreation" %}</option>
                 </select>
             </div>
             <div class="landing--location-container form-group">
                 <input type="hidden" name="page" value="index.html">
-                <label class="sr-only" for="zipcode">ZIP Code</label>
-                <input class="landing--location form-control" type="text" placeholder="Location" name="location" data-toggle="tooltip" data-placement="bottom" title="Address, City or ZIP Code">
+                <label class="sr-only" for="zipcode">{% trans "ZIP Code" %}</label>
+                <input class="landing--location form-control" type="text" placeholder="{% trans "Location" %}" name="location" data-toggle="tooltip" data-placement="bottom" title="{% trans "Address, City or ZIP Code" %}">
             </div>
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
         </form>
 </section>
 
 <main class="intro container">
     <div class="row">
         <div class="col-sm-6">
-            <h2>I can help</h2>
-            <p>I'm an individual who wants to volunteer resources or items.</p>
-            <p><a class="btn btn-primary" href="{% url 'resources' %}?type=volunteer" role="button">Offer assistance</a></p>
+            <h2>{% trans "I can help" %}</h2>
+            <p>{% trans "I'm an individual who wants to volunteer resources or items." %}</p>
+            <p><a class="btn btn-primary" href="{% url 'resources' %}?type=volunteer" role="button">{% trans "Offer assistance" %}</a></p>
         </div>
         <div class="col-sm-6">
-            <h2>I'm an Organization</h2>
-            <p>I'm an organization with resources and want to register or update my information.</p>
+            <h2>{% trans "I'm an Organization" %}</h2>
+            <p>{% trans "I'm an organization with resources and want to register or update my information." %}</p>
             <p>
             {% if user.is_authenticated %}
-            <a class="btn btn-default" href="{% url 'organization_home' %}" role="button">Go to my organization profile</a>
+            <a class="btn btn-default" href="{% url 'organization_home' %}" role="button">{% trans "Go to my organization profile" %}</a>
             {% else %}
-                <a class="btn btn-primary" href="{% url 'add_provider' %}" role="button">Register</a>
+                <a class="btn btn-primary" href="{% url 'add_provider' %}" role="button">{% trans "Register" %}</a>
                 <span class="intro-login">
                     or
-                    <a href="{% url 'login' %}" role="button">Login</a>
+                    <a href="{% url 'login' %}" role="button">{% trans "Login" %}</a>
                 </span>
             {% endif %}
             </p>
