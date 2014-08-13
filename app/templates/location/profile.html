@@ -1,0 +1,58 @@
+<script>
+	$(document).ready(function(){
+		$("#edit_location_{{current_location.id}}_link").click(function(e){
+			$("#location_{{current_location.id}}_wrapper").load("{% url 'edit_location' current_location.id %}");
+		})
+
+		$("#delete_location_{{current_location.id}}_link").click(function(){
+
+			if (confirm("Are you sure you want to delete the {{current_location.address}} location?")){
+				// delete from database
+	            $.ajax({
+	            	type: "POST",
+	            	url: '/location/{{current_location.id}}/delete/',
+	            	data:  {csrfmiddlewaretoken:'{{csrf_token}}' },
+	            	success: function(response){
+						// delete from page
+						if (response.success){
+							$("#location_{{current_location.id}}_wrapper").closest('li').remove();	
+						}
+	            	}
+	            })
+	            return false;
+			}
+		});
+
+	})
+</script>
+
+<div>
+		<ul>
+			<li>POC_firstname: {{ current_location.POC_firstname }} </li>
+			<li>POC_firstname2: {{ current_location.POC_firstname2 }} </li>
+			<li>POC_lastname: {{ current_location.POC_lastname }} </li>
+			<li>POC_lastname2: {{ current_location.POC_lastname2 }} </li>
+			<li>address: {{ current_location.address }} </li>
+			<li>latitude: {{ current_location.latitude }} </li>
+			<li>longitude: {{ current_location.longitude }} </li>
+			<li>phone: {{ current_location.phone }} </li>
+			<li>is_headquarters: {{ current_location.is_headquarters }} </li>
+			<li>phone: {{ current_location.phone }} </li>
+			<li>is_headquarters: {{ current_location.is_headquarters }} </li>
+			<li>hours_open: {{ current_location.hours_open }} </li>
+			<li>resources needed:
+				<ul>
+					{% for resource in current_location.resources_needed.all %}
+						<li>{{ resource.name }}</li>
+					{% endfor %}
+				</ul>
+			</li>
+			<li>resources available:
+				<ul>
+					{% for resource in current_location.resources_available.all %}
+						<li>{{ resource.name }}</li>
+					{% endfor %}
+				</ul>
+			</li>
+		</ul>
+	</div>

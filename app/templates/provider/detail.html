@@ -1,60 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
 
+		$("#edit_provider_link").click(function(e){
+			$("#provider_wrapper").load("{% url 'edit_provider' provider.id %}");
+			e.preventDefault();
+		})
+
+		$("#new_location_link").click(function(e){
+			$("#add_location_wrapper").load("{% url 'new_location' provider.id %}");
+			$("#add_location_wrapper").show();
+			$("#add_location_link").hide();
+		})
+	})
+
+</script>
 
 <h2>Profile page</h2>
 
-
+<h1>Provider info
+</h1>
 {% if can_edit %}
-	<!-- currently links are styled to be green so without style its invisible -->
-	<a style="color:black;" href="{% url 'edit_provider' provider.id %}">Edit</a>
+	<div id="provider_edit_link">
+		<a href='javascript:void(0)' id="edit_provider_link">(edit)</a>
+	</div>
 {% endif %}
-
-<h1>Provider info</h1>
-<div> 
-	<ul>
-		<li>name: {{ provider.name }}  </li>
-		<li>logo: {{ provider.logo }} </li>
-		<li>URL: {{ provider.URL }} </li>
-	</ul>
+<div id="provider_wrapper">
+{% include "provider/provider_profile.html" with provider=provider %}
 </div>
+
 <h1>Locations info</h2>
-	<ol>
+	<ol id="locations_list">
 {% for location in locations %}
 	<li>
-	<div>
-		<ul>
-			<li>POC_firstname: {{ location.POC_firstname }} </li>
-			<li>POC_firstname2: {{ location.POC_firstname2 }} </li>
-			<li>POC_lastname: {{ location.POC_lastname }} </li>
-			<li>POC_lastname2: {{ location.POC_lastname2 }} </li>
-			<li>address: {{ location.address }} </li>
-			<li>latitude: {{ location.latitude }} </li>
-			<li>longitude: {{ location.longitude }} </li>
-			<li>phone: {{ location.phone }} </li>
-			<li>is_headquarters: {{ location.is_headquarters }} </li>
-			<li>phone: {{ location.phone }} </li>
-			<li>is_headquarters: {{ location.is_headquarters }} </li>
-			<li>hours_open: {{ location.hours_open }} </li>
-			<li>resources needed:
-				<ul>
-					{% for resource in location.resources_needed.all %}
-						<li>{{ resource.name }}</li>
-					{% endfor %}
-				</ul>
-			</li>
-			<li>resources available:
-				<ul>
-					{% for resource in location.resources_available.all %}
-						<li>{{ resource.name }}</li>
-					{% endfor %}
-				</ul>
-			</li>
-		</ul>
-	</div>
+		{% if can_edit %}
+			<div id="location_{{location.id}}_links">
+				<a href='javascript:void(0)' id="edit_location_{{location.id}}_link">(edit)</a>
+				<a href='javascript:void(0)' id="delete_location_{{location.id}}_link">(delete)</a>
+			</div>
+			<div id="location_{{location.id}}_wrapper">
+				{% include "location/profile.html" with current_location=location %}
+			</div>
+		{% endif %}
 	</li>
 {% endfor %}
 </ol>
+	{% if can_edit %}
+<div id="add_location_link">
+	<a href="javascript:void(0)" id="new_location_link">Add location</a>
+</div>
+<div id="add_location_wrapper" style="display:none">
+	{% endif %}
 </div>
 
 

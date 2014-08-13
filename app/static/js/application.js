@@ -1,3 +1,17 @@
+function apply_form_field_error(fieldname, error) {
+    var input = $("#id_" + fieldname),
+        container = $("#div_id_" + fieldname),
+        error_msg = $("<span />").addClass("help-inline ajax-error").text(error[0]);
+
+    container.addClass("error");
+    error_msg.insertAfter(input);
+}
+
+function clear_form_field_errors(form) {
+    $(".ajax-error", $(form)).remove();
+    $(".error", $(form)).removeClass("error");
+}
+
 function readURL(input)
 {
 	if (input.files && input.files[0])
