@@ -55,7 +55,7 @@
 
     </div>
 
-    <h1>Create a new provider account</h1>
+    <h1>Create a new organization account</h1>
     
     <form role="form" action='.' method='post'>
         {% csrf_token %}
@@ -137,12 +137,12 @@
             </div>
 
             <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>Resources needed (hold "Ctrl" to select more than one)</label>
+                <label>Resources needed (hold "Ctrl" or "⌘" to select more than one)</label>
                 {% render_field location_form.resources_needed class+="form-control" size="13" %}
             </div>
 
             <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>Resources available (hold "Ctrl" to select more than one)</label>
+                <label>Resources available (hold "Ctrl" or "⌘" to select more than one)</label>
                 {% render_field location_form.resources_available class+="form-control" size="13" %}
             </div>
    

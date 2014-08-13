@@ -40,7 +40,7 @@
 
                 {% ifequal resource null %}
                 <div class="col-xs-offset-3">
-                    <button type="submit" class="btn btn-primary">Find available resources</button>
+                    <button type="submit" class="btn btn-primary">{% if type == 'volunteer' %}Give resources{% else %}Find available resources{% endif %}</button>
                 </div>
                 {% endifequal %}
             </form>

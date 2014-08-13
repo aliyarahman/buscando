@@ -71,7 +71,7 @@
               <li><a href="{% url 'organization_home' %}">Profile</a></li>
               <li><a href="{% url 'logout' %}">Logout</a></li>
             {% else %}
-            <li><a href="{% url 'login' %}" role="button">Provider Login</a></li>
+            <li><a href="{% url 'login' %}" role="button">Organization Login</a></li>
             {% endif %}
            <li style="margin: 0.8em 0.1em 0.8em 1em">
               <form name="setLangEnglish" action="/i18n/setlang/" method="POST">{% csrf_token %}
