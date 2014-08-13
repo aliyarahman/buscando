@@ -1,9 +1,10 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load widget_tweaks %}
 {% block content %}
 
-<h1>Edit Organization Profile</h1>
-<a style="color:black;" href="{% url 'delete_provider' provider.id %}">Delete</a>
+<h1>{% trans "Edit Organization Profile" %}</h1>
+<a style="color:black;" href="{% url 'delete_provider' provider.id %}">{% trans "Delete" %}</a>
 
 
 <form class="form-horizontal" role="form" action='.' method='post'>
@@ -13,13 +14,13 @@
     {% for field in password_change_form %}
         {% for error in field.errors %}
             <div class="alert alert-error">
-                {{ field.label }} - {{ error|escape }}</strong>
+                {% trans field.label %} - {% trans error|escape %}</strong>
             </div>
         {% endfor %}
     {% endfor %}
     {% for error in password_change_form.non_field_errors %}
         <div class="alert alert-error">
-            {{ error|escape }}
+            {% trans error|escape %}
         </div>
     {% endfor %}
 {% endif %}
@@ -28,13 +29,13 @@
     {% for field in provider_form %}
         {% for error in field.errors %}
             <div class="alert alert-error">
-                {{ field.label }} - {{ error|escape }}
+                {% trans field.label %} - {% trans error|escape %}
             </div>
         {% endfor %}
     {% endfor %}
     {% for error in provider_form.non_field_errors %}
         <div class="alert alert-error">
-            {{ error|escape }}
+            {% trans error|escape %}
         </div>
     {% endfor %}
 {% endif %}
@@ -44,13 +45,13 @@
         {% for field in location_form %}
             {% for error in field.errors %}
                 <div class="alert alert-error">
-                    {{ field.label }} - {{ error|escape }}
+                    {% trans field.label %} - {% trans error|escape %}
                 </div>
             {% endfor %}
         {% endfor %}
         {% for error in location_form.non_field_errors %}
             <div class="alert alert-error">
-                {{ error|escape }}
+                {% trans error|escape %}
             </div>
         {% endfor %}
     {% endif %}
@@ -61,7 +62,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ password_change_form.old_password.auto_id }}">
-    	{{ password_change_form.old_password.label }}
+    	{% trans password_change_form.old_password.label %}
     </label>
     <div>
     {% render_field password_change_form.old_password class+="form-control" %}
@@ -71,7 +72,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ password_change_form.new_password1.auto_id }}">
-    	{{ password_change_form.new_password1.label }}
+    	{% trans password_change_form.new_password1.label %}
     </label>
     <div>
     {% render_field password_change_form.new_password1 class+="form-control" %}
@@ -81,7 +82,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ password_change_form.new_password2.auto_id }}">
-    	{{ password_change_form.new_password2.label }}
+    	{% trans password_change_form.new_password2.label %}
     </label>
     <div>
     {% render_field password_change_form.new_password2 class+="form-control" %}
@@ -89,12 +90,12 @@
     </div>
 
 </div>
-<h2>Organization information</h2>
+<h2>{% trans "Organization information" %}</h2>
 <div class="provider-form">
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ provider_form.name.auto_id }}">
-    	{{ provider_form.name.label }}
+    	{% trans provider_form.name.label %}
     </label>
     <div>
     {% render_field provider_form.name class+="form-control" %}
@@ -103,7 +104,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ provider_form.logo.auto_id }}">
-    	{{ provider_form.logo.label }}
+    	{% trans provider_form.logo.label %}
     </label>
     <div>
     {% render_field provider_form.logo type="file" onchange="readURL(this);" %}
@@ -113,7 +114,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ provider_form.URL.auto_id }}">
-    	{{ provider_form.URL.label }}
+    	{% trans provider_form.URL.label %}
     </label>
     <div>
     {% render_field provider_form.URL type="URL" class+="form-control" %}
@@ -122,17 +123,17 @@
 
 </div>
 
-<h1>Locations</h1>
+<h1>{% trans "Locations" %}</h1>
 <div class="location-formset">
 
 {% for location_form in location_formset %}
 <div class="location-form dynamic-form" id="{{ location_form.prefix }}-row">
-    <h3>Location information</h3>
+    <h3>{% trans "Location information" %}</h3>
     <div {% if forloop.first %} class="hidden"{% endif %}> {{ location_form.operand }}</div>
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.POC_firstname.auto_id }}">
-        {{ location_form.POC_firstname.label }}
+        {% trans location_form.POC_firstname.label %}
     </label>
     <div>
     {% render_field location_form.POC_firstname class+="form-control" %}
@@ -141,7 +142,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.POC_firstname2.auto_id }}">
-        {{ location_form.POC_firstname2.label }}
+        {% trans location_form.POC_firstname2.label %}
     </label>
     <div>
     {% render_field location_form.POC_firstname2 class+="form-control" %}
@@ -150,7 +151,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.POC_lastname.auto_id }}">
-        {{ location_form.POC_lastname.label }}
+        {% trans location_form.POC_lastname.label %}
     </label>
     <div>
     {% render_field location_form.POC_lastname class+="form-control" %}
@@ -159,7 +160,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.POC_lastname2.auto_id }}">
-        {{ location_form.POC_lastname2.label }}
+        {% trans location_form.POC_lastname2.label %}
     </label>
     <div>
     {% render_field location_form.POC_lastname2 class+="form-control" %}
@@ -168,7 +169,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.address.auto_id }}">
-        {{ location_form.address.label }}
+        {% trans location_form.address.label %}
     </label>
     <div>
     {% render_field location_form.address class+="form-control" %}
@@ -177,7 +178,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.latitude.auto_id }}">
-        {{ location_form.latitude.label }}
+        {% trans location_form.latitude.label %}
     </label>
     <div>
     {% render_field location_form.latitude class+="form-control" %}
@@ -186,7 +187,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.longitude.auto_id }}">
-        {{ location_form.longitude.label }}
+        {% trans location_form.longitude.label %}
     </label>
     <div>
     {% render_field location_form.longitude class+="form-control" %}
@@ -195,7 +196,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.phone.auto_id }}">
-        {{ location_form.phone.label }}
+        {% trans location_form.phone.label %}
     </label>
     <div>
     {% render_field location_form.phone class+="form-control" %}
@@ -204,7 +205,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.is_headquarters.auto_id }}">
-        {{ location_form.is_headquarters.label }}
+        {% trans location_form.is_headquarters.label %}
     </label>
     <div>
     {% render_field location_form.is_headquarters class+="form-control" %}
@@ -213,7 +214,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.hours_open.auto_id }}">
-        {{ location_form.hours_open.label }}
+        {% trans location_form.hours_open.label %}
     </label>
     <div>
     {% render_field location_form.hours_open class+="form-control" %}
@@ -222,7 +223,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.resources_needed.auto_id }}">
-        {{ location_form.resources_needed.label }}
+        {% trans location_form.resources_needed.label %}
     </label>
     <div>
     {% render_field location_form.resources_needed class+="form-control" %}
@@ -231,7 +232,7 @@
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.resources_available.auto_id }}">
-        {{ location_form.resources_available.label }}
+        {% trans location_form.resources_available.label %}
     </label>
     <div>
     {% render_field location_form.resources_available class+="form-control" %}
@@ -240,21 +241,21 @@
    
     
     <div {% if forloop.first %} class="hidden"{% endif %}>
-        <a style="color:black" id="remove-{{ location_form.prefix }}-row" href="javascript:void(0)" class="delete-row">Remove location</a>
+        <a style="color:black" id="remove-{{ location_form.prefix }}-row" href="javascript:void(0)" class="delete-row">{% trans "Remove location" %}</a>
     </div>
 
     <hr>
 </div>
 
 {% endfor %}
-<div><a style="color:black" href="javascript:void(0)" class="add-row">Add Location</a></div>
+<div><a style="color:black" href="javascript:void(0)" class="add-row">{% trans "Add Location" %}</a></div>
 
 {{ location_formset.management_form }}
 </div>
            
 <div class="form-group">
 	<div>
-		<button class="btn btn-default" type="submit" value="Submit">Save</button>
+		<button class="btn btn-default" type="submit" value="Submit">{% trans "Save" %}</button>
 	</div>
 </div>
 

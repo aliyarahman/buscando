@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
+{% load i18n %}
 {% block content %}
 
 <section class="organization-form">
@@ -10,13 +11,13 @@
             {% for field in admin_form %}
                 {% for error in field.errors %}
                     <div class="alert alert-error">
-                        {{ field.label }} - {{ error|escape }}</strong>
+                        {% trans field.label %} - {% trans error|escape %}</strong>
                     </div>
                 {% endfor %}
             {% endfor %}
             {% for error in admin_form.non_field_errors %}
                 <div class="alert alert-error">
-                    {{ error|escape }}
+                    {% trans error|escape %}
                 </div>
             {% endfor %}
         {% endif %}
@@ -25,13 +26,13 @@
             {% for field in provider_form %}
                 {% for error in field.errors %}
                     <div class="alert alert-error">
-                        {{ field.label }} - {{ error|escape }}
+                        {% trans field.label %} - {% trans error|escape %}
                     </div>
                 {% endfor %}
             {% endfor %}
             {% for error in provider_form.non_field_errors %}
                 <div class="alert alert-error">
-                    {{ error|escape }}
+                    {% trans error|escape %}
                 </div>
             {% endfor %}
         {% endif %}
@@ -41,13 +42,13 @@
                 {% for field in location_form %}
                     {% for error in field.errors %}
                         <div class="alert alert-error">
-                            {{ field.label }} - {{ error|escape }}
+                            {% trans field.label %} - {% trans error|escape %}
                         </div>
                     {% endfor %}
                 {% endfor %}
                 {% for error in location_form.non_field_errors %}
                     <div class="alert alert-error">
-                        {{ error|escape }}
+                        {% trans error|escape %}
                     </div>
                 {% endfor %}
             {% endif %}
@@ -55,38 +56,38 @@
 
     </div>
 
-    <h1>Create a new organization account</h1>
+    <h1>{% trans "Create a new organization account" %}</h1>
     
     <form role="form" action='.' method='post'>
         {% csrf_token %}
     <div class="organization-form--section row">
         <div class="col-sm-4">
-            <h2>Organization Profile</h2>
+            <h2>{% trans "Organization Profile" %}</h2>
         </div>
         <div class="col-sm-5 col-sm-offset-1">
             <div class="admin-form">
                 <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>Organization Name</label>
+                    <label>{% trans "Organization Name" %}</label>
                     {% render_field provider_form.name class+="form-control" %}
                 </div>
                 
                 <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>Organization Website</label>
+                    <label>{% trans "Organization Website" %}</label>
                     {% render_field provider_form.URL class+="form-control" placeholder+="http://" %}
                 </div>
 
                 <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>Contact Email</label>
+                    <label>{% trans "Contact Email" %}</label>
                     {% render_field admin_form.username class+="form-control "%}
                 </div>
 
                 <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>Password</label>
+                    <label>{% trans "Password" %}</label>
                     {% render_field admin_form.password1 class+="form-control" %}
                 </div>
 
                 <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>Retype password</label>
+                    <label>{% trans "Retype password" %}</label>
                     {% render_field admin_form.password2 class+="form-control" %}
                 </div>
             </div>
@@ -95,7 +96,7 @@
 
     <div class="dynamic-form organization-form--section row">
         <div class="col-sm-4">
-            <h2>Location</h2>
+            <h2>{% trans "Location" %}</h2>
         </div>
         
         <div class="location-form col-sm-5 col-sm-offset-1" id="{{ location_form.prefix }}-row">
@@ -104,18 +105,18 @@
             <div {% if forloop.first %} class="hidden"{% endif %}> {{ location_form.operand }}</div>
             
             <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>Address</label>
+                <label>{% trans "Address" %}</label>
                 {% render_field location_form.address class+="form-control" %}
             </div>
 
             <div class="checkbox{% if field.errors %} has-error{% endif %}">
-                <label>This location is our main office
+                <label>{% trans "This location is our main office" %}
                 {% render_field location_form.is_headquarters %}
                 </label>
             </div>
             
             <div class="form-group{% if field.errors %} has-error{% endif %}"> 
-                <label>Primary Contact</label>
+                <label>{% trans "Primary Contact" %}</label>
                 <div class="row">
                     <div class="col-xs-6">
                         {% render_field location_form.POC_firstname class+="form-control" placeholder+="First Name" %}
@@ -127,29 +128,29 @@
             </div>
 
             <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>Phone</label>
+                <label>{% trans "Phone" %}</label>
                 {% render_field location_form.phone class+="form-control" %}
             </div>
             
             <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>Hours of operation</label>
+                <label>{% trans "Hours of operation" %}</label>
                 {% render_field location_form.hours_open class+="form-control" %}
             </div>
 
             <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>Resources needed (hold "Ctrl" or "⌘" to select more than one)</label>
+                <label>{% trans 'Resources needed (hold "Ctrl" or "⌘" to select more than one)' %}</label>
                 {% render_field location_form.resources_needed class+="form-control" size="13" %}
             </div>
 
             <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>Resources available (hold "Ctrl" or "⌘" to select more than one)</label>
+                <label>{% trans 'Resources available (hold "Ctrl" or "⌘" to select more than one)' %}</label>
                 {% render_field location_form.resources_available class+="form-control" size="13" %}
             </div>
    
         </div>
         
         <div {% if forloop.first %} class="hidden col-sm-5 col-sm-offset-5"{% endif %}>
-            <button id="remove-{{ location_form.prefix }}-row" type="button" class="delete-row btn btn-danger btn-lg btn-block">Remove this Location</button>
+            <button id="remove-{{ location_form.prefix }}-row" type="button" class="delete-row btn btn-danger btn-lg btn-block">{% trans "Remove this Location" %}</button>
         </div>
 
         {% endfor %}
@@ -162,15 +163,15 @@
 
 <div class="form-group organization-form--section">
     <div class="col-sm-4">
-        <h2>Finish Up</h2>
+        <h2>{% trans "Finish Up" %}</h2>
     </div>
     <div class="col-sm-5 col-sm-offset-1 button-group">
         <div class="row">
             <div class="col-md-6">
-                <button type="button" class="add-row btn btn-default btn-lg btn-block">Add another Location</button>
+                <button type="button" class="add-row btn btn-default btn-lg btn-block">{% trans "Add another Location" %}</button>
             </div>
             <div class="col-md-6">
-                <button class="btn btn-primary btn-lg btn-block" type="submit" value="Submit">Register Now</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit" value="Submit">{% trans "Register Now" %}</button>
             </div>
         <div>
     </div>

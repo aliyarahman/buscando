@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load widget_tweaks %}
 {% block content %}
 
-<h1>Volunteer Signup</h1>
+<h1>{% trans "Volunteer Signup" %}</h1>
 <form class="form-horizontal" role="form" action='.' method='post'>
 {% csrf_token %}
 
@@ -12,13 +13,13 @@
 	    {% for field in user_form %}
 	        {% for error in field.errors %}
 	            <div class="alert alert-error">
-	                {{ field.label }} - {{ error|escape }}</strong>
+	                {% trans field.label %} - {% trans error|escape %}</strong>
 	            </div>
 	        {% endfor %}
 	    {% endfor %}
 	    {% for error in user_form.non_field_errors %}
 	        <div class="alert alert-error">
-	            {{ error|escape }}
+	            {% trans error|escape %}
 	        </div>
 	    {% endfor %}
 	{% endif %}
@@ -27,13 +28,13 @@
 	    {% for field in profile_form %}
 	        {% for error in field.errors %}
 	            <div class="alert alert-error">
-	                {{ field.label }} - {{ error|escape }}
+	                {% trans field.label %} - {% trans error|escape %}
 	            </div>
 	        {% endfor %}
 	    {% endfor %}
 	    {% for error in profile_form.non_field_errors %}
 	        <div class="alert alert-error">
-	            {{ error|escape }}
+	            {% trans error|escape %}
 	        </div>
 	    {% endfor %}
 	{% endif %}
@@ -43,14 +44,14 @@
 <div class="admin-form">
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>First name</label>
+	<label>{% trans "First name" %}</label>
 	<div>
 	{% render_field profile_form.first_name %}
 	</div>
 	</div>
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Last name</label>
+	<label>{% trans "Last name" %}</label>
 	<div>
 	{% render_field profile_form.last_name %}
 	</div>
@@ -58,7 +59,7 @@
 
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Email</label>
+	<label>{% trans "Email" %}</label>
 	<div>
 	{% render_field profile_form.email %}
 	</div>
@@ -66,14 +67,14 @@
 
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Phone</label>
+	<label>{% trans "Phone" %}</label>
 	<div>
 	{% render_field profile_form.phone %}
 	</div>
 	</div>
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>Address</label>
+	<label>{% trans "Address" %}</label>
 	<div>
 	{% render_field profile_form.address %}
 	</div>
@@ -81,32 +82,27 @@
 
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>I can help by providing:</label>
+	<label>{% trans "I can help by providing:" %}</label>
 	<div>
 	{% render_field profile_form.has_resources %}
 	</div>
 	</div>
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
-	<label>If other, what can you provide?</label>
+	<label>{% trans "If other, what can you provide?" %}</label>
 	<div>
 	{% render_field profile_form.other %}
 	</div>
 	</div>
 
-
 </div>
-
-
-
 
 	<hr>
 </div>
 
-
 <div class="form-group">
 	<div>
-		<button class="btn btn-default" type="submit" value="Submit">Register</button>
+		<button class="btn btn-default" type="submit" value="Submit">{% trans "Register" %}</button>
 	</div>
 </div>
 

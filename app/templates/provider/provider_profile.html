@@ -1,8 +1,10 @@
+{% load i18n %}
+
 <div> 
 	<ul>
-		<li>id: {{ provider.id }} </li>
-		<li>name: {{ provider.name }}  </li>
-		<li>logo: {{ provider.logo }} </li>
-		<li>URL: {{ provider.URL }} </li>
+		<li>{% trans "id" %}: {{ provider.id }} </li>
+		<li>{% trans "name" %}: {{ provider.name }}  </li>
+		<li>{% trans "logo" %}: {{ provider.logo }} </li>
+		<li>{% trans "URL" %}: {{ provider.URL }} </li>
 	</ul>
 </div>

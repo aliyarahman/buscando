@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <script>
 	$(document).ready(function(){
 		$("#edit_location_{{current_location.id}}_link").click(function(e){
@@ -28,29 +30,27 @@
 
 <div>
 		<ul>
-			<li>POC_firstname: {{ current_location.POC_firstname }} </li>
-			<li>POC_firstname2: {{ current_location.POC_firstname2 }} </li>
-			<li>POC_lastname: {{ current_location.POC_lastname }} </li>
-			<li>POC_lastname2: {{ current_location.POC_lastname2 }} </li>
-			<li>address: {{ current_location.address }} </li>
-			<li>latitude: {{ current_location.latitude }} </li>
-			<li>longitude: {{ current_location.longitude }} </li>
-			<li>phone: {{ current_location.phone }} </li>
-			<li>is_headquarters: {{ current_location.is_headquarters }} </li>
-			<li>phone: {{ current_location.phone }} </li>
-			<li>is_headquarters: {{ current_location.is_headquarters }} </li>
-			<li>hours_open: {{ current_location.hours_open }} </li>
-			<li>resources needed:
+			<li>{% trans "POC_firstname" %}: {{ current_location.POC_firstname }} </li>
+			<li>{% trans "POC_firstname2" %}: {{ current_location.POC_firstname2 }} </li>
+			<li>{% trans "POC_lastname" %}: {{ current_location.POC_lastname }} </li>
+			<li>{% trans "POC_lastname2" %}: {{ current_location.POC_lastname2 }} </li>
+			<li>{% trans "address" %}: {{ current_location.address }} </li>
+			<li>{% trans "latitude" %}: {{ current_location.latitude }} </li>
+			<li>{% trans "longitude" %}: {{ current_location.longitude }} </li>
+			<li>{% trans "phone" %}: {{ current_location.phone }} </li>
+			<li>{% trans "is_headquarters" %}: {{ current_location.is_headquarters }} </li>
+			<li>{% trans "hours_open" %}: {{ current_location.hours_open }} </li>
+			<li>{% trans "resources needed"% }:
 				<ul>
 					{% for resource in current_location.resources_needed.all %}
-						<li>{{ resource.name }}</li>
+						<li>{% trans resource.name %}</li>
 					{% endfor %}
 				</ul>
 			</li>
-			<li>resources available:
+			<li>{% trans "resources available" %}:
 				<ul>
 					{% for resource in current_location.resources_available.all %}
-						<li>{{ resource.name }}</li>
+						<li>{% trans resource.name %}</li>
 					{% endfor %}
 				</ul>
 			</li>
