@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-13 20:20-0400\n"
+"POT-Creation-Date: 2014-08-13 19:10-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: app/templates/about.html:7
 msgid "About"
-msgstr "Acerca de"
+msgstr ""
 
 #: app/templates/about.html:13
 msgid "Buscando is the place where needs meet services."
@@ -93,39 +93,39 @@ msgstr ""
 
 #: app/templates/about.html:36
 msgid "Brainstorm session for Buscano at DC Techlady Hackathon"
-msgstr "Sesión de lluvia de ideas para el desarrollo de Buscando en DC Techlady Hackathon"
+msgstr ""
 
 #: app/templates/about.html:39
 msgid "Brainstorm session for Buscando at "
-msgstr "Sesión de lluvia de ideas para el desarrollo de Buscando en"
+msgstr ""
 
 #: app/templates/about.html:39
 msgid "DC Techlady Hackathon"
-msgstr "DC Techlady Hackathon"
+msgstr ""
 
 #: app/templates/about.html:46
 msgid "Set of wireframes in progess for the app"
-msgstr "Conjunto de diagramas funcionales para la aplicación."
+msgstr ""
 
 #: app/templates/about.html:49
 msgid "Set of wireframes in progress for the app"
-msgstr "Conjunto de diagramas funcionales para la aplicación."
+msgstr ""
 
 #: app/templates/about.html:55
 msgid "Buscando is an open-source project"
-msgstr "Buscando es un proyecto do código abierto"
+msgstr ""
 
 #: app/templates/about.html:56
 msgid "Learn more about who built it"
-msgstr "Conozca más acerca de quiénes desarrollaron Buscando"
+msgstr ""
 
 #: app/templates/about.html:56
 msgid "or"
-msgstr "o"
+msgstr ""
 
 #: app/templates/about.html:56
 msgid "view the code"
-msgstr "ver el código"
+msgstr ""
 
 #: app/templates/base.html:68
 msgid "Give Resources"
@@ -133,19 +133,19 @@ msgstr "Dona Recursos"
 
 #: app/templates/base.html:71
 msgid "Profile"
-msgstr "Perfil"
+msgstr ""
 
 #: app/templates/base.html:72
 msgid "Logout"
-msgstr "Cerrar sesión"
+msgstr "Logout"
 
 #: app/templates/base.html:74 app/templates/login.html:14
 msgid "Organization Login"
-msgstr "Ingresar para Organizaciónes"
+msgstr "Login para Organizaciónes"
 
 #: app/templates/base.html:106
 msgid "About Buscando"
-msgstr "Acerca de Buscando"
+msgstr ""
 
 #: app/templates/index.html:6
 msgid "Help is near."
@@ -161,123 +161,119 @@ msgstr ""
 
 #: app/templates/index.html:20
 msgid "Resource"
-msgstr "Recurso"
+msgstr ""
 
 #: app/templates/index.html:22 app/templates/resources.html:26
 msgid "What do you need?"
-msgstr "¿Qué necesita?"
+msgstr ""
 
 #: app/templates/index.html:24 app/templates/resources.html:28
 msgid "Food"
-msgstr "Comida"
+msgstr ""
 
 #: app/templates/index.html:25 app/templates/resources.html:29
 msgid "Clothing"
-msgstr "Ropa"
+msgstr ""
 
 #: app/templates/index.html:26 app/templates/resources.html:30
 msgid "Language"
-msgstr "Idioma"
+msgstr ""
 
 #: app/templates/index.html:27 app/templates/resources.html:31
 msgid "Transportation"
-msgstr "Servicios de Transporte"
+msgstr ""
 
 #: app/templates/index.html:28 app/templates/resources.html:32
 msgid "Legal Services"
-msgstr "Servicios Legales"
+msgstr ""
 
 #: app/templates/index.html:29 app/templates/resources.html:33
 msgid "Medical Care"
-msgstr "Atención Médica"
+msgstr ""
 
 #: app/templates/index.html:30 app/templates/resources.html:34
 msgid "Education/Enrollment"
-msgstr "Educación / Inscripciones"
+msgstr ""
 
 #: app/templates/index.html:31 app/templates/resources.html:35
 msgid "Religious Services"
-msgstr "Servicios Religiosos"
+msgstr ""
 
 #: app/templates/index.html:32 app/templates/resources.html:36
 msgid "Counseling"
-msgstr "Orientación"
+msgstr ""
 
 #: app/templates/index.html:33 app/templates/resources.html:37
 msgid "Recreation"
-msgstr "Entretenimiento"
+msgstr ""
 
 #: app/templates/index.html:38
 msgid "ZIP Code"
-msgstr "Código postal"
+msgstr ""
 
 #: app/templates/index.html:39 app/templates/resources.html:16
-#: app/templates/provider/new.html:99
 msgid "Location"
-msgstr "Ubicación"
+msgstr ""
 
 #: app/templates/index.html:39 app/templates/resources.html:18
 msgid "Address, City or ZIP Code"
-msgstr "Dirección, ciudad, o código postal"
+msgstr ""
 
 #: app/templates/index.html:41
 msgid "Search"
-msgstr "Buscar"
+msgstr ""
 
 #: app/templates/index.html:48
 msgid "I can help"
-msgstr "Puedo ayudar"
+msgstr ""
 
 #: app/templates/index.html:49
 msgid "I'm an individual who wants to volunteer resources or items."
-msgstr "Soy un individuo que quiere ofrecer recursos o servicios voluntarios."
+msgstr ""
 
 #: app/templates/index.html:50
 msgid "Offer assistance"
-msgstr "Ofrezca su ayuda"
+msgstr ""
 
 #: app/templates/index.html:53
 msgid "I'm an Organization"
-msgstr "Soy una Organización"
+msgstr ""
 
 #: app/templates/index.html:54
 msgid ""
 "I'm an organization with resources and want to register or update my "
 "information."
 msgstr ""
-"Soy una organización que tiene recursos y quisiera registrarme o actualizar mi información."
 
 #: app/templates/index.html:57
 msgid "Go to my organization profile"
-msgstr "Ver mi perfil"
+msgstr ""
 
 #: app/templates/index.html:59 app/templates/login.html:11
-#: app/templates/volunteer/new.html:105
 msgid "Register"
-msgstr "Registrarse"
+msgstr ""
 
 #: app/templates/index.html:62
 msgid "Login"
-msgstr "Iniciar sesión"
+msgstr ""
 
 #: app/templates/login.html:9
 msgid "Not yet registered?"
-msgstr "¿No se ha registrado aún?"
+msgstr ""
 
 #: app/templates/login.html:10
 msgid ""
 "Register to list your organization's resources and contact information on "
 "Buscando."
 msgstr ""
-"Regístrese para ingresar los recursos y la información de contacto de su organización en Buscando."
 
-#: app/templates/login.html:18 app/templates/volunteer/new.html:62
+#: app/templates/login.html:18
 msgid "Email"
-msgstr "Correo electrónico"
+msgstr ""
 
-#: app/templates/login.html:22 app/templates/provider/new.html:85
+#: app/templates/login.html:22
 msgid "Password"
-msgstr "Contraseña"
+msgstr ""
 
 #: app/templates/login.html:27
 msgid "Your email and/or password didn't match. Please try again."
@@ -287,251 +283,38 @@ msgstr ""
 msgid "organization home"
 msgstr ""
 
-#: app/templates/profile.html:5 app/templates/provider/detail.html:22
+#: app/templates/profile.html:5
 msgid "Profile page"
-msgstr "Perfil de la Organización"
+msgstr ""
 
 #: app/templates/resources.html:23
 msgid "Resources"
-msgstr "Recursos"
+msgstr ""
 
 #: app/templates/resources.html:26
 msgid "What can you give?"
-msgstr "¿Qué se puede dar?"
+msgstr ""
 
 #: app/templates/resources.html:44
 msgid "Give resources"
-msgstr "Dona recursos"
+msgstr ""
 
 #: app/templates/resources.html:44
 msgid "Find available resources"
-msgstr "Busca recursos"
+msgstr ""
 
 #: app/templates/resources.html:57
 msgid "locations found"
-msgstr "ubicaciones encontradas"
+msgstr ""
 
 #: app/templates/resources.html:59
 msgid "Sign up as a Volunteer"
-msgstr "Regístrese como Voluntario"
+msgstr ""
 
 #: app/templates/resources.html:80
 msgid "Resources needed"
-msgstr "Recursos necesarios"
+msgstr ""
 
 #: app/templates/resources.html:80
 msgid "Resources available"
-msgstr "Recursos disponibles"
-
-#: app/templates/location/edit.html:67 app/templates/location/new.html:84
-#: app/templates/provider/edit.html:131
-msgid "Location information"
-msgstr "Información de ubicación"
-
-#: app/templates/location/edit.html:182 app/templates/location/new.html:197
-#: app/templates/provider/edit.html:258
-#: app/templates/provider/provider_edit.html:102
-msgid "Save"
-msgstr "Guardar"
-
-#: app/templates/location/edit.html:183 app/templates/location/new.html:198
-#: app/templates/provider/provider_edit.html:103
-msgid "Saving profile, please wait."
-msgstr "Espera un momento, guardando el perfil."
-
-#: app/templates/location/edit.html:184 app/templates/location/new.html:199
-#: app/templates/provider/provider_edit.html:104
-msgid "The form has errors."
 msgstr ""
-
-#: app/templates/location/profile.html:33
-msgid "POC_firstname"
-msgstr ""
-
-#: app/templates/location/profile.html:34
-msgid "POC_firstname2"
-msgstr ""
-
-#: app/templates/location/profile.html:35
-msgid "POC_lastname"
-msgstr ""
-
-#: app/templates/location/profile.html:36
-msgid "POC_lastname2"
-msgstr ""
-
-#: app/templates/location/profile.html:37
-msgid "address"
-msgstr ""
-
-#: app/templates/location/profile.html:38
-msgid "latitude"
-msgstr ""
-
-#: app/templates/location/profile.html:39
-msgid "longitude"
-msgstr ""
-
-#: app/templates/location/profile.html:40
-msgid "phone"
-msgstr ""
-
-#: app/templates/location/profile.html:41
-msgid "is_headquarters"
-msgstr ""
-
-#: app/templates/location/profile.html:42
-msgid "hours_open"
-msgstr ""
-
-#: app/templates/location/profile.html:50
-msgid "resources available"
-msgstr ""
-
-#: app/templates/provider/detail.html:24
-msgid "Organization info"
-msgstr ""
-
-#: app/templates/provider/detail.html:28 app/templates/provider/detail.html:41
-msgid "edit"
-msgstr ""
-
-#: app/templates/provider/detail.html:35
-msgid "Locations info"
-msgstr ""
-
-#: app/templates/provider/detail.html:42
-msgid "delete"
-msgstr ""
-
-#: app/templates/provider/detail.html:53
-msgid "Add location"
-msgstr ""
-
-#: app/templates/provider/edit.html:6
-msgid "Edit Organization Profile"
-msgstr ""
-
-#: app/templates/provider/edit.html:7
-msgid "Delete"
-msgstr ""
-
-#: app/templates/provider/edit.html:93
-msgid "Organization information"
-msgstr ""
-
-#: app/templates/provider/edit.html:126
-msgid "Locations"
-msgstr "Ubicaciónes"
-
-#: app/templates/provider/edit.html:244
-msgid "Remove location"
-msgstr ""
-
-#: app/templates/provider/edit.html:251
-msgid "Add Location"
-msgstr "Añada una Ubicación Adicional"
-
-#: app/templates/provider/new.html:59
-msgid "Create a new organization account"
-msgstr ""
-
-#: app/templates/provider/new.html:65
-msgid "Organization Profile"
-msgstr "Perfil de la Organización"
-
-#: app/templates/provider/new.html:70
-msgid "Organization Name"
-msgstr "Nombre de la Organización"
-
-#: app/templates/provider/new.html:75
-msgid "Organization Website"
-msgstr "Sitio web de la Organización"
-
-#: app/templates/provider/new.html:80
-msgid "Contact Email"
-msgstr "Correo electrónico de contacto"
-
-#: app/templates/provider/new.html:90
-msgid "Retype password"
-msgstr "Re- escriba la contraseña"
-
-#: app/templates/provider/new.html:108 app/templates/volunteer/new.html:77
-msgid "Address"
-msgstr "Dirección"
-
-#: app/templates/provider/new.html:113
-msgid "This location is our main office"
-msgstr "Esta es la sede principal de nuestra Organización"
-
-#: app/templates/provider/new.html:119
-msgid "Primary Contact"
-msgstr ""
-
-#: app/templates/provider/new.html:131 app/templates/volunteer/new.html:70
-msgid "Phone"
-msgstr "Teléfono"
-
-#: app/templates/provider/new.html:136
-msgid "Hours of operation"
-msgstr "Horario de trabajo"
-
-#: app/templates/provider/new.html:141
-msgid "Resources needed (hold \"Ctrl\" or \"⌘\" to select more than one)"
-msgstr "Recursos que necesita (mantenga presionado el botón \"Ctrl\" o \"⌘\" para seleccionar más de uno)"
-
-#: app/templates/provider/new.html:146
-msgid "Resources available (hold \"Ctrl\" or \"⌘\" to select more than one)"
-msgstr "Recursos disponibles (mantenga presionado el botón \"Ctrl\" o \"⌘\" para seleccionar más de uno)"
-
-#: app/templates/provider/new.html:153
-msgid "Remove this Location"
-msgstr ""
-
-#: app/templates/provider/new.html:166
-msgid "Finish Up"
-msgstr "Finalice"
-
-#: app/templates/provider/new.html:171
-msgid "Add another Location"
-msgstr "Añada una ubicación adicional "
-
-#: app/templates/provider/new.html:174
-msgid "Register Now"
-msgstr "Regístrese ahora"
-
-#: app/templates/provider/provider_profile.html:5
-msgid "id"
-msgstr "id"
-
-#: app/templates/provider/provider_profile.html:6
-msgid "name"
-msgstr "Nombre de la Organización"
-
-#: app/templates/provider/provider_profile.html:7
-msgid "logo"
-msgstr ""
-
-#: app/templates/provider/provider_profile.html:8
-msgid "URL"
-msgstr "Sitio web de la Organización"
-
-#: app/templates/volunteer/new.html:6
-msgid "Volunteer Signup"
-msgstr "Registro de Voluntarios"
-
-#: app/templates/volunteer/new.html:47
-msgid "First name"
-msgstr "Nombre"
-
-#: app/templates/volunteer/new.html:54
-msgid "Last name"
-msgstr "Apellidos"
-
-#: app/templates/volunteer/new.html:85
-msgid "I can help by providing:"
-msgstr "Puedo ayudar con:"
-
-#: app/templates/volunteer/new.html:92
-msgid "If other, what can you provide?"
-msgstr "Si seleccionó Otros, especifique:"
