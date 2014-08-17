@@ -86,9 +86,9 @@ with open('providers.csv', 'rb') as csvfile:
 		l.save()
         
         
-        if len(Location.objects.filter(provider=p).filter(address=l.address)) > 1:
-            l.delete() #need to save and then delete because the address gets geocoded and thus changed
-                #so this is the only way to get at the geocoded address
+		if len(Location.objects.filter(provider=p).filter(address=l.address)) > 1:
+			l.delete() #need to save and then delete because the address gets geocoded and thus changed
+				#so this is the only way to get at the geocoded address
 
 # Add relationships
 with open('providers.csv', 'rb') as csvfile:
