@@ -80,11 +80,15 @@ with open('providers.csv', 'rb') as csvfile:
 
 
 		
-		#locations should be deduped. This is not trivial because the address is geocoded and reformatted
-		#when the location is saved, so we can't dedup by the address string we create here
+
 		
 		l= Location(POC_firstname = "Aliya", POC_firstname2="", POC_lastname="", POC_lastname2="", provider = p, address = address, latitude=0.00, longitude=0.00, phone = row['phone'].strip(), is_headquarters=True, hours_open=row['hours'].strip())
 		l.save()
+        
+        
+        if len(Location.objects.filter(provider=p).filter(address=l.address)) > 1:
+            l.delete() #need to save and then delete because the address gets geocoded and thus changed
+                #so this is the only way to get at the geocoded address
 
 # Add relationships
 with open('providers.csv', 'rb') as csvfile:
