@@ -15,10 +15,10 @@ import random
 
 #need to find all relevant searches in MD211
 
-resources = {"food":["Food+Stamps","Food+Pantries","Food-Home+Delivered+Groceries","Food+Supplements","Food+Vouchers","Food-Home+Delivered+Meals","Donor+Services-Food"],
+resources = {"food":["Food+Stamps","Food+Pantries","Food-Home+Delivered+Groceries","Food+Supplements","Food+Vouchers","Donor+Services-Food"],
 			"clothing":["Clothing-Clothing+Closet","Clothing-School+Uniforms","Donor+Services-Clothing","Clothing-Work+Attire"],
 			"legal services":["Legal+Services-Immigrant+Community","Legal+Services-Lawyer+Referral"],"language":["English+as+a+Second+Language","Interpretation%2c+Translation"],
-			"medical care":["Pediatrics","Case+Management-Medical+Social+Work","Eye+Care","Allergies","Hospitals","Counseling-Youth","Dental+Care"],
+			"medical care":["Pediatrics","Eye+Care","Allergies","Hospitals","Dental+Care"],
 			"education and enrollment":["Education-At+Risk+Youth","Education-Early+Childhood","Education-Elementary%2c+Secondary","Education-Special","School+Supplies","Summer+School","Tutorial+Services","After+School+Programs"],
 			"religious services":["Counseling-Pastoral%2c+Spiritual"],
 			"transportation":["Transportation-Low+Income", "Transportation-Medical", "Transportation-Mental+Illness", "Transportation-Open+To+Public"],
@@ -88,9 +88,10 @@ for r in resources:
 							#this is actually city, state, zip and country and needs to be parsed
 							#we remove country since it's always US, then strip out the extra space and use rsplit to split on the first two spaces from the right
 							lblcity = lblcity[:lblcity.find("United States")].strip().rsplit(" ",2)
-							city = lblcity[0]
-							state = lblcity[1]
-							zipcode = lblcity[2]
+							if len(lblcity)==3:
+								city = lblcity[0]
+								state = lblcity[1]
+								zipcode = lblcity[2]
 
 						except AttributeError:
 							city = ''
