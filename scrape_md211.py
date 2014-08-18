@@ -15,9 +15,15 @@ import random
 
 #need to find all relevant searches in MD211
 
-resources = {"food":[],"clothing":[],"legal services":["Legal+Services-Immigrant+Community"],"language":[],
-			"medical care":[],"education and enrollment":[],"religious services":[],"transportation":[],
-			"counseling":[],"housing":[],"recreation":[],"volunteers":[]}
+resources = {"food":["Food+Stamps","Food+Pantries","Food-Home+Delivered+Groceries","Food+Supplements","Food+Vouchers","Food-Home+Delivered+Meals","Donor+Services-Food"],
+			"clothing":["Clothing-Clothing+Closet","Clothing-School+Uniforms","Donor+Services-Clothing","Clothing-Work+Attire"],
+			"legal services":["Legal+Services-Immigrant+Community","Legal+Services-Lawyer+Referral"],"language":["English+as+a+Second+Language","Interpretation%2c+Translation"],
+			"medical care":[],"education and enrollment":[],
+			"religious services":["Counseling-Pastoral%2c+Spiritual"],
+			"transportation":["Transportation-Low+Income", "Transportation-Medical", "Transportation-Mental+Illness", "Transportation-Open+To+Public"],
+			"counseling":["Counseling-Pastoral%2c+Spiritual","Counseling-Hispanic%2c+Latino+Community","Counseling-Child+Sexual+Assault"],
+			"housing":[],"recreation":[],
+			"volunteers":["Volunteer+Opportunities","Information%2c+Referral-Volunteer"]}
 
 
 
