@@ -6,8 +6,6 @@ import random
 
 
 
-######TODO:
-#1) Find all MD211 search terms and populate resources dictionary accordingly
 
 
 
@@ -17,14 +15,14 @@ import random
 
 resources = {"food":["Food+Stamps","Food+Pantries","Food-Home+Delivered+Groceries","Food+Supplements","Food+Vouchers","Donor+Services-Food"],
 			"clothing":["Clothing-Clothing+Closet","Clothing-School+Uniforms","Donor+Services-Clothing","Clothing-Work+Attire"],
-			"legal services":["Legal+Services-Immigrant+Community","Legal+Services-Lawyer+Referral"],"language":["English+as+a+Second+Language","Interpretation%2c+Translation"],
+			"legal services":["Legal+Services-Immigrant+Community","Legal+Services-Lawyer+Referral"],"language":["English+as+a+Second+Language","Interpretation\%\2c+Translation"],
 			"medical care":["Pediatrics","Eye+Care","Allergies","Hospitals","Dental+Care"],
-			"education and enrollment":["Education-At+Risk+Youth","Education-Early+Childhood","Education-Elementary%2c+Secondary","Education-Special","School+Supplies","Summer+School","Tutorial+Services","After+School+Programs"],
-			"religious services":["Counseling-Pastoral%2c+Spiritual"],
+			"education and enrollment":["Education-At+Risk+Youth","Education-Early+Childhood","Education-Elementary\%\2c+Secondary","Education-Special","School+Supplies","Summer+School","Tutorial+Services","After+School+Programs"],
+			"religious services":["Counseling-Pastoral\%\2c+Spiritual"],
 			"transportation":["Transportation-Low+Income", "Transportation-Medical", "Transportation-Mental+Illness", "Transportation-Open+To+Public"],
-			"counseling":["Counseling-Pastoral%2c+Spiritual","Counseling-Hispanic%2c+Latino+Community","Counseling-Child+Sexual+Assault","Counseling-Youth"],
-			"recreation":["Camps","Recreation-Youth","Recreation-Parent%2c+Child","Therapeutic+Recreation","Physical+Fitness","After+School+Programs","Youth+Development"],
-			"volunteers":["Volunteer+Opportunities","Information%2c+Referral-Volunteer"]}
+			"counseling":["Counseling-Pastoral\%\2c+Spiritual","Counseling-Hispanic\%\2c+Latino+Community","Counseling-Child+Sexual+Assault","Counseling-Youth"],
+			"recreation":["Camps","Recreation-Youth","Recreation-Parent\%\2c+Child","Therapeutic+Recreation","Physical+Fitness","After+School+Programs","Youth+Development"],
+			"volunteers":["Volunteer+Opportunities","Information\%\2c+Referral-Volunteer"]}
 
 
 
@@ -47,7 +45,7 @@ for r in resources:
 			
 
 		
-			time.sleep(random.randint(1,5)) #apparently dirk had some trouble being kicked out
+			time.sleep(random.randint(1,3)) #apparently dirk had some trouble being kicked out
 				#so we're going to take a random-length timeout between each time we hit the website
 				#this will make the script really slow, but we only have to run it once, so nbd.
 			
@@ -65,7 +63,7 @@ for r in resources:
 				address_info = soup.findAll('td',attrs={"class":"SearchDetails"})
 				if len(header_info) != len(address_info):
 					print "Error: Could not scrape page {0}".format(page)
-					page += 1	
+				
 				else:
 				#maybe should throw an error if they're not the same length
 		
@@ -88,13 +86,15 @@ for r in resources:
 							#this is actually city, state, zip and country and needs to be parsed
 							#we remove country since it's always US, then strip out the extra space and use rsplit to split on the first two spaces from the right
 							lblcity = lblcity[:lblcity.find("United States")].strip().rsplit(" ",2)
-							if len(lblcity)==3:
-								city = lblcity[0]
-								state = lblcity[1]
-								zipcode = lblcity[2]
+							
+							city = lblcity[0]
+							state = lblcity[1]
+							zipcode = lblcity[2]
 
 						except AttributeError:
 							city = ''
+							state = ''
+							zipcode = ''
 						
 						phone_label = "rptSearchResults_lblPhone_{0}".format(i)
 						try:
@@ -126,7 +126,7 @@ for r in resources:
 					#print(len(header_info))
 					#print(len(address_info))
 					#print orgs
-					page += 1
+				page += 1
 
 
 
