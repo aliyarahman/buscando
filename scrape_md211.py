@@ -18,11 +18,12 @@ import random
 resources = {"food":["Food+Stamps","Food+Pantries","Food-Home+Delivered+Groceries","Food+Supplements","Food+Vouchers","Food-Home+Delivered+Meals","Donor+Services-Food"],
 			"clothing":["Clothing-Clothing+Closet","Clothing-School+Uniforms","Donor+Services-Clothing","Clothing-Work+Attire"],
 			"legal services":["Legal+Services-Immigrant+Community","Legal+Services-Lawyer+Referral"],"language":["English+as+a+Second+Language","Interpretation%2c+Translation"],
-			"medical care":[],"education and enrollment":[],
+			"medical care":["Pediatrics","Case+Management-Medical+Social+Work","Eye+Care","Allergies","Hospitals","Counseling-Youth","Dental+Care"],
+			"education and enrollment":["Education-At+Risk+Youth","Education-Early+Childhood","Education-Elementary%2c+Secondary","Education-Special","School+Supplies","Summer+School","Tutorial+Services","After+School+Programs"],
 			"religious services":["Counseling-Pastoral%2c+Spiritual"],
 			"transportation":["Transportation-Low+Income", "Transportation-Medical", "Transportation-Mental+Illness", "Transportation-Open+To+Public"],
-			"counseling":["Counseling-Pastoral%2c+Spiritual","Counseling-Hispanic%2c+Latino+Community","Counseling-Child+Sexual+Assault"],
-			"housing":[],"recreation":[],
+			"counseling":["Counseling-Pastoral%2c+Spiritual","Counseling-Hispanic%2c+Latino+Community","Counseling-Child+Sexual+Assault","Counseling-Youth"],
+			"recreation":["Camps","Recreation-Youth","Recreation-Parent%2c+Child","Therapeutic+Recreation","Physical+Fitness","After+School+Programs","Youth+Development"],
 			"volunteers":["Volunteer+Opportunities","Information%2c+Referral-Volunteer"]}
 
 
