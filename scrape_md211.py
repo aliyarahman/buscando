@@ -8,8 +8,6 @@ import random
 
 ######TODO:
 #1) Find all MD211 search terms and populate resources dictionary accordingly
-#2) parse the thing they call city, which actually includes city, state, zip and USA
-
 
 
 
@@ -58,58 +56,69 @@ for r in resources:
 				#contact info together, so we're counting on them being in the same order.
 				header_info = soup.findAll('td',attrs={"class":"DetailsHeader"})
 				address_info = soup.findAll('td',attrs={"class":"SearchDetails"})
+				if len(header_info) != len(address_info):
+					print "Error: Could not scrape page {0}".format(page)
+					page += 1	
+				else:
 				#maybe should throw an error if they're not the same length
 		
-				for i in range(len(header_info)):
-					h = header_info[i].text.strip()
-					a = address_info[i]
-					org_name = h[h.find("Agency")+8:]
-					
-
-					#there is inconsistent info on MD211, so the try/excepts deal with potential missing data
-
-					address_label = "rptSearchResults_lblAddress_{0}".format(i)
-					try:
-						address = a.find('span', attrs={"id":address_label}).text.strip()
-					except AttributeError:
-						address = ''
+					for i in range(len(header_info)):
+						h = header_info[i].text.strip()
+						a = address_info[i]
+						org_name = h[h.find("Agency")+8:]
 						
-					try:	
-						city = a.find('span', attrs={"id":"rptSearchResults_lblCity_{0}".format(i)}).text.strip()
-						#this is actually city, state, zip and country and needs to be parsed
-					except AttributeError:
-						city = ''
-					
-					phone_label = "rptSearchResults_lblPhone_{0}".format(i)
-					try:
-						phone = a.find('span', attrs={"id":phone_label}).text.strip("Phone:").strip()
-					except AttributeError:
-						phone = ''
-		
-			
-					website_label = "rptSearchResults_hlAgencyName_{0}".format(i)
-					try:
-						website = a.find('a',attrs={"id":website_label}).text.strip()
-					except AttributeError:
-						website = ''
-					
 
+						#there is inconsistent info on MD211, so the try/excepts deal with potential missing data
+
+						address_label = "rptSearchResults_lblAddress_{0}".format(i)
+						try:
+							address = a.find('span', attrs={"id":address_label}).text.strip()
+						except AttributeError:
+							address = ''
+							
+						try:	
+							lblcity = a.find('span', attrs={"id":"rptSearchResults_lblCity_{0}".format(i)}).text.strip()
+							#this is actually city, state, zip and country and needs to be parsed
+							#we remove country since it's always US, then strip out the extra space and use rsplit to split on the first two spaces from the right
+							lblcity = lblcity[:lblcity.find("United States")].strip().rsplit(" ",2)
+							city = lblcity[0]
+							state = lblcity[1]
+							zipcode = lblcity[2]
+
+						except AttributeError:
+							city = ''
+						
+						phone_label = "rptSearchResults_lblPhone_{0}".format(i)
+						try:
+							phone = a.find('span', attrs={"id":phone_label}).text.strip("Phone:").strip()
+						except AttributeError:
+							phone = ''
 			
-					org_key = (org_name,address)
+				
+						website_label = "rptSearchResults_hlAgencyName_{0}".format(i)
+						try:
+							website = a.find('a',attrs={"id":website_label}).text.strip()
+						except AttributeError:
+							website = ''
+						
+
+				
+						org_key = (org_name,address)
+				
+						if org_key not in orgs:
+							orgs[org_key] = {"provider_name":org_name,
+								"address1":address,"city":city, "state":state,
+								"zipcode":zipcode,"phone":phone,"website":website}
+				
+						orgs[org_key][r] = "yes"
+				
+				
+				
 			
-					if org_key not in orgs:
-						orgs[org_key] = {"provider_name":org_name,
-							"address1":address,"city":city,
-							"phone":phone,"website":website}
-			
-					orgs[org_key][r] = "yes"
-			
-			
-			
-		
-				print(len(header_info))
-				print(len(address_info))
-				page += 1
+					#print(len(header_info))
+					#print(len(address_info))
+					#print orgs
+					page += 1
 
 
 
