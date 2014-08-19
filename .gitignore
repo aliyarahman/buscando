@@ -2,3 +2,4 @@ venv
 *.pyc
 app/static/.sass-cache/*
 buscando/settings_hidden.py
+providers_from_md211.csv
