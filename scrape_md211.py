@@ -15,14 +15,15 @@ import random
 
 resources = {"food":["Food+Stamps","Food+Pantries","Food-Home+Delivered+Groceries","Food+Supplements","Food+Vouchers","Donor+Services-Food"],
 			"clothing":["Clothing-Clothing+Closet","Clothing-School+Uniforms","Donor+Services-Clothing","Clothing-Work+Attire"],
-			"legal services":["Legal+Services-Immigrant+Community","Legal+Services-Lawyer+Referral"],"language":["English+as+a+Second+Language","Interpretation\%\2c+Translation"],
+			"legal services":["Legal+Services-Immigrant+Community","Legal+Services-Lawyer+Referral"],"language":["English+as+a+Second+Language","Interpretation%2c+Translation"],
 			"medical care":["Pediatrics","Eye+Care","Allergies","Hospitals","Dental+Care"],
-			"education and enrollment":["Education-At+Risk+Youth","Education-Early+Childhood","Education-Elementary\%\2c+Secondary","Education-Special","School+Supplies","Summer+School","Tutorial+Services","After+School+Programs"],
-			"religious services":["Counseling-Pastoral\%\2c+Spiritual"],
+			"education and enrollment":["Education-At+Risk+Youth","Education-Early+Childhood","Education-Elementary%2c+Secondary","Education-Special","School+Supplies","Summer+School","Tutorial+Services","After+School+Programs"],
+			"religious services":["Counseling-Pastoral%2c+Spiritual"],
 			"transportation":["Transportation-Low+Income", "Transportation-Medical", "Transportation-Mental+Illness", "Transportation-Open+To+Public"],
-			"counseling":["Counseling-Pastoral\%\2c+Spiritual","Counseling-Hispanic\%\2c+Latino+Community","Counseling-Child+Sexual+Assault","Counseling-Youth"],
-			"recreation":["Camps","Recreation-Youth","Recreation-Parent\%\2c+Child","Therapeutic+Recreation","Physical+Fitness","After+School+Programs","Youth+Development"],
-			"volunteers":["Volunteer+Opportunities","Information\%\2c+Referral-Volunteer"]}
+			"counseling":["Counseling-Pastoral%2c+Spiritual","Counseling-Hispanic%2c+Latino+Community","Counseling-Child+Sexual+Assault","Counseling-Youth"],
+			"recreation":["Camps","Recreation-Youth","Recreation-Parent%2c+Child","Therapeutic+Recreation","Physical+Fitness","After+School+Programs","Youth+Development"],
+			"volunteers":["Volunteer+Opportunities","Information%2c+Referral-Volunteer"]}
+
 
 
 
@@ -37,7 +38,7 @@ for r in resources:
 		validator = ''
 		page = 1
 		while validator == '':
-			url =   "http://www.icarol.info/Search.aspx?org=2046&Count=5&Search={0}\
+			url =   "http://www.icarol.info/Search.aspx?org=2046&Count=20&Search={0}\
 				&NameOnly=True&pst=Coverage&sort=Proximity&TaxExact=False&Country=United+States\
 				&StateProvince=MD&County=-1&City=-1&page={1}".format(web_name, page)
 
@@ -45,7 +46,7 @@ for r in resources:
 			
 
 		
-			time.sleep(random.randint(1,3)) #apparently dirk had some trouble being kicked out
+			time.sleep(random.randint(1,5)/10) #apparently dirk had some trouble being kicked out
 				#so we're going to take a random-length timeout between each time we hit the website
 				#this will make the script really slow, but we only have to run it once, so nbd.
 			
@@ -91,7 +92,7 @@ for r in resources:
 							state = lblcity[1]
 							zipcode = lblcity[2]
 
-						except AttributeError:
+						except (AttributeError, IndexError):
 							city = ''
 							state = ''
 							zipcode = ''
@@ -138,10 +139,18 @@ csv_header = ["provider_name","location_name","image","website","address1","addr
 			"counseling","housing","recreation","volunteers","other"]
 
 
+non_vol_resources = list(resources.keys())
+non_vol_resources.remove("volunteers")
 
 with open("providers_from_md211.csv","wb") as provider_csv:
 	w = csv.DictWriter(provider_csv, csv_header)
 	w.writer.writerow(csv_header)
 	for key,row in orgs.iteritems():
-		w.writerow(row)
+		
+		#removing orgs that have no resources relevant to us but want volunteers
+		#there are too many of them and they seem non-helpful to include
+		for r in non_vol_resources:
+			if r in row:
+				w.writerow(row)
+				break
 	

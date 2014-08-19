@@ -5,6 +5,21 @@ import csv
 import os
 from django.db.utils import IntegrityError
 
+
+#notes about deduping:
+#Providers: This script will not add a provider if one with the same name already exists.
+	#names are stripped of leading/trailing spaces and case before checking
+	#but we do not check for spelling errors
+	
+#Locations: This script will not add a location if a location with the same provider
+	#and address exists.
+	
+#Resources: This script WILL add resources if additional resources are added to an existing
+	#location. But it will not remove resources if the location already has them
+
+
+
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "buscando.settings")
 #Rachel and Shannon had a really tough time figuring out exactly how to
 #get DJANGO_SETTINGS_MODULE set properly, and eventually Rachel just ran
@@ -13,6 +28,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "buscando.settings")
 #I'm not really sure if the above line is doing anything anymore.
 
 
+csv_name = 'providers.csv'
 
 # Add resources
 
@@ -53,7 +69,7 @@ user = User.objects.filter(username="test_user").first()
 
 
 
-with open('providers.csv', 'rb') as csvfile:
+with open(csv_name, 'rb') as csvfile:
 	providers = csv.DictReader(csvfile, delimiter=',', quotechar='"')
 	provider_names = [p.name.strip().lower() for p in Provider.objects.all()]#creating a list for searching to dedup provider names
 		#creating this list is probably not the fastest, but allows us to dedup easily based on caps/spacing without losing that formatting
@@ -70,7 +86,7 @@ with open('providers.csv', 'rb') as csvfile:
 			p.save()
 
 # Add locations
-with open('providers.csv', 'rb') as csvfile:
+with open(csv_name, 'rb') as csvfile:
 	providers = csv.DictReader(csvfile, delimiter=',', quotechar='"')
 	for index, row in enumerate(providers):
 
@@ -82,7 +98,7 @@ with open('providers.csv', 'rb') as csvfile:
 		
 
 		
-		l= Location(POC_firstname = "Aliya", POC_firstname2="", POC_lastname="", POC_lastname2="", provider = p, address = address, latitude=0.00, longitude=0.00, phone = row['phone'].strip(), is_headquarters=True, hours_open=row['hours'].strip())
+		l= Location(POC_firstname = "Aliya", POC_firstname2="", POC_lastname="", POC_lastname2="", provider = p, address = address, latitude=0.00, longitude=0.00, phone = row['phone'].strip()[0:20], is_headquarters=True, hours_open=row['hours'].strip())
 		l.save()
         
         
@@ -91,7 +107,7 @@ with open('providers.csv', 'rb') as csvfile:
 				#so this is the only way to get at the geocoded address
 
 # Add relationships
-with open('providers.csv', 'rb') as csvfile:
+with open(csv_name, 'rb') as csvfile:
 	providers = csv.DictReader(csvfile, delimiter=',', quotechar='"')
 	for index, row in enumerate(providers):
 
