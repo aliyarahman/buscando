@@ -29,7 +29,7 @@ def about(request):
 
 def resources(request):
     searched_location = request.POST.get('location')
-    resource = request.POST.get('resource')
+    resource = request.POST.getlist('resource')
     type = request.POST.get('type')
 
     if not type:
@@ -88,8 +88,13 @@ def resources(request):
         messages.error(request, "Please choose a resource and try again.")
         return HttpResponseRedirect('/app/resources')
     else:
-        locations = Location.objects.select_related('provider').filter(
-            resources_available=resource).exclude(provider__approved=False)
+        locations = Location.objects.select_related('provider').exclude(provider__approved=False)
+
+        if len(resource) == 1: # Just one resource chosen
+            locations = locations.filter(resources_available=resource[0])
+        elif len(resource) > 1:
+            locations = locations.filter(resources_available__in=resource)
+
         within_radius = []
         for location in locations:
             if vincenty(
