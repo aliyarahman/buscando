@@ -119,10 +119,10 @@
                 <label>{% trans "Primary Contact" %}</label>
                 <div class="row">
                     <div class="col-xs-6">
-                        {% render_field location_form.POC_firstname class+="form-control" placeholder+="First Name" %}
+                        {% render_field location_form.POC_firstname class+="form-control" placeholder+="{% trans "First Name" %}" %}
                     </div>
                     <div class="col-xs-6">
-                        {% render_field location_form.POC_lastname class+="form-control" placeholder+="Last Name" %}
+                        {% render_field location_form.POC_lastname class+="form-control" placeholder+="{% trans "Last Name" %}" %}
                     </div>
                 </div>
             </div>
