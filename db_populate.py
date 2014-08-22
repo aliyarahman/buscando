@@ -4,6 +4,7 @@ from app.views import *
 import csv
 import os
 from django.db.utils import IntegrityError
+import time
 
 
 #notes about deduping:
@@ -14,8 +15,8 @@ from django.db.utils import IntegrityError
 #Locations: This script will not add a location if a location with the same provider
 	#and address exists.
 	
-#Resources: This script WILL add resources if additional resources are added to an existing
-	#location. But it will not remove resources if the location already has them
+#Resources: This script NOT add any resources to a location that already exist
+	#because it may have been carefully and lovingly hand-edited
 
 
 
@@ -28,7 +29,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "buscando.settings")
 #I'm not really sure if the above line is doing anything anymore.
 
 
-csv_name = 'providers.csv'
+csv_name = 'providers_from_md211.csv'
 
 # Add resources
 
@@ -40,6 +41,9 @@ for resource in resource_types:
     if len(Resource.objects.filter(name=resource)) == 0:
         r = Resource(name=resource)
         r.save()
+
+
+resource_objects = [Resource.objects.filter(name=r).first() for r in resource_types]
 
 # Add roles
 """"
@@ -71,26 +75,24 @@ user = User.objects.filter(username="test_user").first()
 
 with open(csv_name, 'rb') as csvfile:
 	providers = csv.DictReader(csvfile, delimiter=',', quotechar='"')
-	provider_names = [p.name.strip().lower() for p in Provider.objects.all()]#creating a list for searching to dedup provider names
-		#creating this list is probably not the fastest, but allows us to dedup easily based on caps/spacing without losing that formatting
-		#in the name that goes into the database. this list ensures deduping against what's currently in the DB as well
+	
 
 	for index, row in enumerate(providers):
-
-		provider_name = row['provider_name']
-
-		if provider_name.strip().lower() not in provider_names:
+		
+		provider_name = row['provider_name'].strip()
+		
+		existing_provider = Provider.objects.filter(name__iexact = provider_name.strip())
+		
+		if len(existing_provider) == 0:
 			p = Provider(admin = user, name = provider_name.strip(), logo=row['image'].strip(), URL=row['website'].strip())
-			provider_names.append(provider_name.strip().lower())
+
 
 			p.save()
+		else:
+			p = existing_provider.first()
 
-# Add locations
-with open(csv_name, 'rb') as csvfile:
-	providers = csv.DictReader(csvfile, delimiter=',', quotechar='"')
-	for index, row in enumerate(providers):
+		# Add locations
 
-		p = Provider.objects.filter(name=row['provider_name']).first()
 		address_fields = [row['location_name'],row['address1'],row['address2'],row['city'],row['state'],row['zipcode']]
 		address = ' '.join(filter(None,[str(a.strip()) for a in address_fields])) #ensures blank fields and extra whitespace won't mess up formatting
 
@@ -100,31 +102,21 @@ with open(csv_name, 'rb') as csvfile:
 		
 		l= Location(POC_firstname = "Aliya", POC_firstname2="", POC_lastname="", POC_lastname2="", provider = p, address = address, latitude=0.00, longitude=0.00, phone = row['phone'].strip()[0:20], is_headquarters=True, hours_open=row['hours'].strip())
 		l.save()
-        
-        
+		time.sleep(.1)
+		
 		if len(Location.objects.filter(provider=p).filter(address=l.address)) > 1:
 			l.delete() #need to save and then delete because the address gets geocoded and thus changed
 				#so this is the only way to get at the geocoded address
-
-# Add relationships
-with open(csv_name, 'rb') as csvfile:
-	providers = csv.DictReader(csvfile, delimiter=',', quotechar='"')
-	for index, row in enumerate(providers):
-
-            
-
-		p = Provider.objects.filter(name=row['provider_name'].strip()).first()
-		provider_locations = Location.objects.filter(provider=p)
         
+
         
-        
-		resource_objects = [Resource.objects.filter(name=r).first() for r in resource_types]
-			
-		for l in provider_locations:
+
+		else:
 			for r in resource_objects:
 				if row[r.name].lower().strip() == 'yes':
 					l.resources_needed.add(r)
 					l.resources_available.add(r)
-				l.save()
 		
-
+		
+		
+		

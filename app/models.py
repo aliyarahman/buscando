@@ -54,7 +54,7 @@ class Location(models.Model):
 		return self.address
 
 	def save(self):
-		if self.latitude == 0 or self.longitude == 0:
+		if int(self.latitude) == 0 or int(self.longitude) == 0:
 			try:
 				geolocator = GoogleV3()
 				self.address, (self.latitude, self.longitude) = geolocator.geocode(self.address)
