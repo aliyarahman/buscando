@@ -29,7 +29,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "buscando.settings")
 #I'm not really sure if the above line is doing anything anymore.
 
 
-csv_name = 'providers_from_md211.csv'
+csv_name = 'providers.csv'
 
 # Add resources
 
