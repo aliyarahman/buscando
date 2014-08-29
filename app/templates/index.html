@@ -9,7 +9,7 @@
         {% if messages %}
           {% for message in messages %}
                 <div id="message" class="alert alert-{% if 'error' in message.tags %}danger{% else %}{{ message.tags }}{% endif %}">
-                {% trans message %}
+                {{ message }}
                 </div>
           {% endfor %}
         {% endif %}
