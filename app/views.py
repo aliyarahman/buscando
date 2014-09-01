@@ -31,9 +31,16 @@ def resources(request):
     searched_location = request.POST.get('location')
     resource = request.POST.getlist('resource')
     type = request.POST.get('type')
+    radius = request.POST.get('radius')
 
     if not type:
         type = request.GET.get('type')
+
+    try:
+        radius = int(radius)
+        assert 10 < radius < 150
+    except:
+        radius = RADIUS_DISTANCE
 
     if not searched_location and not resource:
         return render(request, 'resources.html', { 'type': type })
@@ -100,7 +107,7 @@ def resources(request):
             if vincenty(
                 (location.latitude, location.longitude), 
                 (coords['latitude'], coords['longitude'])
-            ).miles <= RADIUS_DISTANCE:
+            ).miles <= radius:
                 within_radius.append(location)
 
     context = {
