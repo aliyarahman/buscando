@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-03 01:22-0400\n"
+"POT-Creation-Date: 2014-09-03 18:38-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/views.py:92
+#: app/views.py:95
 msgid ""
 "Sorry, I couldn't find that location. Please try again. You can also search "
 "by city or by zipcode."
@@ -26,10 +26,9 @@ msgstr ""
 "Disculpe, no puedo encontrar esa ubicación. Por favor, intente de nuevo. "
 "También puede buscar por ciudad o por código postal"
 
-#: app/views.py:104
+#: app/views.py:110
 msgid "Please choose a resource and try again."
-msgstr ""
-"Por favor, indique el tipo de recurso o servicio que está buscando e intente "
+msgstr "Por favor, indique el tipo de recurso o servicio que está buscando e intente "
 "de nuevo."
 
 #: app/templates/FAQ.html:7
@@ -42,8 +41,7 @@ msgstr "Acerca de"
 
 #: app/templates/about.html:13
 msgid "Buscando is the place where needs meet services."
-msgstr ""
-"Buscando es el lugar donde las necesidades se satisfacen con servicios."
+msgstr "Buscando es el lugar donde las necesidades se satisfacen con servicios."
 
 #: app/templates/about.html:14
 msgid ""
@@ -140,7 +138,8 @@ msgstr ""
 #: app/templates/about.html:26
 msgid ""
 "No one person or group is the answer. We must all work together to meet this "
-"challenge. Buscando will help us ensure that the children and the families "
+"challenge. Together with United Way's 211 and other public and private "
+"partners, Buscando will help us ensure that the children and the families "
 "that are taking them in have the support, resources and answers they so that "
 "these children can enjoy the joys of being children once again."
 msgstr ""
@@ -197,7 +196,6 @@ msgid "Project managers"
 msgstr ""
 
 #: app/templates/about.html:77
-#, fuzzy
 msgid "More resources"
 msgstr "Mas información"
 
@@ -206,7 +204,6 @@ msgid "Federal Response"
 msgstr ""
 
 #: app/templates/about.html:82
-#, fuzzy
 msgid "Education"
 msgstr "Educación"
 
@@ -261,23 +258,23 @@ msgstr "o"
 msgid "view the code"
 msgstr "vea el código"
 
-#: app/templates/base.html:68
+#: app/templates/base.html:69
 msgid "Volunteers & Donors"
 msgstr "Voluntarios y Donantes"
 
-#: app/templates/base.html:71
+#: app/templates/base.html:72
 msgid "Profile"
 msgstr "Perfil"
 
-#: app/templates/base.html:72
+#: app/templates/base.html:73
 msgid "Logout"
 msgstr "Cerrar sesión"
 
-#: app/templates/base.html:74
+#: app/templates/base.html:75
 msgid "Organizations"
 msgstr "Organizaciones"
 
-#: app/templates/base.html:106
+#: app/templates/base.html:107
 msgid "About Buscando"
 msgstr "Acerca de Buscando"
 
@@ -287,7 +284,7 @@ msgstr "Hay ayuda cerca."
 
 #: app/templates/index.html:7
 msgid ""
-"Find food, clothing, and other resources in your area for Central American "
+"Find food, clothing, and other resources in Maryland for Central American "
 "children seeking refuge."
 msgstr ""
 "Encuentre comida, ropa y otros recursos cerca de su zona de residencia, para "
@@ -302,32 +299,32 @@ msgid "What do you need?"
 msgstr "¿Qué necesita?"
 
 #: app/templates/index.html:24 app/templates/resources.html:28
-#: app/templates/resources.html.py:88
+#: app/templates/resources.html.py:94
 msgid "Food"
 msgstr "Comida"
 
 #: app/templates/index.html:25 app/templates/resources.html:29
-#: app/templates/resources.html.py:88
+#: app/templates/resources.html.py:94
 msgid "Clothing"
 msgstr "Ropa"
 
 #: app/templates/index.html:26 app/templates/resources.html:30
-#: app/templates/resources.html.py:88
+#: app/templates/resources.html.py:94
 msgid "Language"
 msgstr "Idioma"
 
 #: app/templates/index.html:27 app/templates/resources.html:31
-#: app/templates/resources.html.py:88
+#: app/templates/resources.html.py:94
 msgid "Transportation"
 msgstr "Servicios de Transporte"
 
 #: app/templates/index.html:28 app/templates/resources.html:32
-#: app/templates/resources.html.py:88
+#: app/templates/resources.html.py:94
 msgid "Legal Services"
 msgstr "Servicios Legales"
 
 #: app/templates/index.html:29 app/templates/resources.html:33
-#: app/templates/resources.html.py:88
+#: app/templates/resources.html.py:94
 msgid "Medical Care"
 msgstr "Atención Médica"
 
@@ -340,12 +337,12 @@ msgid "Religious Services"
 msgstr "Servicios Religiosos"
 
 #: app/templates/index.html:32 app/templates/resources.html:36
-#: app/templates/resources.html.py:88
+#: app/templates/resources.html.py:94
 msgid "Counseling"
 msgstr "Orientación"
 
 #: app/templates/index.html:33 app/templates/resources.html:37
-#: app/templates/resources.html.py:88
+#: app/templates/resources.html.py:94
 msgid "Recreation"
 msgstr "Entretenimiento"
 
@@ -468,35 +465,39 @@ msgstr "Dona recursos"
 msgid "Find available resources"
 msgstr "Busca recursos"
 
-#: app/templates/resources.html:58
+#: app/templates/resources.html:59
 msgid "locations found"
 msgstr "ubicaciones encontradas"
 
-#: app/templates/resources.html:60
+#: app/templates/resources.html:62
 msgid ""
-"We didn't find any results through this search, but you can call <a "
-"href='tel:211'>2-1-1</a> for more help."
+"We found no results for that search. Please call <a href='tel:211'>2-1-1</a> "
+"for additional assistance."
 msgstr ""
 "No hemos encontrado ningún resultado, pero puede llamar <a "
 "href='tel:211'>2-1-1</a> para ayuda."
 
-#: app/templates/resources.html:63
+#: app/templates/resources.html:64
+msgid "No results found, but you can sign up as a volunteer."
+msgstr "No hemos encontrado ningún resultado, pero puede regístrese como voluntario."
+
+#: app/templates/resources.html:68
 msgid "Sign up as a Volunteer"
 msgstr "Regístrese como Voluntario"
 
-#: app/templates/resources.html:84
+#: app/templates/resources.html:90
 msgid "Resources needed"
 msgstr "Recursos necesarios"
 
-#: app/templates/resources.html:84
+#: app/templates/resources.html:90
 msgid "Resources available"
 msgstr "Recursos disponibles"
 
-#: app/templates/resources.html:88
+#: app/templates/resources.html:94
 msgid "Education And Enrollment"
 msgstr "Educación / Inscripciones"
 
-#: app/templates/resources.html:88
+#: app/templates/resources.html:94
 msgid "Religous Services"
 msgstr "Servicios Religiosos"
 
@@ -608,7 +609,7 @@ msgstr "Ubicaciónes"
 
 #: app/templates/provider/edit.html:244
 msgid "Remove location"
-msgstr ""
+msgstr "Elimina oficina"
 
 #: app/templates/provider/edit.html:251
 msgid "Add Location"
