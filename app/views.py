@@ -136,6 +136,7 @@ def resources(request, **kwargs):
 
     context = {
         'within_radius': within_radius,
+        'radius':radius,
         'location': searched_location,
         'resource': resource,
         'search_from': coords,

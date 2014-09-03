@@ -59,7 +59,7 @@
                     {{ within_radius | length }} {% trans "locations found" %}
                 {% else %}
                     {% if type != 'volunteer' %}
-                        {% trans "We didn't find any results through this search, but you can call <a href='tel:211'>2-1-1</a> for more help." %} 
+                        {% trans "We didn't find any results within " %} {{radius}} {% trans " miles, but you can call <a href='tel:211'>2-1-1</a> for more help." %} 
                     {% else %}
                         {% trans "No results found, but you can sign up as a volunteer." %}
                     {% endif %}
