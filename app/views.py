@@ -27,6 +27,9 @@ def index(request):
 def about(request):
 	return render(request, "about.html")
 
+def FAQ(request):
+	return render(request, "FAQ.html")
+
 def resources(request):
     searched_location = request.POST.get('location')
     resource = request.POST.getlist('resource')
