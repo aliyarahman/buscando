@@ -139,7 +139,7 @@ msgstr "o"
 
 #: app/templates/about.html:56
 msgid "view the code"
-msgstr "ver el código"
+msgstr "vea el código"
 
 #: app/templates/base.html:68
 msgid "Give Resources"
@@ -285,8 +285,7 @@ msgid ""
 "Register to list your organization's resources and contact information on "
 "Buscando."
 msgstr ""
-"Regístrese para ingresar los recursos y la información de contacto de su "
-"organización en Buscando."
+"Regístrese en Buscando para incluir la información de contacto de su organización y los recursos que tiene disponibles."
 
 #: app/templates/login.html:18 app/templates/volunteer/new.html:62
 #: venv/lib/python2.7/site-packages/django/contrib/auth/forms.py:217
@@ -304,7 +303,7 @@ msgstr "Contraseña"
 
 #: app/templates/login.html:27
 msgid "Your email and/or password didn't match. Please try again."
-msgstr ""
+msgstr "Su correo electrónico y/o contraseña no coinciden, por favor intente de nuevo."
 
 #: app/templates/organization_home.html:2
 msgid "organization home"
@@ -462,11 +461,11 @@ msgstr ""
 
 #: app/templates/provider/edit.html:251
 msgid "Add Location"
-msgstr "Añada una Ubicación Adicional"
+msgstr "Añada una Oficina Adicional"
 
 #: app/templates/provider/new.html:59
 msgid "Create a new organization account"
-msgstr ""
+msgstr "Cree una cuenta para su organización"
 
 #: app/templates/provider/new.html:65
 msgid "Organization Profile"
