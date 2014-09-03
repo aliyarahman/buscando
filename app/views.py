@@ -86,7 +86,8 @@ def resources(request):
             }
 
     if not coords:
-        messages.error(request, "Sorry, I couldn't find that location. Please try again. You can also search by city or by zipcode.")
+        cdnt_find_loc_error_msg = _("Sorry, I couldn't find that location. Please try again. You can also search by city or by zipcode.")
+        messages.error(request, cdnt_find_loc_error_msg)
         return HttpResponseRedirect('/app/resources?type' + type)
 
     try:
@@ -97,7 +98,8 @@ def resources(request):
         else:
             raise ValueError
     except:
-        messages.error(request, "Please choose a resource and try again.")
+    	cdnt_find_res_error_msg = _("Please choose a resource and try again.")
+        messages.error(request, cdnt_find_res_error_msg)
         return HttpResponseRedirect('/app/resources')
     else:
         locations = Location.objects.select_related('provider').exclude(provider__approved=False)
