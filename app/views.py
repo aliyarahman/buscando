@@ -90,7 +90,12 @@ def resources(request):
         return HttpResponseRedirect('/app/resources?type' + type)
 
     try:
-        resource = Resource.objects.get(name=resource.lower())
+        if len(resource) == 1:
+            resource = [Resource.objects.get(name=resource[0].lower())]
+        elif len(resource) > 1:
+            resource = Resource.objects.filter(name__in=[res.lower() for res in resource])
+        else:
+            raise ValueError
     except:
         messages.error(request, "Please choose a resource and try again.")
         return HttpResponseRedirect('/app/resources')
