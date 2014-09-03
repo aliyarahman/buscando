@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-02 21:46-0400\n"
+"POT-Creation-Date: 2014-09-02 23:22-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,11 +23,14 @@ msgid ""
 "Sorry, I couldn't find that location. Please try again. You can also search "
 "by city or by zipcode."
 msgstr ""
-"Disculpe, no puedo encontrar esa ubicación. Por favor, intente de nuevo. También puede buscar por ciudad o por código postal"
+"Disculpe, no puedo encontrar esa ubicación. Por favor, intente de nuevo. "
+"También puede buscar por ciudad o por código postal"
 
 #: app/views.py:101
 msgid "Please choose a resource and try again."
-msgstr "Por favor, indique el tipo de recurso o servicio que está buscando e intente de nuevo."
+msgstr ""
+"Por favor, indique el tipo de recurso o servicio que está buscando e intente "
+"de nuevo."
 
 #: app/templates/about.html:7
 msgid "About"
@@ -182,26 +185,32 @@ msgid "What do you need?"
 msgstr "¿Qué necesita?"
 
 #: app/templates/index.html:24 app/templates/resources.html:28
+#: app/templates/resources.html.py:84
 msgid "Food"
 msgstr "Comida"
 
 #: app/templates/index.html:25 app/templates/resources.html:29
+#: app/templates/resources.html.py:84
 msgid "Clothing"
 msgstr "Ropa"
 
 #: app/templates/index.html:26 app/templates/resources.html:30
+#: app/templates/resources.html.py:84
 msgid "Language"
 msgstr "Idioma"
 
 #: app/templates/index.html:27 app/templates/resources.html:31
+#: app/templates/resources.html.py:84
 msgid "Transportation"
 msgstr "Servicios de Transporte"
 
 #: app/templates/index.html:28 app/templates/resources.html:32
+#: app/templates/resources.html.py:84
 msgid "Legal Services"
 msgstr "Servicios Legales"
 
 #: app/templates/index.html:29 app/templates/resources.html:33
+#: app/templates/resources.html.py:84
 msgid "Medical Care"
 msgstr "Atención Médica"
 
@@ -214,10 +223,12 @@ msgid "Religious Services"
 msgstr "Servicios Religiosos"
 
 #: app/templates/index.html:32 app/templates/resources.html:36
+#: app/templates/resources.html.py:84
 msgid "Counseling"
 msgstr "Orientación"
 
 #: app/templates/index.html:33 app/templates/resources.html:37
+#: app/templates/resources.html.py:84
 msgid "Recreation"
 msgstr "Entretenimiento"
 
@@ -285,7 +296,8 @@ msgid ""
 "Register to list your organization's resources and contact information on "
 "Buscando."
 msgstr ""
-"Regístrese en Buscando para incluir la información de contacto de su organización y los recursos que tiene disponibles."
+"Regístrese en Buscando para incluir la información de contacto de su "
+"organización y los recursos que tiene disponibles."
 
 #: app/templates/login.html:18 app/templates/volunteer/new.html:62
 #: venv/lib/python2.7/site-packages/django/contrib/auth/forms.py:217
@@ -303,7 +315,9 @@ msgstr "Contraseña"
 
 #: app/templates/login.html:27
 msgid "Your email and/or password didn't match. Please try again."
-msgstr "Su correo electrónico y/o contraseña no coinciden, por favor intente de nuevo."
+msgstr ""
+"Su correo electrónico y/o contraseña no coinciden, por favor intente de "
+"nuevo."
 
 #: app/templates/organization_home.html:2
 msgid "organization home"
@@ -348,6 +362,14 @@ msgstr "Recursos necesarios"
 #: app/templates/resources.html:80
 msgid "Resources available"
 msgstr "Recursos disponibles"
+
+#: app/templates/resources.html:84
+msgid "Education And Enrollment"
+msgstr "Educación / Inscripciones"
+
+#: app/templates/resources.html:84
+msgid "Religous Services"
+msgstr "Servicios Religiosos"
 
 #: app/templates/location/edit.html:67 app/templates/location/new.html:84
 #: app/templates/provider/edit.html:131
