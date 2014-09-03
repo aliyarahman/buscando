@@ -125,8 +125,6 @@ def resources(request):
         'type': type
     }
 
-    print context
-
     return render(request, 'resources.html', dictionary=context)
 
 @login_required
