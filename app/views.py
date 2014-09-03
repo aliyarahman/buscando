@@ -109,13 +109,18 @@ def resources(request):
         elif len(resource) > 1:
             locations = locations.filter(resources_available__in=resource)
 
-        within_radius = []
+        radius_tuples = []
         for location in locations:
-            if vincenty(
+            dist = vincenty(
                 (location.latitude, location.longitude), 
                 (coords['latitude'], coords['longitude'])
-            ).miles <= radius:
-                within_radius.append(location)
+            ).miles
+            if dist <= radius:
+                radius_tuples.append((location,dist))
+                
+        radius_tuples.sort(key=lambda tup: tup[1]) #sorts the location/distance tuples by dist
+        
+        within_radius = [tup[0] for tup in radius_tuples]
 
     context = {
         'within_radius': within_radius,
