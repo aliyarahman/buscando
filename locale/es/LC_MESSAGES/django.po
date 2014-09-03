@@ -22,11 +22,12 @@ msgstr ""
 msgid ""
 "Sorry, I couldn't find that location. Please try again. You can also search "
 "by city or by zipcode."
-msgstr "Por favor, escriba una direccion. Puede buscar usando direccion, ciudad, o codigo postal."
+msgstr ""
+"Disculpe, no puedo encontrar esa ubicación. Por favor, intente de nuevo. También puede buscar por ciudad o por código postal"
 
 #: app/views.py:101
 msgid "Please choose a resource and try again."
-msgstr "Por favor, escoja un recurso."
+msgstr "Por favor, indique el tipo de recurso o servicio que está buscando e intente de nuevo."
 
 #: app/templates/about.html:7
 msgid "About"
@@ -154,7 +155,7 @@ msgstr "Cerrar sesión"
 
 #: app/templates/base.html:74 app/templates/login.html:14
 msgid "Organization Login"
-msgstr "Ingresar para Organizaciónes"
+msgstr "Acceso para Organizaciones"
 
 #: app/templates/base.html:106
 msgid "About Buscando"
@@ -314,9 +315,8 @@ msgid "Profile page"
 msgstr "Perfil de la Organización"
 
 #: app/templates/resources.html:18
-#, fuzzy
 msgid "Your location"
-msgstr "Ubicación"
+msgstr "Tu ubicación"
 
 #: app/templates/resources.html:23
 msgid "Resources"
@@ -324,7 +324,7 @@ msgstr "Recursos"
 
 #: app/templates/resources.html:26
 msgid "What can you give?"
-msgstr "¿Qué se puede dar?"
+msgstr "¿Qué puedes dar?"
 
 #: app/templates/resources.html:44
 msgid "Give resources"
@@ -2740,7 +2740,7 @@ msgstr "Perfil de la Organización"
 #: venv/lib/python2.7/site-packages/django/contrib/flatpages/tests/test_forms.py:98
 #: venv/lib/python2.7/site-packages/django/forms/fields.py:53
 msgid "This field is required."
-msgstr ""
+msgstr "Este campo es requerido."
 
 #: venv/lib/python2.7/site-packages/django/contrib/formtools/templates/formtools/wizard/wizard_form.html:15
 #, fuzzy
