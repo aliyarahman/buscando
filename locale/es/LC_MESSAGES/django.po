@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-02 23:22-0400\n"
+"POT-Creation-Date: 2014-09-03 01:22-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/views.py:89
+#: app/views.py:92
 msgid ""
 "Sorry, I couldn't find that location. Please try again. You can also search "
 "by city or by zipcode."
@@ -26,11 +26,15 @@ msgstr ""
 "Disculpe, no puedo encontrar esa ubicación. Por favor, intente de nuevo. "
 "También puede buscar por ciudad o por código postal"
 
-#: app/views.py:101
+#: app/views.py:104
 msgid "Please choose a resource and try again."
 msgstr ""
 "Por favor, indique el tipo de recurso o servicio que está buscando e intente "
 "de nuevo."
+
+#: app/templates/FAQ.html:7
+msgid "Frequently Asked Questions"
+msgstr ""
 
 #: app/templates/about.html:7
 msgid "About"
@@ -38,7 +42,8 @@ msgstr "Acerca de"
 
 #: app/templates/about.html:13
 msgid "Buscando is the place where needs meet services."
-msgstr "Buscando es el lugar donde las necesidades se satisfacen con servicios."
+msgstr ""
+"Buscando es el lugar donde las necesidades se satisfacen con servicios."
 
 #: app/templates/about.html:14
 msgid ""
@@ -46,7 +51,9 @@ msgid ""
 "violence in Central America connect with local community organizations and "
 "resources."
 msgstr ""
-"Aquí los niños que escaparon de la violencia en Centroamérica y las familias voluntarias, se conectan con organizaciones y recursos locales de la comunidad."
+"Aquí los niños que escaparon de la violencia en Centroamérica y las familias "
+"voluntarias, se conectan con organizaciones y recursos locales de la "
+"comunidad."
 
 #: app/templates/about.html:16
 msgid ""
@@ -57,7 +64,13 @@ msgid ""
 "deserve the chance to learn, to feel safe at night, and to live the life of "
 "a kid while they go through this unique federal legal process."
 msgstr ""
-"En 2014, un estimado de 30.000 niños de Centroamérica escaparon de la violencia en sus países de origen, y han llegado a los Estados Unidos buscando refugio. Como nación y como estado, tenemos la responsabilidad humanitaria de proveer una atención basada en la familia a cualquier niño vulnerable, sin importar su lugar de procedencia. Estos niños merecen la oportunidad de aprender, sentirse seguros en la noche y vivir una vida de niño mientras atraviesan este proceso legal federal sin precedentes."
+"En 2014, un estimado de 30.000 niños de Centroamérica escaparon de la "
+"violencia en sus países de origen, y han llegado a los Estados Unidos "
+"buscando refugio. Como nación y como estado, tenemos la responsabilidad "
+"humanitaria de proveer una atención basada en la familia a cualquier niño "
+"vulnerable, sin importar su lugar de procedencia. Estos niños merecen la "
+"oportunidad de aprender, sentirse seguros en la noche y vivir una vida de "
+"niño mientras atraviesan este proceso legal federal sin precedentes."
 
 #: app/templates/about.html:18
 #, python-format
@@ -71,7 +84,15 @@ msgid ""
 "basic human needs met, have a safe home environment and the resources they "
 "need while they go through the next steps in the federal process."
 msgstr ""
-"A la fecha de 31 de julio, 2,804 niños han sido ubicados en Maryland con patrocinadores. Esto representa aproximadamente el 7,5%% del número total de niños que han sido puestos en libertad en manos de patrocinadores en los Estados Unidos. Es un porcentaje mayor que lo normal debido a que en Maryland hay una gran población de inmigrantes de El Salvador, Guatemala y Honduras. El gobernador O’Malley  ha hecho un llamado a la población de Maryland para que unidos, aseguren que estos niños tengan cubiertas sus necesidades básicas, tengan un ambiente de hogar seguro y los recursos necesarios mientras atraviesan los próximos pasos en el proceso federal."
+"A la fecha de 31 de julio, 2,804 niños han sido ubicados en Maryland con "
+"patrocinadores. Esto representa aproximadamente el 7,5%% del número total de "
+"niños que han sido puestos en libertad en manos de patrocinadores en los "
+"Estados Unidos. Es un porcentaje mayor que lo normal debido a que en "
+"Maryland hay una gran población de inmigrantes de El Salvador, Guatemala y "
+"Honduras. El gobernador O’Malley  ha hecho un llamado a la población de "
+"Maryland para que unidos, aseguren que estos niños tengan cubiertas sus "
+"necesidades básicas, tengan un ambiente de hogar seguro y los recursos "
+"necesarios mientras atraviesan los próximos pasos en el proceso federal."
 
 #: app/templates/about.html:20
 msgid ""
@@ -82,7 +103,12 @@ msgid ""
 "Maryland. Buscando is the bridge between organizations with capacity and the "
 "children who need assistance."
 msgstr ""
-"Para responder a este llamado, un grupo colectivo de tecnólogos del área de D.C. creó Buscando, que es la herramienta tecnológica principal para apoyar la coordinación de esfuerzos a través de las comunidades, agrupando a individuos, grupos comunitarios y al gobierno del estado para atender a los niños cuando lleguen a Maryland. Buscando es un puente que une a organizaciones que tienen capacidades con los niños que necesitan asistencia."
+"Para responder a este llamado, un grupo colectivo de tecnólogos del área de "
+"D.C. creó Buscando, que es la herramienta tecnológica principal para apoyar "
+"la coordinación de esfuerzos a través de las comunidades, agrupando a "
+"individuos, grupos comunitarios y al gobierno del estado para atender a los "
+"niños cuando lleguen a Maryland. Buscando es un puente que une a "
+"organizaciones que tienen capacidades con los niños que necesitan asistencia."
 
 #: app/templates/about.html:22
 msgid ""
@@ -93,7 +119,12 @@ msgid ""
 "need with food and clothing, legal services for immigration proceedings, "
 "access to health care and other basic human needs."
 msgstr ""
-"Si bien este es un programa administrado por el gobierno federal, y no sabemos cuántos niños más llegarán en los próximos meses; sí sabemos que sus necesidades y las de las familias de acogida, pueden ser satisfechas con ayuda a nivel local. Donde quiera que sean ubicados estos niños, necesitarán comida y ropa, servicios legales para los procedimientos de inmigración, acceso a atención médica y otras necesidades humanas básicas."
+"Si bien este es un programa administrado por el gobierno federal, y no "
+"sabemos cuántos niños más llegarán en los próximos meses; sí sabemos que sus "
+"necesidades y las de las familias de acogida, pueden ser satisfechas con "
+"ayuda a nivel local. Donde quiera que sean ubicados estos niños, necesitarán "
+"comida y ropa, servicios legales para los procedimientos de inmigración, "
+"acceso a atención médica y otras necesidades humanas básicas."
 
 #: app/templates/about.html:24
 msgid ""
@@ -101,7 +132,10 @@ msgid ""
 "that Maryland has in such abundance with the needs of these brave children "
 "who are fleeing from brutal drug cartels, gangs and corrupt police forces."
 msgstr ""
-"Nos sentimos honrados al jugar un papel en el proceso de juntar los conocimientos y la compasión, que se tienen en Maryland en abundancia, con las necesidades de estos niños valientes que se están escapando de brutales carteles de drogas, pandillas y fuerzas policiales corruptas."
+"Nos sentimos honrados al jugar un papel en el proceso de juntar los "
+"conocimientos y la compasión, que se tienen en Maryland en abundancia, con "
+"las necesidades de estos niños valientes que se están escapando de brutales "
+"carteles de drogas, pandillas y fuerzas policiales corruptas."
 
 #: app/templates/about.html:26
 msgid ""
@@ -110,49 +144,126 @@ msgid ""
 "that are taking them in have the support, resources and answers they so that "
 "these children can enjoy the joys of being children once again."
 msgstr ""
-"La respuesta no está en una sola persona o grupo. Debemos trabajar unidos para enfrentar este reto. Buscando nos ayudará a asegurar que los niños y las familias que los están cuidando tengan el apoyo, los recursos y las respuestas de tal forma que estos niños puedan disfrutar la alegría de ser niños un vez más."
+"La respuesta no está en una sola persona o grupo. Debemos trabajar unidos "
+"para enfrentar este reto. Buscando nos ayudará a asegurar que los niños y "
+"las familias que los están cuidando tengan el apoyo, los recursos y las "
+"respuestas de tal forma que estos niños puedan disfrutar la alegría de ser "
+"niños un vez más."
 
-#: app/templates/about.html:36
+#: app/templates/about.html:29
+msgid "Who built Buscando?"
+msgstr "¿Quiénes desarrollaron Buscando?"
+
+#: app/templates/about.html:31
+msgid ""
+"Buscando was built entirely by volunteer technologists associated with <a "
+"href=\"http://www.hearmecode.com\">HearMeCode</a>, <a href=\"http://www."
+"techladyhackathon.org\">TechLadyHackathon</a>, and <a href=\"http://www."
+"codeforprogress.org\">Code for Progress</a> - organizations working to build "
+"the power of women, people of color, and low-income people in the tech "
+"industry."
+msgstr ""
+
+#: app/templates/about.html:34
+msgid "Researchers"
+msgstr ""
+
+#: app/templates/about.html:40
+msgid "Content writer - Spanish"
+msgstr ""
+
+#: app/templates/about.html:43
+msgid "Content writer - English"
+msgstr ""
+
+#: app/templates/about.html:46
+msgid "Testers"
+msgstr ""
+
+#: app/templates/about.html:54
+msgid "Front-end developers"
+msgstr ""
+
+#: app/templates/about.html:58
+msgid "Back-end developers"
+msgstr ""
+
+#: app/templates/about.html:63
+msgid "Database programmers"
+msgstr ""
+
+#: app/templates/about.html:69
+msgid "Project managers"
+msgstr ""
+
+#: app/templates/about.html:77
+#, fuzzy
+msgid "More resources"
+msgstr "Mas información"
+
+#: app/templates/about.html:78
+msgid "Federal Response"
+msgstr ""
+
+#: app/templates/about.html:82
+#, fuzzy
+msgid "Education"
+msgstr "Educación"
+
+#: app/templates/about.html:88
+msgid "Housing and Health"
+msgstr ""
+
+#: app/templates/about.html:98
+msgid "Security"
+msgstr "Seguridad"
+
+#: app/templates/about.html:102
+msgid "Legal"
+msgstr "Ley"
+
+#: app/templates/about.html:114
 msgid "Brainstorm session for Buscano at DC Techlady Hackathon"
-msgstr "Sesión de lluvia de ideas para el desarrollo de Buscando en DC Techlady "
+msgstr ""
+"Sesión de lluvia de ideas para el desarrollo de Buscando en DC Techlady "
 "Hackathon"
 
-#: app/templates/about.html:39
+#: app/templates/about.html:117
 msgid "Brainstorm session for Buscando at "
 msgstr "Sesión de lluvia de ideas para el desarrollo de Buscando en"
 
-#: app/templates/about.html:39
+#: app/templates/about.html:117
 msgid "DC Techlady Hackathon"
 msgstr "DC Techlady Hackathon"
 
-#: app/templates/about.html:46
+#: app/templates/about.html:124
 msgid "Set of wireframes in progess for the app"
 msgstr "Conjunto de diagramas funcionales para la aplicación."
 
-#: app/templates/about.html:49
+#: app/templates/about.html:127
 msgid "Set of wireframes in progress for the app"
 msgstr "Conjunto de diagramas funcionales para la aplicación."
 
-#: app/templates/about.html:55
+#: app/templates/about.html:133
 msgid "Buscando is an open-source project"
 msgstr "Buscando es un proyecto do código abierto"
 
-#: app/templates/about.html:56
+#: app/templates/about.html:134
 msgid "Learn more about who built it"
 msgstr "Conozca más acerca de quiénes desarrollaron Buscando"
 
-#: app/templates/about.html:56
+#: app/templates/about.html:134
 #: venv/lib/python2.7/site-packages/django/utils/text.py:224
 msgid "or"
 msgstr "o"
 
-#: app/templates/about.html:56
+#: app/templates/about.html:134
 msgid "view the code"
 msgstr "vea el código"
 
 #: app/templates/base.html:68
-msgid "Give Resources"
-msgstr "Dona Recursos"
+msgid "Volunteers & Donors"
+msgstr "Voluntarios y Donantes"
 
 #: app/templates/base.html:71
 msgid "Profile"
@@ -162,9 +273,9 @@ msgstr "Perfil"
 msgid "Logout"
 msgstr "Cerrar sesión"
 
-#: app/templates/base.html:74 app/templates/login.html:14
-msgid "Organization Login"
-msgstr "Acceso para Organizaciones"
+#: app/templates/base.html:74
+msgid "Organizations"
+msgstr "Organizaciones"
 
 #: app/templates/base.html:106
 msgid "About Buscando"
@@ -191,32 +302,32 @@ msgid "What do you need?"
 msgstr "¿Qué necesita?"
 
 #: app/templates/index.html:24 app/templates/resources.html:28
-#: app/templates/resources.html.py:84
+#: app/templates/resources.html.py:88
 msgid "Food"
 msgstr "Comida"
 
 #: app/templates/index.html:25 app/templates/resources.html:29
-#: app/templates/resources.html.py:84
+#: app/templates/resources.html.py:88
 msgid "Clothing"
 msgstr "Ropa"
 
 #: app/templates/index.html:26 app/templates/resources.html:30
-#: app/templates/resources.html.py:84
+#: app/templates/resources.html.py:88
 msgid "Language"
 msgstr "Idioma"
 
 #: app/templates/index.html:27 app/templates/resources.html:31
-#: app/templates/resources.html.py:84
+#: app/templates/resources.html.py:88
 msgid "Transportation"
 msgstr "Servicios de Transporte"
 
 #: app/templates/index.html:28 app/templates/resources.html:32
-#: app/templates/resources.html.py:84
+#: app/templates/resources.html.py:88
 msgid "Legal Services"
 msgstr "Servicios Legales"
 
 #: app/templates/index.html:29 app/templates/resources.html:33
-#: app/templates/resources.html.py:84
+#: app/templates/resources.html.py:88
 msgid "Medical Care"
 msgstr "Atención Médica"
 
@@ -229,12 +340,12 @@ msgid "Religious Services"
 msgstr "Servicios Religiosos"
 
 #: app/templates/index.html:32 app/templates/resources.html:36
-#: app/templates/resources.html.py:84
+#: app/templates/resources.html.py:88
 msgid "Counseling"
 msgstr "Orientación"
 
 #: app/templates/index.html:33 app/templates/resources.html:37
-#: app/templates/resources.html.py:84
+#: app/templates/resources.html.py:88
 msgid "Recreation"
 msgstr "Entretenimiento"
 
@@ -305,6 +416,10 @@ msgstr ""
 "Regístrese en Buscando para incluir la información de contacto de su "
 "organización y los recursos que tiene disponibles."
 
+#: app/templates/login.html:14
+msgid "Organization Login"
+msgstr "Acceso para Organizaciones"
+
 #: app/templates/login.html:18 app/templates/volunteer/new.html:62
 #: venv/lib/python2.7/site-packages/django/contrib/auth/forms.py:217
 msgid "Email"
@@ -353,27 +468,35 @@ msgstr "Dona recursos"
 msgid "Find available resources"
 msgstr "Busca recursos"
 
-#: app/templates/resources.html:57
+#: app/templates/resources.html:58
 msgid "locations found"
 msgstr "ubicaciones encontradas"
 
-#: app/templates/resources.html:59
+#: app/templates/resources.html:60
+msgid ""
+"We didn't find any results through this search, but you can call <a "
+"href='tel:211'>2-1-1</a> for more help."
+msgstr ""
+"No hemos encontrado ningún resultado, pero puede llamar <a "
+"href='tel:211'>2-1-1</a> para ayuda."
+
+#: app/templates/resources.html:63
 msgid "Sign up as a Volunteer"
 msgstr "Regístrese como Voluntario"
 
-#: app/templates/resources.html:80
+#: app/templates/resources.html:84
 msgid "Resources needed"
 msgstr "Recursos necesarios"
 
-#: app/templates/resources.html:80
+#: app/templates/resources.html:84
 msgid "Resources available"
 msgstr "Recursos disponibles"
 
-#: app/templates/resources.html:84
+#: app/templates/resources.html:88
 msgid "Education And Enrollment"
 msgstr "Educación / Inscripciones"
 
-#: app/templates/resources.html:84
+#: app/templates/resources.html:88
 msgid "Religous Services"
 msgstr "Servicios Religiosos"
 
@@ -525,7 +648,7 @@ msgstr "Esta es la sede principal de nuestra Organización"
 
 #: app/templates/provider/new.html:119
 msgid "Primary Contact"
-msgstr ""
+msgstr "Nombre de empleado"
 
 #: app/templates/provider/new.html:131 app/templates/volunteer/new.html:70
 msgid "Phone"
@@ -549,7 +672,7 @@ msgstr ""
 
 #: app/templates/provider/new.html:153
 msgid "Remove this Location"
-msgstr ""
+msgstr "Eliminar esta oficina."
 
 #: app/templates/provider/new.html:166
 msgid "Finish Up"
@@ -1000,7 +1123,7 @@ msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/contrib/admin/forms.py:19
 msgid "Please log in again, because your session has expired."
-msgstr ""
+msgstr "Su sesión ha expirado, por favor inicie la sesión nuevamente."
 
 #: venv/lib/python2.7/site-packages/django/contrib/admin/helpers.py:23
 #, fuzzy
@@ -2180,13 +2303,13 @@ msgstr ""
 
 #: venv/lib/python2.7/site-packages/django/contrib/auth/forms.py:73
 msgid "A user with that username already exists."
-msgstr ""
+msgstr "Este perfil ya existe."
 
 #: venv/lib/python2.7/site-packages/django/contrib/auth/forms.py:74
 #: venv/lib/python2.7/site-packages/django/contrib/auth/forms.py:266
 #: venv/lib/python2.7/site-packages/django/contrib/auth/forms.py:330
 msgid "The two password fields didn't match."
-msgstr ""
+msgstr "Las contraseñas no coinciden."
 
 #: venv/lib/python2.7/site-packages/django/contrib/auth/forms.py:76
 #: venv/lib/python2.7/site-packages/django/contrib/auth/forms.py:126
@@ -4981,3 +5104,6 @@ msgstr ""
 #: venv/lib/python2.7/site-packages/pip/_vendor/html5lib/treewalkers/lxmletree.py:176
 msgid "Text nodes have no children"
 msgstr ""
+
+#~ msgid "Give Resources"
+#~ msgstr "Dona Recursos"

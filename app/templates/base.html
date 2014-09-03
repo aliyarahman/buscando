@@ -65,13 +65,13 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="{% url 'resources' %}?type=volunteer">{% trans "Give Resources" %}</a></li>
+            <li><a href="{% url 'resources' %}?type=volunteer">{% trans "Volunteers & Donors" %}</a></li>
             <!-- <li><a href="{% url 'add_provider' %}">Organizations</a></li> -->
             {% if user.is_authenticated %}
               <li><a href="{% url 'organization_home' %}">{% trans "Profile" %}</a></li>
               <li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
             {% else %}
-            <li><a href="{% url 'login' %}" role="button">{% trans "Organization Login" %}</a></li>
+            <li><a href="{% url 'login' %}" role="button">{% trans "Organizations" %}</a></li>
             {% endif %}
            <li style="margin: 0.8em 0.1em 0.8em 1em">
               <form name="setLangEnglish" action="/i18n/setlang/" method="POST">{% csrf_token %}
