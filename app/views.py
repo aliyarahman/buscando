@@ -30,14 +30,17 @@ def about(request):
 def FAQ(request):
 	return render(request, "FAQ.html")
 
-def resources(request):
+def resources(request, **kwargs):
     searched_location = request.POST.get('location')
     resource = request.POST.getlist('resource')
-    type = request.POST.get('type')
+    type_ = request.POST.get('type')
     radius = request.POST.get('radius')
 
-    if not type:
-        type = request.GET.get('type')
+    if not type_:
+        type_ = request.GET.get('type')
+
+    if not type_:
+        type_ = kwargs.get('type')
 
     try:
         radius = int(radius)
@@ -46,7 +49,7 @@ def resources(request):
         radius = RADIUS_DISTANCE
 
     if not searched_location and not resource:
-        return render(request, 'resources.html', { 'type': type })
+        return render(request, 'resources.html', { 'type': type_ })
 
     if searched_location and resource:
         # Save the search
@@ -91,7 +94,10 @@ def resources(request):
     if not coords:
         cdnt_find_loc_error_msg = _("Sorry, I couldn't find that location. Please try again. You can also search by city or by zipcode.")
         messages.error(request, cdnt_find_loc_error_msg)
-        return HttpResponseRedirect('/app/resources?type' + type)
+        if type_:
+            return HttpResponseRedirect(reverse('resources', kwargs={'type': type_}))
+        else:
+            return HttpResponseRedirect(reverse('resources'))
 
     try:
         if len(resource) == 1:
@@ -103,7 +109,10 @@ def resources(request):
     except:
     	cdnt_find_res_error_msg = _("Please choose a resource and try again.")
         messages.error(request, cdnt_find_res_error_msg)
-        return HttpResponseRedirect('/app/resources')
+        if type_:
+            return HttpResponseRedirect(reverse('resources', kwargs={'type': type_}))
+        else:
+            return HttpResponseRedirect(reverse('resources'))
     else:
         locations = Location.objects.select_related('provider').exclude(provider__approved=False)
 
@@ -130,7 +139,7 @@ def resources(request):
         'location': searched_location,
         'resource': resource,
         'search_from': coords,
-        'type': type
+        'type': type_
     }
 
     return render(request, 'resources.html', dictionary=context)
