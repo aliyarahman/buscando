@@ -477,6 +477,8 @@ msgid ""
 "We didn't find any results through this search, but you can call <a "
 "href='tel:211'>2-1-1</a> for more help."
 msgstr ""
+"No hemos encontrado ningún resultado, pero puede llamar <a "
+"href='tel:211'>2-1-1</a> para ayuda."
 
 #: app/templates/resources.html:63
 msgid "Sign up as a Volunteer"
