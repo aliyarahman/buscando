@@ -85,7 +85,7 @@
                             <ul>
                     {% endif %}
 
-                    <li>{{ available|title }}</li>
+                    <li>{% if available|title == "Food" %}{% trans "Food" %}{% elif available|title == "Clothing" %}{% trans "Clothing" %}{% elif available|title == "Transportation" %}{% trans "Transportation" %}{% elif available|title == "Language" %}{% trans "Language" %}{% elif available|title == "Legal Services" %}{% trans "Legal Services" %}{% elif available|title == "Medical Care" %}{% trans "Medical Care" %}{% elif available|title == "Education And Enrollment" %}{% trans "Education And Enrollment" %}{% elif available|title == "Religious Services" %}{% trans "Religous Services" %}{% elif available|title == "Counseling" %}{% trans "Counseling" %}{% elif available|title == "Recreation" %}{% trans "Recreation" %}{% else %}{{ available|title }}{% endif %}</li>
 
                     {% if forloop.last %}
                         </ul>
