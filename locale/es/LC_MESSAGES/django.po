@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-03 18:38-0400\n"
+"POT-Creation-Date: 2014-09-03 21:19-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,8 @@ msgstr ""
 
 #: app/views.py:110
 msgid "Please choose a resource and try again."
-msgstr "Por favor, indique el tipo de recurso o servicio que está buscando e intente "
+msgstr ""
+"Por favor, indique el tipo de recurso o servicio que está buscando e intente "
 "de nuevo."
 
 #: app/templates/FAQ.html:7
@@ -41,7 +42,8 @@ msgstr "Acerca de"
 
 #: app/templates/about.html:13
 msgid "Buscando is the place where needs meet services."
-msgstr "Buscando es el lugar donde las necesidades se satisfacen con servicios."
+msgstr ""
+"Buscando es el lugar donde las necesidades se satisfacen con servicios."
 
 #: app/templates/about.html:14
 msgid ""
@@ -71,14 +73,13 @@ msgstr ""
 "niño mientras atraviesan este proceso legal federal sin precedentes."
 
 #: app/templates/about.html:18
-#, python-format
 msgid ""
 "Through July 31, there have been 2,804 children placed with sponsors living "
-"in Maryland. This represents roughly 7.5%% of the total number of children "
-"who have been released to sponsors throughout the United States, a larger "
-"than normal share due to Maryland’s large population of immigrants from El "
-"Salvador, Guatemala, and Honduras. Governor O’Malley has called on the "
-"people of Maryland to come together and ensure these children have their "
+"in Maryland. This represents roughly 7.5 percent of the total number of "
+"children who have been released to sponsors throughout the United States, a "
+"larger than normal share due to Maryland’s large population of immigrants "
+"from El Salvador, Guatemala, and Honduras. Governor O’Malley has called on "
+"the people of Maryland to come together and ensure these children have their "
 "basic human needs met, have a safe home environment and the resources they "
 "need while they go through the next steps in the federal process."
 msgstr ""
@@ -441,7 +442,7 @@ msgstr ""
 msgid "organization home"
 msgstr ""
 
-#: app/templates/profile.html:5 app/templates/provider/detail.html:22
+#: app/templates/profile.html:5 app/templates/provider/detail.html:23
 msgid "Profile page"
 msgstr "Perfil de la Organización"
 
@@ -470,16 +471,17 @@ msgid "locations found"
 msgstr "ubicaciones encontradas"
 
 #: app/templates/resources.html:62
-msgid ""
-"We found no results for that search. Please call <a href='tel:211'>2-1-1</a> "
-"for additional assistance."
-msgstr ""
-"No hemos encontrado ningún resultado, pero puede llamar <a "
-"href='tel:211'>2-1-1</a> para ayuda."
+msgid "We didn't find any results within "
+msgstr "No hemos encontrado ningún resultado entre"
+
+#: app/templates/resources.html:62
+msgid " miles, but you can call <a href='tel:211'>2-1-1</a> for more help."
+msgstr "millas, pero puede llamar <a href='tel:211'>2-1-1</a> para ayuda."
 
 #: app/templates/resources.html:64
 msgid "No results found, but you can sign up as a volunteer."
-msgstr "No hemos encontrado ningún resultado, pero puede regístrese como voluntario."
+msgstr ""
+"No hemos encontrado ningún resultado, pero puede regístrese como voluntario."
 
 #: app/templates/resources.html:68
 msgid "Sign up as a Volunteer"
@@ -508,19 +510,19 @@ msgstr "Información de ubicación"
 
 #: app/templates/location/edit.html:182 app/templates/location/new.html:197
 #: app/templates/provider/edit.html:258
-#: app/templates/provider/provider_edit.html:102
+#: app/templates/provider/provider_edit.html:103
 #: venv/lib/python2.7/site-packages/django/contrib/admin/templates/admin/pagination.html:11
 #: venv/lib/python2.7/site-packages/django/contrib/admin/templates/admin/submit_line.html:3
 msgid "Save"
 msgstr "Guardar"
 
 #: app/templates/location/edit.html:183 app/templates/location/new.html:198
-#: app/templates/provider/provider_edit.html:103
+#: app/templates/provider/provider_edit.html:104
 msgid "Saving profile, please wait."
 msgstr "Espera un momento, guardando el perfil."
 
 #: app/templates/location/edit.html:184 app/templates/location/new.html:199
-#: app/templates/provider/provider_edit.html:104
+#: app/templates/provider/provider_edit.html:105
 msgid "The form has errors."
 msgstr ""
 
@@ -554,7 +556,7 @@ msgstr ""
 
 #: app/templates/location/profile.html:40
 msgid "phone"
-msgstr ""
+msgstr "telefono"
 
 #: app/templates/location/profile.html:41
 msgid "is_headquarters"
@@ -562,29 +564,33 @@ msgstr ""
 
 #: app/templates/location/profile.html:42
 msgid "hours_open"
-msgstr ""
+msgstr "horas de operacion"
+
+#: app/templates/location/profile.html:43
+msgid "resources needed"
+msgstr "Recursos necesarios"
 
 #: app/templates/location/profile.html:50
 msgid "resources available"
 msgstr ""
 
-#: app/templates/provider/detail.html:24
+#: app/templates/provider/detail.html:25
 msgid "Organization info"
 msgstr ""
 
-#: app/templates/provider/detail.html:28 app/templates/provider/detail.html:41
+#: app/templates/provider/detail.html:29 app/templates/provider/detail.html:42
 msgid "edit"
 msgstr ""
 
-#: app/templates/provider/detail.html:35
+#: app/templates/provider/detail.html:36
 msgid "Locations info"
 msgstr ""
 
-#: app/templates/provider/detail.html:42
+#: app/templates/provider/detail.html:43
 msgid "delete"
 msgstr ""
 
-#: app/templates/provider/detail.html:53
+#: app/templates/provider/detail.html:54
 msgid "Add location"
 msgstr ""
 
