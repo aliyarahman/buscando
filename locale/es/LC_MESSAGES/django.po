@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-03 18:38-0400\n"
+"POT-Creation-Date: 2014-09-03 18:56-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,8 @@ msgstr ""
 
 #: app/views.py:110
 msgid "Please choose a resource and try again."
-msgstr "Por favor, indique el tipo de recurso o servicio que está buscando e intente "
+msgstr ""
+"Por favor, indique el tipo de recurso o servicio que está buscando e intente "
 "de nuevo."
 
 #: app/templates/FAQ.html:7
@@ -41,7 +42,8 @@ msgstr "Acerca de"
 
 #: app/templates/about.html:13
 msgid "Buscando is the place where needs meet services."
-msgstr "Buscando es el lugar donde las necesidades se satisfacen con servicios."
+msgstr ""
+"Buscando es el lugar donde las necesidades se satisfacen con servicios."
 
 #: app/templates/about.html:14
 msgid ""
@@ -470,16 +472,20 @@ msgid "locations found"
 msgstr "ubicaciones encontradas"
 
 #: app/templates/resources.html:62
-msgid ""
-"We found no results for that search. Please call <a href='tel:211'>2-1-1</a> "
-"for additional assistance."
+msgid "We didn't find any results within "
+msgstr ""
+
+#: app/templates/resources.html:62
+#, fuzzy
+msgid " miles, but you can call <a href='tel:211'>2-1-1</a> for more help."
 msgstr ""
 "No hemos encontrado ningún resultado, pero puede llamar <a "
 "href='tel:211'>2-1-1</a> para ayuda."
 
 #: app/templates/resources.html:64
 msgid "No results found, but you can sign up as a volunteer."
-msgstr "No hemos encontrado ningún resultado, pero puede regístrese como voluntario."
+msgstr ""
+"No hemos encontrado ningún resultado, pero puede regístrese como voluntario."
 
 #: app/templates/resources.html:68
 msgid "Sign up as a Volunteer"
