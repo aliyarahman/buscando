@@ -55,12 +55,13 @@ class Location(models.Model):
 		return self.address
 
 	def save(self):
-		if int(self.latitude) == 0 or int(self.longitude) == 0:
+		if self.latitude is None or self.longitude is None or int(self.latitude) == 0 or int(self.longitude) == 0:
 			try:
 				geolocator = GoogleV3()
 				self.address, (self.latitude, self.longitude) = geolocator.geocode(self.address)
 			except:
-				pass
+				self.latitude = 0
+				self.longitude = 0
 		super(Location, self).save()
 
 
