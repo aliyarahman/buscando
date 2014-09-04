@@ -72,6 +72,7 @@
 
             <section class="resource-form--results">
             {% for location_tuple in within_radius %}
+            
                 {% with location=location_tuple.0 distance=location_tuple.1 %}
                     <div class="resource-form--result">
                     <h3>{{ location.provider.name }}</h3>

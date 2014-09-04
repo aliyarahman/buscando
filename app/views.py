@@ -131,6 +131,7 @@ def resources(request, **kwargs):
                 within_radius.append((location,round(dist,1)))
                 
         within_radius.sort(key=lambda tup: tup[1]) #sorts the location/distance tuples by dist
+        #passing a sorted list of tuples with (orgname, distance)
         
 
     context = {
