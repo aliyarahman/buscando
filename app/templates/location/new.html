@@ -86,7 +86,7 @@ $(document).ready(function(){
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.POC_firstname.auto_id }}">
-        {% location_form.POC_firstname.label %}
+        {{ location_form.POC_firstname.label }}
     </label>
     <div>
     {% render_field location_form.POC_firstname class+="form-control" %}
@@ -95,7 +95,7 @@ $(document).ready(function(){
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.POC_firstname2.auto_id }}">
-        {% location_form.POC_firstname2.label %}
+        {{ location_form.POC_firstname2.label }}
     </label>
     <div>
     {% render_field location_form.POC_firstname2 class+="form-control" %}
@@ -104,7 +104,7 @@ $(document).ready(function(){
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.POC_lastname.auto_id }}">
-        {% location_form.POC_lastname.label %}
+        {{ location_form.POC_lastname.label }}
     </label>
     <div>
     {% render_field location_form.POC_lastname class+="form-control" %}
@@ -113,7 +113,7 @@ $(document).ready(function(){
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.POC_lastname2.auto_id }}">
-        {% location_form.POC_lastname2.label %}
+        {{ location_form.POC_lastname2.label }}
     </label>
     <div>
     {% render_field location_form.POC_lastname2 class+="form-control" %}
@@ -122,7 +122,7 @@ $(document).ready(function(){
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.address.auto_id }}">
-        {% location_form.address.label %}
+        {{ location_form.address.label }}
     </label>
     <div>
     {% render_field location_form.address class+="form-control" %}
@@ -131,7 +131,7 @@ $(document).ready(function(){
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.latitude.auto_id }}">
-        {% location_form.latitude.label %}
+        {{ location_form.latitude.label }}
     </label>
     <div>
     {% render_field location_form.latitude class+="form-control" %}
@@ -140,7 +140,7 @@ $(document).ready(function(){
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.longitude.auto_id }}">
-        {% location_form.longitude.label %}
+        {{ location_form.longitude.label }}
     </label>
     <div>
     {% render_field location_form.longitude class+="form-control" %}
@@ -149,7 +149,7 @@ $(document).ready(function(){
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.phone.auto_id }}">
-        {% location_form.phone.label %}
+        {{ location_form.phone.label }}
     </label>
     <div>
     {% render_field location_form.phone class+="form-control" %}
@@ -158,7 +158,7 @@ $(document).ready(function(){
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.is_headquarters.auto_id }}">
-        {% location_form.is_headquarters.label %}
+        {{ location_form.is_headquarters.label }}
     </label>
     <div>
     {% render_field location_form.is_headquarters class+="form-control" %}
@@ -167,7 +167,7 @@ $(document).ready(function(){
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.hours_open.auto_id }}">
-        {% location_form.hours_open.label %}
+        {{ location_form.hours_open.label }}
     </label>
     <div>
     {% render_field location_form.hours_open class+="form-control" %}
@@ -176,7 +176,7 @@ $(document).ready(function(){
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.resources_needed.auto_id }}">
-        {% location_form.resources_needed.label %}
+        {{ location_form.resources_needed.label }}
     </label>
     <div>
     {% render_field location_form.resources_needed class+="form-control" %}
@@ -185,7 +185,7 @@ $(document).ready(function(){
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.resources_available.auto_id }}">
-        {% location_form.resources_available.label %}
+        {{ location_form.resources_available.label }}
     </label>
     <div>
     {% render_field location_form.resources_available class+="form-control" %}
