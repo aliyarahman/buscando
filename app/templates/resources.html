@@ -71,35 +71,37 @@
             {% endif %}
 
             <section class="resource-form--results">
-            {% for location in within_radius %}
-                <div class="resource-form--result">
-                <h3>{{ location.provider.name }}</h3>
-                <p><span class="glyphicon glyphicon-map-marker"></span>{{ location.address }}</p>
-                {% if location.phone %}
-                    <p><span class="glyphicon glyphicon-earphone"></span><a href="tel:{{ location.phone }}">{{ location.phone }}</a></p>
-                {% endif %}
-                {% if location.hours_open %}
-                    <p>Hours: {{ location.hours_open }}</p>
-                {% endif %}
-                {% if location.provider.url %}
-                    <p><a href="{{ location.provider.url }}" target="_blank">{{ location.provider.url }}</a></p>
-                {% endif %}
-
-                {% for available in location.resources_available.all %}
-                    {% if forloop.first %}
-                        <p>{% if type == 'volunteer' %}{% trans "Resources needed" %}{% else %}{% trans "Resources available" %}{% endif %}</p>
-                            <ul>
+            {% for location_tuple in within_radius %}
+                {% with location=location_tuple.0 distance=location_tuple.1 %}
+                    <div class="resource-form--result">
+                    <h3>{{ location.provider.name }}</h3>
+                    {{ distance }} {% trans " miles from you" %}
+                    <p><span class="glyphicon glyphicon-map-marker"></span>{{ location.address }}</p>
+                    {% if location.phone %}
+                        <p><span class="glyphicon glyphicon-earphone"></span><a href="tel:{{ location.phone }}">{{ location.phone }}</a></p>
+                    {% endif %}
+                    {% if location.hours_open %}
+                        <p>Hours: {{ location.hours_open }}</p>
+                    {% endif %}
+                    {% if location.provider.url %}
+                        <p><a href="{{ location.provider.url }}" target="_blank">{{ location.provider.url }}</a></p>
                     {% endif %}
 
-                    <li>{% if available|title == "Food" %}{% trans "Food" %}{% elif available|title == "Clothing" %}{% trans "Clothing" %}{% elif available|title == "Transportation" %}{% trans "Transportation" %}{% elif available|title == "Language" %}{% trans "Language" %}{% elif available|title == "Legal Services" %}{% trans "Legal Services" %}{% elif available|title == "Medical Care" %}{% trans "Medical Care" %}{% elif available|title == "Education And Enrollment" %}{% trans "Education And Enrollment" %}{% elif available|title == "Religious Services" %}{% trans "Religous Services" %}{% elif available|title == "Counseling" %}{% trans "Counseling" %}{% elif available|title == "Recreation" %}{% trans "Recreation" %}{% else %}{{ available|title }}{% endif %}</li>
+                    {% for available in location.resources_available.all %}
+                        {% if forloop.first %}
+                            <p>{% if type == 'volunteer' %}{% trans "Resources needed" %}{% else %}{% trans "Resources available" %}{% endif %}</p>
+                                <ul>
+                        {% endif %}
 
-                    {% if forloop.last %}
-                        </ul>
-                    {% endif %}
+                        <li>{% if available|title == "Food" %}{% trans "Food" %}{% elif available|title == "Clothing" %}{% trans "Clothing" %}{% elif available|title == "Transportation" %}{% trans "Transportation" %}{% elif available|title == "Language" %}{% trans "Language" %}{% elif available|title == "Legal Services" %}{% trans "Legal Services" %}{% elif available|title == "Medical Care" %}{% trans "Medical Care" %}{% elif available|title == "Education And Enrollment" %}{% trans "Education And Enrollment" %}{% elif available|title == "Religious Services" %}{% trans "Religous Services" %}{% elif available|title == "Counseling" %}{% trans "Counseling" %}{% elif available|title == "Recreation" %}{% trans "Recreation" %}{% else %}{{ available|title }}{% endif %}</li>
 
-                {% endfor %}
-                </div>
+                        {% if forloop.last %}
+                            </ul>
+                        {% endif %}
 
+                    {% endfor %}
+                    </div>
+                {% endwith %}
             {% endfor %}
             </section>
             </div>
