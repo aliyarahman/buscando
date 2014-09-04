@@ -11,7 +11,8 @@
             {% for field in admin_form %}
                 {% for error in field.errors %}
                     <div class="alert alert-error">
-                        {% trans field.label %} - {% trans error|escape %}</strong>
+                        {% if field.label == 'Username' %}{% trans "Email" %}{% else %}
+                        {% trans field.label %}{% endif %} - {% trans error|escape %}</strong>
                     </div>
                 {% endfor %}
             {% endfor %}
@@ -42,7 +43,7 @@
                 {% for field in location_form %}
                     {% for error in field.errors %}
                         <div class="alert alert-error">
-                            {% trans field.label %} - {% trans error|escape %}
+                        {% if field.label == 'POC firstname' %}{% trans "Primary contact's first name" %}{% elif field.label == 'POC lastname' %}{% trans "Primary contact's last name" %}{% else %}{% trans field.label %}{% endif %} - {% trans error|escape %}
                         </div>
                     {% endfor %}
                 {% endfor %}
