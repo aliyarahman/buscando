@@ -4,6 +4,7 @@
 {% block content %}
 
 <h1>{% trans "Volunteer Signup" %}</h1>
+
 <form class="form-horizontal" role="form" action='.' method='post'>
 {% csrf_token %}
 
@@ -45,6 +46,7 @@
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
 	<label>{% trans "First name" %}</label>
+    <span class="required">*</span>
 	<div>
 	{% render_field profile_form.first_name %}
 	</div>
@@ -52,6 +54,7 @@
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
 	<label>{% trans "Last name" %}</label>
+    <span class="required">*</span>
 	<div>
 	{% render_field profile_form.last_name %}
 	</div>
@@ -60,6 +63,7 @@
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
 	<label>{% trans "Email" %}</label>
+    <span class="required">*</span>
 	<div>
 	{% render_field profile_form.email %}
 	</div>
@@ -68,6 +72,7 @@
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
 	<label>{% trans "Phone" %}</label>
+    <span class="required">*</span>
 	<div>
 	{% render_field profile_form.phone %}
 	</div>
@@ -75,6 +80,7 @@
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
 	<label>{% trans "Address" %}</label>
+    <span class="required">*</span>
 	<div>
 	{% render_field profile_form.address %}
 	</div>
@@ -82,7 +88,9 @@
 
 
 	<div class="form-group{% if field.errors %} has-error{% endif %}">
+        
 	<label>{% trans "I can help by providing:" %}</label>
+    <span class="required">*</span>
 	<div>
 	{% render_field profile_form.has_resources %}
 	</div>
@@ -95,10 +103,17 @@
 	</div>
 	</div>
 
-</div>
 
+
+
+</div>
+<div class="explain-required">
+    {% trans 'Fields marked with <span class="required">*</span> are required' %}
+</div>
 	<hr>
 </div>
+
+
 
 <div class="form-group">
 	<div>

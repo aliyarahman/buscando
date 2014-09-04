@@ -58,6 +58,8 @@
 
     <h1>{% trans "Create a new organization account" %}</h1>
     
+    
+    
     <form role="form" action='.' method='post'>
         {% csrf_token %}
     <div class="organization-form--section row">
@@ -154,6 +156,10 @@
             <div class="form-group{% if field.errors %} has-error{% endif %}">
                 <label>{% trans 'Resources available (hold "Ctrl" or "⌘" to select more than one)' %}</label>
                 {% render_field location_form.resources_available class+="form-control" size="13" %}
+            </div>
+            
+            <div class="explain-required">
+                {% trans 'Fields marked with <span class="required">*</span> are required' %}
             </div>
    
         </div>
