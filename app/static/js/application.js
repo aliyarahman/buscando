@@ -55,6 +55,10 @@ function addForm(btn, prefix) {
       updateElementIndex(this, prefix, formCount); // formCount should be the newest ID
       $(this).val('');
     });
+    $(row).find('select').each(function() {
+      updateElementIndex(this, prefix, formCount); // formCount should be the newest ID
+      $(this).val('');
+    });
     $(row).find('label').each(function() {
       updateElementIndex(this, prefix, formCount); // formCount should be the newest ID
     });
