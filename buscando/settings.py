@@ -104,6 +104,12 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + ('dj
 LOCALE_PATHS = os.path.join(BASE_DIR, 'locale'),
 
 
+EMAIL_HOST = 'localhost'
+
+
+#this is for testing locally. Not quite sure what goes here in production
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 '''
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
