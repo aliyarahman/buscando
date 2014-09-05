@@ -432,6 +432,14 @@ msgstr "Correo electrónico"
 msgid "Password"
 msgstr "Contraseña"
 
+#: app/templates/provider/new.html:128
+msgid "Primary Contact's Name"
+msgstr "Del Nombre del contacto principal"
+
+#: app/templates/provider/new.html:163
+msgid "Fields marked with <span class=\"required\">*</span> are required"
+msgstr "Campos obligatorios marcados con <span class=\"required\">*</span>"
+
 #: app/templates/login.html:27
 msgid "Your email and/or password didn't match. Please try again."
 msgstr ""
