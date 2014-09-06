@@ -127,40 +127,42 @@
     var map = new google.maps.Map(document.getElementById("map-canvas"),
         mapOptions);
 
-    {% for location in within_radius %}
-        var marker{{ forloop.counter0 }} = new google.maps.Marker({
-            position: new google.maps.LatLng({{ location.latitude }}, {{ location.longitude }}),
-            map: map,
-            title: "{{ location.provider.name }}"
-        });
+    {% for location_tuple in within_radius %}
+        {% with location=location_tuple.0 %}
+            var marker{{ forloop.counter0 }} = new google.maps.Marker({
+                position: new google.maps.LatLng({{ location.latitude }}, {{ location.longitude }}),
+                map: map,
+                title: "{{ location.provider.name }}"
+            });
 
-        var contentString{{ forloop.counter0 }} = '<b>{{ location.provider.name }}</b> <br>' +
-        '{{ location.address }} <br>' +
-        {% if location.phone %} 'Phone: <a href="tel:{{ location.phone }}">{{ location.phone }}</a><br>' + {% endif %}
-        {% if location.hours %} 'Hours: {{ location.hours_open }} <br>' + {% endif %}
-        '<a href="{{ location.provider.url }}">{{ location.provider.url }}</a><br>' +
-            {% for available in location.resources_available.all %}
+            var contentString{{ forloop.counter0 }} = '<b>{{ location.provider.name }}</b> <br>' +
+            '{{ location.address }} <br>' +
+            {% if location.phone %} 'Phone: <a href="tel:{{ location.phone }}">{{ location.phone }}</a><br>' + {% endif %}
+            {% if location.hours %} 'Hours: {{ location.hours_open }} <br>' + {% endif %}
+            '<a href="{{ location.provider.url }}">{{ location.provider.url }}</a><br>' +
+                {% for available in location.resources_available.all %}
                 
-                {% if forloop.first %}
-                    '<b>Resources available</b><br> <ul>' +
-                {% endif %}
+                    {% if forloop.first %}
+                        '<b>Resources available</b><br> <ul>' +
+                    {% endif %}
 
-                '<li>{{ available|title }}</li>' +
+                    '<li>{{ available|title }}</li>' +
 
-                {% if forloop.last %}
-                    '</ul>' +
-                {% endif %}
+                    {% if forloop.last %}
+                        '</ul>' +
+                    {% endif %}
 
-            {% endfor %}
-        '';
+                {% endfor %}
+            '';
 
-        var infowindow{{ forloop.counter0 }} = new google.maps.InfoWindow({
-              content: contentString{{ forloop.counter0 }}
-          });
+            var infowindow{{ forloop.counter0 }} = new google.maps.InfoWindow({
+                  content: contentString{{ forloop.counter0 }}
+              });
 
-        google.maps.event.addListener(marker{{ forloop.counter0 }}, 'click', function() {
-            infowindow{{ forloop.counter0 }}.open(map,marker{{ forloop.counter0 }});
-          });
+            google.maps.event.addListener(marker{{ forloop.counter0 }}, 'click', function() {
+                infowindow{{ forloop.counter0 }}.open(map,marker{{ forloop.counter0 }});
+              });
+          {% endwith %}
     {% endfor %}
 
     }
