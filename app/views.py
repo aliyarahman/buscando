@@ -32,36 +32,12 @@ def about(request):
 
 def FAQ(request):
 	return render(request, "FAQ.html")
-
-def resources(request, **kwargs):
-    searched_location = request.POST.get('location')
-    resource = request.POST.getlist('resource')
-    type_ = request.POST.get('type')
-    radius = request.POST.get('radius')
-
-    if not type_:
-        type_ = request.GET.get('type')
-
-    if not type_:
-        type_ = kwargs.get('type')
-
-    try:
-        radius = int(radius)
-        assert 10 < radius < 150
-    except:
-        radius = RADIUS_DISTANCE
-
-    if not searched_location and not resource:
-        return render(request, 'resources.html', { 'type': type_ })
-
-    if searched_location and resource:
-        # Save the search
-        search = Search(**{
-                'location': searched_location,
-                'resource': resource
-            })
-        search.save()
-
+	
+def find_search_coordinates(searched_location):
+	#helper function, not meant to be connected in urls.py
+	#putting the geocoding of search addresses into a separate method to stay DRY
+	#takes the address searched for, returns coordinates
+	
     coords = False
 
     try:
@@ -93,6 +69,40 @@ def resources(request, **kwargs):
                 'latitude': zipcode_coords.latitude,
                 'longitude': zipcode_coords.longitude
             }
+
+    return coords
+
+def resources(request, **kwargs):
+    searched_location = request.POST.get('location')
+    resource = request.POST.getlist('resource')
+    type_ = request.POST.get('type')
+    radius = request.POST.get('radius')
+
+    if not type_:
+        type_ = request.GET.get('type')
+
+    if not type_:
+        type_ = kwargs.get('type')
+
+    try:
+        radius = int(radius)
+        assert 10 < radius < 150
+    except:
+        radius = RADIUS_DISTANCE
+
+    if not searched_location and not resource:
+        return render(request, 'resources.html', { 'type': type_ })
+
+    if searched_location and resource:
+        # Save the search
+        search = Search(**{
+                'location': searched_location,
+                'resource': resource
+            })
+        search.save()
+
+        coords = find_search_coordinates(searched_location)
+
 
     if not coords:
         cdnt_find_loc_error_msg = _("Sorry, I couldn't find that location. Please try again. You can also search by city or by zipcode.")
@@ -469,9 +479,11 @@ def add_volunteer(request):
 				user.save()
 				
 				user_resources = profile_form.cleaned_data.get("has_resources")
+				
+				user_resource_objects = [Resource.objects.filter(name=r).first() for r in user_resources]
 
-				for r in user_resources:
-					user.has_resources.add(Resource.objects.filter(name=r).first())
+				for r in user_resource_objects:
+					user.has_resources.add(r)
 				
 				user.save()
 				
@@ -480,7 +492,7 @@ def add_volunteer(request):
 				else:
 					resources_available = 'None'
 					
-		
+				#for confirmation email
 				# Grab current language value (if not already grabbed)
 				language = 'english' #seems to be posted as a hidden field called language in the base form. no idea where it gets sent to, though.
 		
@@ -489,24 +501,79 @@ def add_volunteer(request):
 					from email_texts import english_version_emails as emails
 				elif language == 'spanish':
 					from email_texts import spanish_version_emails as emails
-		
+					
+				# Find some nearby locations that need the things the volunteer has
+				coords = find_search_coordinates(user.address)
+				
+				within_radius = []
+				
+				if len(user_resource_objects) == 0:
+					#do not include anything about local orgs if the user specified no resources
+					pass
+				elif not coords:
+					#do not include local orgs if the coordinates weren't found
+					pass
+				elif len(user_resource_objects) == 1 and user_resource_objects[0].name.lower() == "other":
+					#do not include local orgs if the only resource is "other"
+					pass
+				else:
+					locations = Location.objects.select_related('provider').exclude(provider__approved=False)
+					locations = locations.filter(resources_needed__in=user_resource_objects)
+					
+					for location in locations:
+						dist = vincenty(
+							(location.latitude, location.longitude), 
+							(coords['latitude'], coords['longitude'])
+							).miles
+					
+						if dist <= RADIUS_DISTANCE:
+							within_radius.append((location,round(dist,1)))
+						
+					
+					within_radius.sort(key=lambda tup: tup[1])
+					
+					within_radius = within_radius[0:3] #only display the 3 nearest locations in email
+					
+				if len(within_radius) > 0:
+					getting_started = "Here are some organizations near you that could use your help:\n\n"
+					for location_tuple in within_radius:
+						location = location_tuple[0]
+						dist = location_tuple[1]
+						location_resources = [r.name for r in location.resources_needed.all()]
+
+						location_info = [location.provider.name,
+										location.address,location.phone,
+										location.provider.URL,
+										"{0} miles from you".format(dist),
+										"Resources needed: {0}".format(', '.join(location_resources)),
+										'\n\n']
+						getting_started += '\n'.join(location_info)
+						
+					getting_started += "Or find more places where you can help at http://www.buscandomaryland.com/resources/volunteer"
+				else:
+					getting_started = "Find places where you can help: http://www.buscandomaryland.com/resources/volunteer"
+					
 				# Grab admin email list (if not already grabbed or stored somewhere else)
 				admin_email_list = [admin_email_address]
 		
 				# Build confirmation email
 				email = emails['volunteer_signup']['confirmation']
-				email['body'] = email['body'].format(firstname=user.first_name,
+				volunteer_email_body = email['body'].format(firstname=user.first_name,
 					vol_username=user.email,
-					resources_available=resources_available)
-				confirmation_email = (email['subject'], email['body'], email['from'], [user.email])
+					vol_location=user.address,
+					resources_available=resources_available,
+					getting_started = getting_started)
+				confirmation_email = (email['subject'], volunteer_email_body, email['from'], [user.email])
 		
 				# Build admin notification email
 				email = emails['volunteer_signup']['admin']
-				email['body'] = email['body'].format(vol_username=user.email)
-				admin_email = (email['subject'], email['body'], email['from'], admin_email_list)
+				admin_email_body = email['body'].format(vol_username=user.email)
+				admin_email = (email['subject'], admin_email_body, email['from'], admin_email_list)
 		
 				# Send Them
 				send_mass_mail((admin_email, confirmation_email), fail_silently=False)
+				#end of code for confirmation e-mail
+				
 				
 				# Still need to check for saving of skills they have here
 				return HttpResponseRedirect(reverse('resources'))

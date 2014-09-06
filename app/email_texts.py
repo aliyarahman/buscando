@@ -34,13 +34,15 @@ Thank you for becoming part of the Buscando network and playing an essential rol
 
 Here are the details of your account:
 
-Username: {vol_username}
-Resources Available: {resources_available}
+Email Address: {vol_username}
+Location: {vol_location}
+Resources you can provide: {resources_available}
 
 
 To get started:
 
-Find places where you can help: http://www.buscandomaryland.com/resources/volunteer
+{getting_started}
+
 
 Again, thank you for being a positive force in the lives of children seeking refuge.
 '''
@@ -80,7 +82,10 @@ Gracias por formar parte de la red de Buscando y por jugar un papel esencial en 
 Estos son los detalles de su cuenta:
 
 Usuario: {vol_username}
+{vol_location}
 Recursos disponibles: {resources_available}
+
+{getting_started}
 
 
 Una vez más, gracias por ser una fuerza positiva en la vida de los niños que buscan refugio.
