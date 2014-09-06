@@ -34,7 +34,6 @@ class LocationForm(ModelForm):
 							widget=forms.CheckboxSelectMultiple(),
 							required=False,
 							)
-
 	class Meta:
 		model = Location
 		fields = (
@@ -52,13 +51,15 @@ class LocationForm(ModelForm):
 			'resources_available',
 			)
 
+LocationFormset = modelformset_factory(Location, extra=1)
+
 
 class ProviderForm(ModelForm):
 	class Meta:
 		model = Provider
 		fields = ('name', 'URL',)
 
-LocationFormset = modelformset_factory(Location, extra=1)
+
 
 
 class UserForm(forms.Form):

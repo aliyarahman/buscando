@@ -205,36 +205,42 @@ def delete_provider(request, provider_id):
         return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
 
 def add_provider(request):
-    # users should only be able to make one provider
+    # Users should only be able to make one provider, so send the user back to the home page if they try to add a new provider.
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('index'))
+    # If no user is logged in, let them register a new provider.
     else:
+        # Load the fields for a location from the model - except the provider field, since the organization and its office are automatically linked when the form is submitted
         LocationFormset = modelformset_factory(Location, exclude=('provider',))
+        # When submit is clicked, post the data that's been entered into each field so it can be checked
         if request.method == "POST":
             admin_form = UserCreationForm(request.POST)
             provider_form = ProviderForm(request.POST)
-            location_formset = LocationFormset(request.POST, request.FILES)
-
+            location_formset = LocationFormset(request.POST)
+            # Check to make sure all of the form data is entered and valid
             if admin_form.is_valid() and provider_form.is_valid() and location_formset.is_valid():
                 u_name = admin_form.cleaned_data.get('username')
                 u_pass = admin_form.cleaned_data.get('password2')
                 admin = admin_form.save()
+                # At this point we've committed a user, but the line below is going to have us save a provider object so we can use it to save a location, but not yet take the time to make a database commit
                 provider = provider_form.save(commit=False)
                 provider.admin = admin
                 provider.save()
                 resources_needed = []
                 resources_available = []
-                for location_form in location_formset:
-                    location = location_form.save(commit=False)
+                # At this point we've saved a user and a provider, and have blank lists of resources ready to accept info about the location
+                for location_form in location_formset: # The formset may have more than one form in it - more get added on the template via javascript. So we have to loop through and save data from each one here.
+                    location = location_form.save(commit=False) # The commit=false here lets us create a provider and a location, then connect them, THEN save everthing in the database. Saves time making database commits.
                     location.provider = provider
                     location.save()
-                    location_form.save_m2m()
-                    # If there are resources needed or available, add those to the running list
+                    location_form.save_m2m() # We have to use the .save many-to-many function because we used commit=False earlier
+                    # If there are resources needed or available at any location, grab them from each location and combine them in a list that gets associated with the provider
                     if location.resources_needed.count() > 0:
                         resources_needed = resources_needed + [resource.name for resource in location.resources_needed.all() if resource.name not in resources_needed]
                     if location.resources_available.count() > 0:
                         resources_available = resources_available + [resource.name for resource in location.resources_available.all() if resource.name not in resources_available]
-                location_formset.save()
+                location_formset.save() # Now that we've added up resources, save the whole formset.
+
                 # Transform resources lists into strings (or 'None' if none)
                 if len(resources_needed) > 0:
                     resources_needed = ', '.join(resources_needed)
@@ -275,16 +281,19 @@ def add_provider(request):
                     send_mass_mail((admin_email, confirmation_email), fail_silently=False)
                 except:
                     pass
-                        
+                
+
+                # Authenticate and log in the user
                 user = authenticate(username=u_name,
                                     password=u_pass)
                 login(request, user)
                 return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
-
+        
+        # If we've just arrived on the page, load the blank form(s)
         else:
-            admin_form = UserCreationForm()
-            provider_form = ProviderForm()
-            location_formset = LocationFormset(queryset=Location.objects.none())
+            admin_form = UserCreationForm() # The piece of the new provider form that takes info on its primary staff person
+            provider_form = ProviderForm()  # The piece of the new provider form that takes info about the organization
+            location_formset = LocationFormset(queryset=Location.objects.none()) # The piece of the new provider form that takes info about the organization's first office location, and assumes you have no locations loaded yet
 
         return render(request, "provider/new.html", { 
                                                     'provider_form': provider_form, 
