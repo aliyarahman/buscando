@@ -57,12 +57,12 @@
             {% if resource %} {# here, resource is a proxy for the form being submitted #}
             <div class="resource-form--results-label">
                 {% if within_radius|length > 0 %}
-                    {{ within_radius | length }} {% trans "locations found" %}
+                    {{ within_radius | length }} {% trans "locations found within " %} {{radius}} {% trans " miles"%}
                 {% else %}
                     {% if type != 'volunteer' %}
                         {% trans "We didn't find any results within " %} {{radius}} {% trans " miles, but you can call <a href='tel:211'>2-1-1</a> for more help." %} 
                     {% else %}
-                        {% trans "No results found, but you can sign up as a volunteer." %}
+                        {% trans "No results found within " %} {{radius}} {% trans " miles, but you can sign up as a volunteer." %}
                     {% endif %}
                 {% endif %}
                 {% if type == 'volunteer' %}

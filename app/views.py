@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import urlparse
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
@@ -22,6 +23,7 @@ from django.core.mail import send_mass_mail
 from email_texts import admin_email_address
 
 RADIUS_DISTANCE = 35 # miles
+
 
 
 def index(request):
@@ -269,7 +271,10 @@ def add_provider(request):
                 admin_email = (email['subject'], email['body'], email['from'], admin_email_list)
         
                 # Send Them
-                send_mass_mail((admin_email, confirmation_email), fail_silently=False)
+                try:
+                    send_mass_mail((admin_email, confirmation_email), fail_silently=False)
+                except:
+                    pass
                         
                 user = authenticate(username=u_name,
                                     password=u_pass)
@@ -517,6 +522,7 @@ def add_volunteer(request):
                 else:
                     locations = Location.objects.select_related('provider').exclude(provider__approved=False)
                     locations = locations.filter(resources_needed__in=user_resource_objects)
+                    locations = set(locations)
                     
                     for location in locations:
                         dist = vincenty(
@@ -537,6 +543,7 @@ def add_volunteer(request):
                     for location_tuple in within_radius:
                         location = location_tuple[0]
                         dist = location_tuple[1]
+                        
                         location_resources = [r.name for r in location.resources_needed.all()]
 
                         location_info = [location.provider.name,
@@ -569,7 +576,10 @@ def add_volunteer(request):
                 admin_email = (email['subject'], admin_email_body, email['from'], admin_email_list)
         
                 # Send Them
-                send_mass_mail((admin_email, confirmation_email), fail_silently=False)
+                try:
+                    send_mass_mail((admin_email, confirmation_email), fail_silently=False)
+                except:
+                    pass
                 #end of code for confirmation e-mail
                 
                 
