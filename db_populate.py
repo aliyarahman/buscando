@@ -84,7 +84,7 @@ with open(csv_name, 'rb') as csvfile:
 		existing_provider = Provider.objects.filter(name__iexact = provider_name.strip())
 		
 		if len(existing_provider) == 0:
-			p = Provider(admin = user, name = provider_name.strip(), logo=row['image'].strip(), URL=row['website'].strip())
+			p = Provider(admin = user, name = provider_name.strip(), logo=row['image'].strip(), URL=row['website'].strip(), approved=True)
 
 
 			p.save()
