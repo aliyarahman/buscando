@@ -822,7 +822,7 @@ msgstr ""
 
 #: app/templates/provider/new.html:163 app/templates/volunteer/new.html:111
 msgid "Fields marked with <span class=\"required\">*</span> are required"
-msgstr ""
+msgstr "<span class=\"required\">*</span> Campos requeridos"
 
 #: app/templates/provider/new.html:169
 msgid "Remove this Location"
