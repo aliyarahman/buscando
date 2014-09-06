@@ -25,19 +25,19 @@ RADIUS_DISTANCE = 35 # miles
 
 
 def index(request):
-	return render(request, "index.html")
+    return render(request, "index.html")
 
 def about(request):
-	return render(request, "about.html")
+    return render(request, "about.html")
 
 def FAQ(request):
-	return render(request, "FAQ.html")
-	
+    return render(request, "FAQ.html")
+    
 def find_search_coordinates(searched_location):
-	#helper function, not meant to be connected in urls.py
-	#putting the geocoding of search addresses into a separate method to stay DRY
-	#takes the address searched for, returns coordinates
-	
+    #helper function, not meant to be connected in urls.py
+    #putting the geocoding of search addresses into a separate method to stay DRY
+    #takes the address searched for, returns coordinates
+    
     coords = False
 
     try:
@@ -120,7 +120,7 @@ def resources(request, **kwargs):
         else:
             raise ValueError
     except:
-    	cdnt_find_res_error_msg = _("Please choose a resource and try again.")
+        cdnt_find_res_error_msg = _("Please choose a resource and try again.")
         messages.error(request, cdnt_find_res_error_msg)
         if type_:
             return HttpResponseRedirect(reverse('resources', kwargs={'type': type_}))
@@ -160,423 +160,423 @@ def resources(request, **kwargs):
 
 @login_required
 def profile(request):
-#	provider = get_object_or_404(City, pk=provider_id)
-	return render(request, "profile.html")
-#	return render(request, "profile.html", {'provider': provider })
+#    provider = get_object_or_404(City, pk=provider_id)
+    return render(request, "profile.html")
+#    return render(request, "profile.html", {'provider': provider })
 
 def organization_home(request):
-	orgs = Provider.objects.filter(admin_id = request.user.id)
-	if orgs:
-		# If an organization is logged in, bring them to their profile
-		provider = orgs[0]
-		return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
-	else:
-		# This user is not associated with an organization.
-		# Should this be a login page for organizations?
-		# Or just an index of all organizations (with a search sidebar)?
-		return HttpResponseRedirect(reverse('organization_home'))
+    orgs = Provider.objects.filter(admin_id = request.user.id)
+    if orgs:
+        # If an organization is logged in, bring them to their profile
+        provider = orgs[0]
+        return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+    else:
+        # This user is not associated with an organization.
+        # Should this be a login page for organizations?
+        # Or just an index of all organizations (with a search sidebar)?
+        return HttpResponseRedirect(reverse('organization_home'))
 
 def login_page(request):
-	if request.method == "POST":
-		form = AuthenticationForm(data=request.POST)
-		if form.is_valid():
-			login(request, form.get_user())
-			return HttpResponseRedirect(reverse('organization_home'))
-	else:
-		form = AuthenticationForm()
-		
-	return render(request, 'login.html', {'form': form})
+    if request.method == "POST":
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            login(request, form.get_user())
+            return HttpResponseRedirect(reverse('organization_home'))
+    else:
+        form = AuthenticationForm()
+        
+    return render(request, 'login.html', {'form': form})
 
 def logout_page(request):
-	logout(request)
-	return HttpResponseRedirect(reverse('index'))
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
 
 @login_required
 def delete_provider(request, provider_id):
-	provider = get_object_or_404(Provider, id=provider_id)
-	admin_user = provider.admin
-	if request.user == admin_user: # only the provider's registered user can delete
-		provider.delete()
-		admin_user.delete()
-		return HttpResponseRedirect(reverse('index'))
-	else:
-		return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+    provider = get_object_or_404(Provider, id=provider_id)
+    admin_user = provider.admin
+    if request.user == admin_user: # only the provider's registered user can delete
+        provider.delete()
+        admin_user.delete()
+        return HttpResponseRedirect(reverse('index'))
+    else:
+        return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
 
 def add_provider(request):
-	# users should only be able to make one provider
-	if request.user.is_authenticated():
-		return HttpResponseRedirect(reverse('index'))
-	else:
-		LocationFormset = modelformset_factory(Location, exclude=('provider',))
-		if request.method == "POST":
-			admin_form = UserCreationForm(request.POST)
-			provider_form = ProviderForm(request.POST)
-			location_formset = LocationFormset(request.POST, request.FILES)
+    # users should only be able to make one provider
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+    else:
+        LocationFormset = modelformset_factory(Location, exclude=('provider',))
+        if request.method == "POST":
+            admin_form = UserCreationForm(request.POST)
+            provider_form = ProviderForm(request.POST)
+            location_formset = LocationFormset(request.POST, request.FILES)
 
-			if admin_form.is_valid() and provider_form.is_valid() and location_formset.is_valid():
-				u_name = admin_form.cleaned_data.get('username')
-				u_pass = admin_form.cleaned_data.get('password2')
-				admin = admin_form.save()
-				provider = provider_form.save(commit=False)
-				provider.admin = admin
-				provider.save()
-				resources_needed = []
-				resources_available = []
-				for location_form in location_formset:
-					location = location_form.save(commit=False)
-					location.provider = provider
-					location.save()
-					location_form.save_m2m()
-					# If there are resources needed or available, add those to the running list
-					if location.resources_needed.count() > 0:
-						resources_needed = resources_needed + [resource.name for resource in location.resources_needed.all() if resource.name not in resources_needed]
-					if location.resources_available.count() > 0:
-						resources_available = resources_available + [resource.name for resource in location.resources_available.all() if resource.name not in resources_available]
-				location_formset.save()
-				# Transform resources lists into strings (or 'None' if none)
-				if len(resources_needed) > 0:
-					resources_needed = ', '.join(resources_needed)
-				else:
-					resources_needed = 'None'
-		
-				if len(resources_available) > 0:
-					resources_available = ', '.join(resources_available)
-				else:
-					resources_available = 'None'
-		
-				# Grab current language value (if not already grabbed)
-				language = 'english'
-		
-				# Grab email set dependent on language value (may need to change values)
-				if language == 'english':
-					from email_texts import english_version_emails as emails
-				elif language == 'spanish':
-					from email_texts import spanish_version_emails as emails
-		
-				# Grab admin email list (if not already grabbed or stored somewhere else)
-				admin_email_list = [admin_email_address]
-		
-				# Build confirmation email
-				email = emails['provider_signup']['confirmation']
-				email['body'] = email['body'].format(org_username=provider.admin.username,
-					resources_needed=resources_needed,
-					resources_available=resources_available)
-				confirmation_email = (email['subject'], email['body'], email['from'], [provider.admin.username])
+            if admin_form.is_valid() and provider_form.is_valid() and location_formset.is_valid():
+                u_name = admin_form.cleaned_data.get('username')
+                u_pass = admin_form.cleaned_data.get('password2')
+                admin = admin_form.save()
+                provider = provider_form.save(commit=False)
+                provider.admin = admin
+                provider.save()
+                resources_needed = []
+                resources_available = []
+                for location_form in location_formset:
+                    location = location_form.save(commit=False)
+                    location.provider = provider
+                    location.save()
+                    location_form.save_m2m()
+                    # If there are resources needed or available, add those to the running list
+                    if location.resources_needed.count() > 0:
+                        resources_needed = resources_needed + [resource.name for resource in location.resources_needed.all() if resource.name not in resources_needed]
+                    if location.resources_available.count() > 0:
+                        resources_available = resources_available + [resource.name for resource in location.resources_available.all() if resource.name not in resources_available]
+                location_formset.save()
+                # Transform resources lists into strings (or 'None' if none)
+                if len(resources_needed) > 0:
+                    resources_needed = ', '.join(resources_needed)
+                else:
+                    resources_needed = 'None'
+        
+                if len(resources_available) > 0:
+                    resources_available = ', '.join(resources_available)
+                else:
+                    resources_available = 'None'
+        
+                # Grab current language value (if not already grabbed)
+                language = 'english'
+        
+                # Grab email set dependent on language value (may need to change values)
+                if language == 'english':
+                    from email_texts import english_version_emails as emails
+                elif language == 'spanish':
+                    from email_texts import spanish_version_emails as emails
+        
+                # Grab admin email list (if not already grabbed or stored somewhere else)
+                admin_email_list = [admin_email_address]
+        
+                # Build confirmation email
+                email = emails['provider_signup']['confirmation']
+                email['body'] = email['body'].format(org_username=provider.admin.username,
+                    resources_needed=resources_needed,
+                    resources_available=resources_available)
+                confirmation_email = (email['subject'], email['body'], email['from'], [provider.admin.username])
 
-				# Build admin notification email
-				email = emails['provider_signup']['admin']
-				email['body'] = email['body'].format(org_username=provider.admin.username)
-				admin_email = (email['subject'], email['body'], email['from'], admin_email_list)
-		
-				# Send Them
-				send_mass_mail((admin_email, confirmation_email), fail_silently=False)
-						
-				user = authenticate(username=u_name,
-									password=u_pass)
-				login(request, user)
-				return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+                # Build admin notification email
+                email = emails['provider_signup']['admin']
+                email['body'] = email['body'].format(org_username=provider.admin.username)
+                admin_email = (email['subject'], email['body'], email['from'], admin_email_list)
+        
+                # Send Them
+                send_mass_mail((admin_email, confirmation_email), fail_silently=False)
+                        
+                user = authenticate(username=u_name,
+                                    password=u_pass)
+                login(request, user)
+                return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
 
-		else:
-			admin_form = UserCreationForm()
-			provider_form = ProviderForm()
-			location_formset = LocationFormset(queryset=Location.objects.none())
+        else:
+            admin_form = UserCreationForm()
+            provider_form = ProviderForm()
+            location_formset = LocationFormset(queryset=Location.objects.none())
 
-		return render(request, "provider/new.html", { 
-													'provider_form': provider_form, 
-													'location_formset': location_formset,
-													'admin_form': admin_form,
-													 })
+        return render(request, "provider/new.html", { 
+                                                    'provider_form': provider_form, 
+                                                    'location_formset': location_formset,
+                                                    'admin_form': admin_form,
+                                                     })
 
 def provider_partial(request, provider_id):
-	provider = get_object_or_404(Provider, id=provider_id)
+    provider = get_object_or_404(Provider, id=provider_id)
 
-	return render(request, 'provider/provider_profile.html', {
-													'provider': provider, 
-													})
+    return render(request, 'provider/provider_profile.html', {
+                                                    'provider': provider, 
+                                                    })
 
 def location_partial(request, location_id):
-	location = get_object_or_404(Location, id=location_id)
+    location = get_object_or_404(Location, id=location_id)
 
-	return render(request, 'location/profile.html', {
-													'current_location': location, 
-													})
+    return render(request, 'location/profile.html', {
+                                                    'current_location': location, 
+                                                    })
 @login_required
 def delete_location(request, location_id):
-	location = get_object_or_404(Location, id=location_id)
-	provider = location.provider
-	admin_user = provider.admin
-	if request.user == admin_user: # only the provider's registered user
-		location.delete()
-		data = {'success': True}
-		# currently it's deleting but not returning good data
-		return HttpResponse(simplejson.dumps(data), content_type='application/json')
-	else:
-		return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+    location = get_object_or_404(Location, id=location_id)
+    provider = location.provider
+    admin_user = provider.admin
+    if request.user == admin_user: # only the provider's registered user
+        location.delete()
+        data = {'success': True}
+        # currently it's deleting but not returning good data
+        return HttpResponse(simplejson.dumps(data), content_type='application/json')
+    else:
+        return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
 
 @login_required
 def new_location(request, provider_id):
-	provider = get_object_or_404(Provider, id=provider_id)
-	admin_user = provider.admin
-	if request.user == admin_user: # only the provider's registered user
-		if request.method == "POST":
-			location_form = LocationForm(request.POST)
-			if location_form.is_valid():
-				location = location_form.save(commit=False)
-				location.provider = provider
-				location.save()
-				data = {
-					'location_id': location.id,
-				}
-				return HttpResponse(simplejson.dumps(data), content_type="application/json")
-			else:
-				errors_dict = {}
-				if location_form.errors:
-					for error in location_form.errors:
-						e = location_form.errors[error]
-						errors_dict[error] = unicode(e)
+    provider = get_object_or_404(Provider, id=provider_id)
+    admin_user = provider.admin
+    if request.user == admin_user: # only the provider's registered user
+        if request.method == "POST":
+            location_form = LocationForm(request.POST)
+            if location_form.is_valid():
+                location = location_form.save(commit=False)
+                location.provider = provider
+                location.save()
+                data = {
+                    'location_id': location.id,
+                }
+                return HttpResponse(simplejson.dumps(data), content_type="application/json")
+            else:
+                errors_dict = {}
+                if location_form.errors:
+                    for error in location_form.errors:
+                        e = location_form.errors[error]
+                        errors_dict[error] = unicode(e)
 
-				return HttpResponseBadRequest(simplejson.dumps(errors_dict))
+                return HttpResponseBadRequest(simplejson.dumps(errors_dict))
 
-		else:
-			template = 'location/new.html'
-			data = {
-				'location_form': LocationForm(),
-				'provider_id': provider.id,
+        else:
+            template = 'location/new.html'
+            data = {
+                'location_form': LocationForm(),
+                'provider_id': provider.id,
 
-			}
-			return render(request, template, data)
-	else:
-		return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+            }
+            return render(request, template, data)
+    else:
+        return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
 
 
 @login_required
 def edit_location(request, location_id):
-	location = get_object_or_404(Location, id=location_id)
-	provider = location.provider
-	admin_user = provider.admin
-	if request.user == admin_user: # only the provider's registered user
-		if request.method == "POST":
-			location_form = LocationForm(request.POST,instance=location)
-			if location_form.is_valid():
-				location = location_form.save()
-				template = 'location/profile.html'
-				return HttpResponse('OK')
-			else:
-				errors_dict = {}
-				if location_form.errors:
-					for error in location_form.errors:
-						e = location_form.errors[error]
-						errors_dict[error] = unicode(e)
+    location = get_object_or_404(Location, id=location_id)
+    provider = location.provider
+    admin_user = provider.admin
+    if request.user == admin_user: # only the provider's registered user
+        if request.method == "POST":
+            location_form = LocationForm(request.POST,instance=location)
+            if location_form.is_valid():
+                location = location_form.save()
+                template = 'location/profile.html'
+                return HttpResponse('OK')
+            else:
+                errors_dict = {}
+                if location_form.errors:
+                    for error in location_form.errors:
+                        e = location_form.errors[error]
+                        errors_dict[error] = unicode(e)
 
-				return HttpResponseBadRequest(simplejson.dumps(errors_dict))
-		else:
-			template = 'location/edit.html'
-			data = {
-						'location_form': LocationForm(instance=location),
-						'location_id': location.id,
-					}
-			return render(request, template, data)
-	else:
-		return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+                return HttpResponseBadRequest(simplejson.dumps(errors_dict))
+        else:
+            template = 'location/edit.html'
+            data = {
+                        'location_form': LocationForm(instance=location),
+                        'location_id': location.id,
+                    }
+            return render(request, template, data)
+    else:
+        return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
 
 @login_required
 def edit_provider(request, provider_id):
 
-	provider = get_object_or_404(Provider, id=provider_id)
-	admin_user = provider.admin
+    provider = get_object_or_404(Provider, id=provider_id)
+    admin_user = provider.admin
 
-	if request.user and request.user == admin_user: # only the provider's registered user can edit page
+    if request.user and request.user == admin_user: # only the provider's registered user can edit page
 
-		if request.is_ajax():
-			if request.method == 'POST': #and request.is_ajax():
-				provider_form = ProviderForm(request.POST,instance=provider)
-				if provider_form.is_valid():
-					provider = provider_form.save()
-					template = 'provider/provider_profile.html'
-					data = {
-						'provider_id': provider.id,
-					}
-					return HttpResponse(simplejson.dumps(data), content_type="application/json")
-				else:
-					errors_dict = {}
-					if provider_form.errors:
-						for error in provider_form.errors:
-							e = provider_form.errors[error]
-							errors_dict[error] = unicode(e)
+        if request.is_ajax():
+            if request.method == 'POST': #and request.is_ajax():
+                provider_form = ProviderForm(request.POST,instance=provider)
+                if provider_form.is_valid():
+                    provider = provider_form.save()
+                    template = 'provider/provider_profile.html'
+                    data = {
+                        'provider_id': provider.id,
+                    }
+                    return HttpResponse(simplejson.dumps(data), content_type="application/json")
+                else:
+                    errors_dict = {}
+                    if provider_form.errors:
+                        for error in provider_form.errors:
+                            e = provider_form.errors[error]
+                            errors_dict[error] = unicode(e)
 
-					return HttpResponseBadRequest(simplejson.dumps(errors_dict))
-			else:
-					template = 'provider/provider_edit.html'
-					data = {
-						'provider_form': ProviderForm(instance=provider),
-						'provider_id': provider.id,
-					}
-			return render(request, template, data)
+                    return HttpResponseBadRequest(simplejson.dumps(errors_dict))
+            else:
+                    template = 'provider/provider_edit.html'
+                    data = {
+                        'provider_form': ProviderForm(instance=provider),
+                        'provider_id': provider.id,
+                    }
+            return render(request, template, data)
 
-		else:
-			if request.method == 'POST':
-				provider_form = ProviderForm(request.POST,instance=provider)
-				password_change_form = PasswordChangeForm(request.POST)
-				location_formset = LocationForm(request.POST,request.FILES)
+        else:
+            if request.method == 'POST':
+                provider_form = ProviderForm(request.POST,instance=provider)
+                password_change_form = PasswordChangeForm(request.POST)
+                location_formset = LocationForm(request.POST,request.FILES)
 
-				if password_change_form.is_valid() and provider_form.is_valid() and location_form.is_valid():
-					password_change_form.save()
-					provider = provider_form.save(commit=False)
-					provider.admin = admin_user
-					provider.save()
-					for location_form in location_formset:
-						location = location_form.save(commit=False)
-						location.provider = provider
-					location_formset.save()
-					return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+                if password_change_form.is_valid() and provider_form.is_valid() and location_form.is_valid():
+                    password_change_form.save()
+                    provider = provider_form.save(commit=False)
+                    provider.admin = admin_user
+                    provider.save()
+                    for location_form in location_formset:
+                        location = location_form.save(commit=False)
+                        location.provider = provider
+                    location_formset.save()
+                    return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
 
-			else:
-				password_change_form = PasswordChangeForm(user=admin_user)
-				provider_form = ProviderForm(instance=provider)
-				location_formset = LocationFormset(queryset=Location.objects.filter(provider__pk = provider_id))
+            else:
+                password_change_form = PasswordChangeForm(user=admin_user)
+                provider_form = ProviderForm(instance=provider)
+                location_formset = LocationFormset(queryset=Location.objects.filter(provider__pk = provider_id))
 
-			return render(request, "provider/edit.html", { 
-													'provider': provider,
-													'provider_form': provider_form, 
-													'location_formset': location_formset,
-													'password_change_form': password_change_form,
-													 })
+            return render(request, "provider/edit.html", { 
+                                                    'provider': provider,
+                                                    'provider_form': provider_form, 
+                                                    'location_formset': location_formset,
+                                                    'password_change_form': password_change_form,
+                                                     })
 
-	else:
-		return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
+    else:
+        return HttpResponseRedirect(reverse('provider_detail', kwargs={'provider_id': provider.id}))
 
 def provider_detail(request, provider_id):
-	provider = get_object_or_404(Provider, id=provider_id)
-	admin_user = provider.admin
-	if request.user == admin_user: 
-		can_edit = True
-	else:
-		can_edit = False
-	locations = Location.objects.filter(provider__pk = provider_id)
+    provider = get_object_or_404(Provider, id=provider_id)
+    admin_user = provider.admin
+    if request.user == admin_user: 
+        can_edit = True
+    else:
+        can_edit = False
+    locations = Location.objects.filter(provider__pk = provider_id)
 
-	return render(request, 'provider/detail.html', {
-													'provider': provider, 
-													'locations': locations, 
-													'can_edit': can_edit,
-													})
+    return render(request, 'provider/detail.html', {
+                                                    'provider': provider, 
+                                                    'locations': locations, 
+                                                    'can_edit': can_edit,
+                                                    })
 
 
 
 def add_volunteer(request):
-	if request.user.is_authenticated():
-		return HttpResponseRedirect(reverse('index')) # Logged in users shouldn't be able to sign up
-	else:
-		if request.method == "POST":
-			profile_form = UserForm(request.POST)
-			if profile_form.is_valid():
-				user = Volunteer()
-				user.first_name = profile_form.cleaned_data.get("first_name")
-				user.last_name = profile_form.cleaned_data.get("last_name")
-				user.email = profile_form.cleaned_data.get("email")
-				user.phone = profile_form.cleaned_data.get("phone")
-				user.address = profile_form.cleaned_data.get("address")
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index')) # Logged in users shouldn't be able to sign up
+    else:
+        if request.method == "POST":
+            profile_form = UserForm(request.POST)
+            if profile_form.is_valid():
+                user = Volunteer()
+                user.first_name = profile_form.cleaned_data.get("first_name")
+                user.last_name = profile_form.cleaned_data.get("last_name")
+                user.email = profile_form.cleaned_data.get("email")
+                user.phone = profile_form.cleaned_data.get("phone")
+                user.address = profile_form.cleaned_data.get("address")
 
-				user.save()
-				
-				user_resources = profile_form.cleaned_data.get("has_resources")
-				
-				user_resource_objects = [Resource.objects.filter(name=r).first() for r in user_resources]
+                user.save()
+                
+                user_resources = profile_form.cleaned_data.get("has_resources")
+                
+                user_resource_objects = [Resource.objects.filter(name=r).first() for r in user_resources]
 
-				for r in user_resource_objects:
-					user.has_resources.add(r)
-				
-				user.save()
-				
-				if len(user_resources) > 0:
-					resources_available = ', '.join(user_resources)
-				else:
-					resources_available = 'None'
-					
-				#for confirmation email
-				# Grab current language value (if not already grabbed)
-				language = 'english' #seems to be posted as a hidden field called language in the base form. no idea where it gets sent to, though.
-		
-				# Grab email set dependent on language value (may need to change values)
-				if language == 'english':
-					from email_texts import english_version_emails as emails
-				elif language == 'spanish':
-					from email_texts import spanish_version_emails as emails
-					
-				# Find some nearby locations that need the things the volunteer has
-				coords = find_search_coordinates(user.address)
-				
-				within_radius = []
-				
-				if len(user_resource_objects) == 0:
-					#do not include anything about local orgs if the user specified no resources
-					pass
-				elif not coords:
-					#do not include local orgs if the coordinates weren't found
-					pass
-				elif len(user_resource_objects) == 1 and user_resource_objects[0].name.lower() == "other":
-					#do not include local orgs if the only resource is "other"
-					pass
-				else:
-					locations = Location.objects.select_related('provider').exclude(provider__approved=False)
-					locations = locations.filter(resources_needed__in=user_resource_objects)
-					
-					for location in locations:
-						dist = vincenty(
-							(location.latitude, location.longitude), 
-							(coords['latitude'], coords['longitude'])
-							).miles
-					
-						if dist <= RADIUS_DISTANCE:
-							within_radius.append((location,round(dist,1)))
-						
-					
-					within_radius.sort(key=lambda tup: tup[1])
-					
-					within_radius = within_radius[0:3] #only display the 3 nearest locations in email
-					
-				if len(within_radius) > 0:
-					getting_started = "Here are some organizations near you that could use your help:\n\n"
-					for location_tuple in within_radius:
-						location = location_tuple[0]
-						dist = location_tuple[1]
-						location_resources = [r.name for r in location.resources_needed.all()]
+                for r in user_resource_objects:
+                    user.has_resources.add(r)
+                
+                user.save()
+                
+                if len(user_resources) > 0:
+                    resources_available = ', '.join(user_resources)
+                else:
+                    resources_available = 'None'
+                    
+                #for confirmation email
+                # Grab current language value (if not already grabbed)
+                language = 'english' #seems to be posted as a hidden field called language in the base form. no idea where it gets sent to, though.
+        
+                # Grab email set dependent on language value (may need to change values)
+                if language == 'english':
+                    from email_texts import english_version_emails as emails
+                elif language == 'spanish':
+                    from email_texts import spanish_version_emails as emails
+                    
+                # Find some nearby locations that need the things the volunteer has
+                coords = find_search_coordinates(user.address)
+                
+                within_radius = []
+                
+                if len(user_resource_objects) == 0:
+                    #do not include anything about local orgs if the user specified no resources
+                    pass
+                elif not coords:
+                    #do not include local orgs if the coordinates weren't found
+                    pass
+                elif len(user_resource_objects) == 1 and user_resource_objects[0].name.lower() == "other":
+                    #do not include local orgs if the only resource is "other"
+                    pass
+                else:
+                    locations = Location.objects.select_related('provider').exclude(provider__approved=False)
+                    locations = locations.filter(resources_needed__in=user_resource_objects)
+                    
+                    for location in locations:
+                        dist = vincenty(
+                            (location.latitude, location.longitude), 
+                            (coords['latitude'], coords['longitude'])
+                            ).miles
+                    
+                        if dist <= RADIUS_DISTANCE:
+                            within_radius.append((location,round(dist,1)))
+                        
+                    
+                    within_radius.sort(key=lambda tup: tup[1])
+                    
+                    within_radius = within_radius[0:3] #only display the 3 nearest locations in email
+                    
+                if len(within_radius) > 0:
+                    getting_started = "Here are some organizations near you that could use your help:\n\n"
+                    for location_tuple in within_radius:
+                        location = location_tuple[0]
+                        dist = location_tuple[1]
+                        location_resources = [r.name for r in location.resources_needed.all()]
 
-						location_info = [location.provider.name,
-										location.address,location.phone,
-										location.provider.URL,
-										"{0} miles from you".format(dist),
-										"Resources needed: {0}".format(', '.join(location_resources)),
-										'\n\n']
-						getting_started += '\n'.join(location_info)
-						
-					getting_started += "Or find more places where you can help at http://www.buscandomaryland.com/resources/volunteer"
-				else:
-					getting_started = "Find places where you can help: http://www.buscandomaryland.com/resources/volunteer"
-					
-				# Grab admin email list (if not already grabbed or stored somewhere else)
-				admin_email_list = [admin_email_address]
-		
-				# Build confirmation email
-				email = emails['volunteer_signup']['confirmation']
-				volunteer_email_body = email['body'].format(firstname=user.first_name,
-					vol_username=user.email,
-					vol_location=user.address,
-					resources_available=resources_available,
-					getting_started = getting_started)
-				confirmation_email = (email['subject'], volunteer_email_body, email['from'], [user.email])
-		
-				# Build admin notification email
-				email = emails['volunteer_signup']['admin']
-				admin_email_body = email['body'].format(vol_username=user.email)
-				admin_email = (email['subject'], admin_email_body, email['from'], admin_email_list)
-		
-				# Send Them
-				send_mass_mail((admin_email, confirmation_email), fail_silently=False)
-				#end of code for confirmation e-mail
-				
-				
-				# Still need to check for saving of skills they have here
-				return HttpResponseRedirect(reverse('resources'))
-		else:
-			profile_form = UserForm()
-		return render(request, "volunteer/new.html", { 'profile_form': profile_form})
+                        location_info = [location.provider.name,
+                                        location.address,location.phone,
+                                        location.provider.URL,
+                                        "{0} miles from you".format(dist),
+                                        "Resources needed: {0}".format(', '.join(location_resources)),
+                                        '\n\n']
+                        getting_started += '\n'.join(location_info)
+                        
+                    getting_started += "Or find more places where you can help at http://www.buscandomaryland.com/resources/volunteer"
+                else:
+                    getting_started = "Find places where you can help: http://www.buscandomaryland.com/resources/volunteer"
+                    
+                # Grab admin email list (if not already grabbed or stored somewhere else)
+                admin_email_list = [admin_email_address]
+        
+                # Build confirmation email
+                email = emails['volunteer_signup']['confirmation']
+                volunteer_email_body = email['body'].format(firstname=user.first_name,
+                    vol_username=user.email,
+                    vol_location=user.address,
+                    resources_available=resources_available,
+                    getting_started = getting_started)
+                confirmation_email = (email['subject'], volunteer_email_body, email['from'], [user.email])
+        
+                # Build admin notification email
+                email = emails['volunteer_signup']['admin']
+                admin_email_body = email['body'].format(vol_username=user.email)
+                admin_email = (email['subject'], admin_email_body, email['from'], admin_email_list)
+        
+                # Send Them
+                send_mass_mail((admin_email, confirmation_email), fail_silently=False)
+                #end of code for confirmation e-mail
+                
+                
+                # Still need to check for saving of skills they have here
+                return HttpResponseRedirect(reverse('resources'))
+        else:
+            profile_form = UserForm()
+        return render(request, "volunteer/new.html", { 'profile_form': profile_form})
