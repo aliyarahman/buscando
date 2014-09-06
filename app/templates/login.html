@@ -27,7 +27,7 @@
                 <p class="is-error bg-danger">{% trans "Your email and/or password didn't match. Please try again." %}</p>
                 {% endif %}
 
-                <input type="submit" value="Login" class="btn btn-primary" />
+                <input type="submit" value="{% trans "Login" %}" class="btn btn-primary" />
                 <input type="hidden" name="next" value="{{ next }}" />
             </form>
         </div>

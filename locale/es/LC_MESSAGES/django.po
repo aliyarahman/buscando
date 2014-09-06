@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-06 12:56-0400\n"
+"POT-Creation-Date: 2014-09-06 13:47-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -222,7 +222,8 @@ msgid ""
 "through the Buscando search page."
 msgstr ""
 "Si. Existen muchas clínicas que ofrecen servicios médicos a precios "
-"reducidos para cualquier persona sin importar su estatus migratorio. Puede buscarlas por este sitio."
+"reducidos para cualquier persona sin importar su estatus migratorio. Puede "
+"buscarlas por este sitio."
 
 #: app/templates/about.html:89
 msgid "Is the child in my care eligible for public benefits?"
@@ -233,7 +234,9 @@ msgid ""
 "In some cases, children seeking refuge may qualify for some public benefits "
 "like Medical Assistance.  Please call 410-558-3175 for more information."
 msgstr ""
-"En algunos casos, los niños que buscan refugio pueden calificar para recibir algunos beneficios públicos como Asistencia Médica. Por favor llame al siguiente teléfono 410-558-3175 para recibir más información."
+"En algunos casos, los niños que buscan refugio pueden calificar para recibir "
+"algunos beneficios públicos como Asistencia Médica. Por favor llame al "
+"siguiente teléfono 410-558-3175 para recibir más información."
 
 #: app/templates/about.html:92
 msgid "Can the child in my care be enrolled in school?"
@@ -249,26 +252,40 @@ msgid ""
 "local communities with a parent, family member, or other appropriate adult "
 "sponsor."
 msgstr ""
-"Si. De acuerdo con el Departamento de Estado de Educación de los Estados Unidos, todos los niños tienen derecho a acceso igualitario a la educación primaria y secundaria, sin importar su lugar de origen aparente o real del niño o de sus padres, ni su ciudadanía o su estatus migratorio. Esto incluye a los niños no acompañados que han llegado recientemente y que están en procesos migratorios; mientras residen en comunidades locales con alguno de sus padres, parientes o algún otro adulto patrocinador responsable."
+"Si. De acuerdo con el Departamento de Estado de Educación de los Estados "
+"Unidos, todos los niños tienen derecho a acceso igualitario a la educación "
+"primaria y secundaria, sin importar su lugar de origen aparente o real del "
+"niño o de sus padres, ni su ciudadanía o su estatus migratorio. Esto incluye "
+"a los niños no acompañados que han llegado recientemente y que están en "
+"procesos migratorios; mientras residen en comunidades locales con alguno de "
+"sus padres, parientes o algún otro adulto patrocinador responsable."
 
 #: app/templates/about.html:95
 msgid ""
 "I'm worried about fraud. Do we have to pay for reunification and legal "
 "services?"
 msgstr ""
-"Me preocupa el fraude. ¿Tenemos que pagar por los servicios legales y de reunificación?"
+"Me preocupa el fraude. ¿Tenemos que pagar por los servicios legales y de "
+"reunificación?"
 
 #: app/templates/about.html:96
+#, fuzzy
 msgid ""
 "There are many community organizations that can assist sponsor families with "
 "completing reunification packets and legal services at reduced or no cost. "
 "You may choose to work through a private attorney, but be aware that there "
 "are some individuals who may try to take advantage of you and charge large "
-"fees.  The organizations listed in this resource guide can advise you on the "
+"fees.  The organizations listed on this site can advise you on the "
 "availability of free or reduced cost legal assistance."
 msgstr ""
-"Existen muchas organizaciones comunales que pueden ayudar a las familias patrocinadoras a llenar los formularios de reunificación y con servicios legales de forma gratuita o a un costo reducido. Usted puede decidir contratar a un abogado privado, pero tenga en cuenta que pueden existir individuos que quieran aprovecharse de la situación y cobrar tarifas muy elevadas. Las organizaciones que aparecen en esta guía de recursos pueden asesorarlo acerca de la opciones de servicios legales gratuitas o de bajo costo."
-
+"Existen muchas organizaciones comunales que pueden ayudar a las familias "
+"patrocinadoras a llenar los formularios de reunificación y con servicios "
+"legales de forma gratuita o a un costo reducido. Usted puede decidir "
+"contratar a un abogado privado, pero tenga en cuenta que pueden existir "
+"individuos que quieran aprovecharse de la situación y cobrar tarifas muy "
+"elevadas. Las organizaciones que aparecen en esta guía de recursos pueden "
+"asesorarlo acerca de la opciones de servicios legales gratuitas o de bajo "
+"costo."
 
 #: app/templates/about.html:103
 msgid "More resources"
@@ -472,7 +489,7 @@ msgstr "Ver mi perfil"
 msgid "Register"
 msgstr "Registrarse"
 
-#: app/templates/index.html:62
+#: app/templates/index.html:62 app/templates/login.html:30
 msgid "Login"
 msgstr "Iniciar sesión"
 
@@ -581,6 +598,10 @@ msgstr "Educación / Inscripciones"
 #: app/templates/resources.html:97
 msgid "Religous Services"
 msgstr "Servicios Religiosos"
+
+#: app/templates/resources.html:97
+msgid "Volunteers"
+msgstr "Voluntarios"
 
 #: app/templates/location/edit.html:67 app/templates/location/new.html:84
 #: app/templates/provider/edit.html:131
