@@ -104,11 +104,15 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + ('dj
 LOCALE_PATHS = os.path.join(BASE_DIR, 'locale'),
 
 
-EMAIL_HOST = 'localhost'
+#enable on production with account credentials somewhere secure
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'information@buscandomaryland.com'
+EMAIL_HOST_PASSWORD = 'password' #update this when we've got it
 
 
-#this is for testing locally. Not quite sure what goes here in production
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 '''
 # Parse database configuration from $DATABASE_URL

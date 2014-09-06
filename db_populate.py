@@ -38,9 +38,9 @@ resource_types = ["food", "clothing", "language", "legal services", "transportat
 
 
 for resource in resource_types:
-    if len(Resource.objects.filter(name=resource)) == 0:
-        r = Resource(name=resource)
-        r.save()
+	if len(Resource.objects.filter(name=resource)) == 0:
+		r = Resource(name=resource)
+		r.save()
 
 
 resource_objects = [Resource.objects.filter(name=r).first() for r in resource_types]
@@ -115,7 +115,8 @@ with open(csv_name, 'rb') as csvfile:
 			for r in resource_objects:
 				if row[r.name].lower().strip() == 'yes':
 					l.resources_needed.add(r)
-					l.resources_available.add(r)
+					if r.name != "volunteers":
+						l.resources_available.add(r)
 		
 		
 		
