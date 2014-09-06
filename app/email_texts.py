@@ -23,7 +23,7 @@ Again, thank you for being a positive force in the lives of children seeking ref
 
 english_provider_admin_body = '''Hello,
 
-{org_username} has just registered to join Buscando. Please log into the administrator interface at [link] to approve this user.
+{org_username} has just registered to join Buscando. Please log into the administrator interface at http://www.buscandomaryland.com/admin/ to approve this user.
 '''
 
 english_volunteer_confirmation_body = '''Dear {firstname},
@@ -49,7 +49,7 @@ Again, thank you for being a positive force in the lives of children seeking ref
 
 english_volunteer_admin_body = '''Hello,
 
-{vol_username} has just registered to join Buscando. Please log into the administrator interface at [link] to approve this user.
+{vol_username} has just registered to join Buscando. Please log into the administrator interface at http://www.buscandomaryland.com/admin/ to approve this user.
 '''
 # ------------------------------------------ SPANISH LANGUAGE EMAIL BODIES --------------------------------------------
 
@@ -66,11 +66,6 @@ Recursos disponibles: {resources_available}
 Para ver o modificar su perfil, ingrese aquí http://www.buscandomaryland.com/login/.
 
 Una vez más, gracias por ser una fuerza positiva en la vida de los niños que buscan refugio.
-'''
-
-spanish_provider_admin_body = '''Hola,
-
-{org_username} se acaba de registrar para unirse a Buscando. Por favor, ingrese a la interfaz de administrador aquí [link] para aprobar a este nuevo usuario.
 '''
 
 spanish_volunteer_confirmation_body = '''Estimado(a) {firstname},
@@ -91,10 +86,6 @@ Recursos disponibles: {resources_available}
 Una vez más, gracias por ser una fuerza positiva en la vida de los niños que buscan refugio.
 '''
 
-spanish_volunteer_admin_body = '''Hola,
-
-{vol_username} se acaba de registrar para unirse a Buscando. Por favor, ingrese a la interfaz de administrador aquí [link] para aprobar a este nuevo usuario.
-'''
 
 english_version_emails = {
 	'provider_signup': {
@@ -131,8 +122,8 @@ spanish_version_emails = {
 		},
 		'admin': {
 			'from':admin_email_address,
-			'subject':'Nueva Organización: requiere aprobación',
-			'body':spanish_provider_admin_body
+			'subject':'New Organization: Approval Needed',
+			'body':english_provider_admin_body
 		}
 	},
 	'volunteer_signup': {
@@ -141,10 +132,10 @@ spanish_version_emails = {
 			'subject':'Gracias por unirte a Buscando!',
 			'body':spanish_volunteer_confirmation_body
 		},
-		'admin_notification':{
+		'admin':{
 			'from':admin_email_address,
-			'subject':'Nuevo Voluntario: requiere aprobación',
-			'body':spanish_volunteer_admin_body
+			'subject':'New Volunteer: Approval Needed',
+			'body':english_volunteer_admin_body
 		}
 	}
 }

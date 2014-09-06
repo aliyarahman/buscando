@@ -492,15 +492,13 @@ def add_volunteer(request):
                 else:
                     resources_available = 'None'
                     
-                #for confirmation email
-                # Grab current language value (if not already grabbed)
-                language = 'english' #seems to be posted as a hidden field called language in the base form. no idea where it gets sent to, though.
+
         
                 # Grab email set dependent on language value (may need to change values)
-                if language == 'english':
-                    from email_texts import english_version_emails as emails
-                elif language == 'spanish':
+                if request.LANGUAGE_CODE == 'es':
                     from email_texts import spanish_version_emails as emails
+                else:
+                    from email_texts import english_version_emails as emails
                     
                 # Find some nearby locations that need the things the volunteer has
                 coords = find_search_coordinates(user.address)
