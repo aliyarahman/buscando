@@ -58,7 +58,7 @@
             {% else %}
                 <a class="btn btn-primary" href="{% url 'add_provider' %}" role="button">{% trans "Register" %}</a>
                 <span class="intro-login">
-                    or
+                    {% trans "or" %}
                     <a href="{% url 'login' %}" role="button">{% trans "Login" %}</a>
                 </span>
             {% endif %}
