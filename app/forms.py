@@ -1,7 +1,23 @@
 from django import forms
 from app.models import Provider, Resource, Location
 from django.forms import ModelForm
+from django.utils.translation import ugettext_lazy as _
 from django.forms.models import modelformset_factory
+
+
+
+VOLUNTEER_CHOICES = (('food', _('Food')),
+                     ('clothing', _('Clothing')),
+                     ('language', _('English-Spanish translation')),
+                     ('legal services', _('Legal services')),
+                     ('transportation', _('Transportation')),	
+                     ('medical care', _('Medical care')),
+                     ('education and enrollment', _('Help with education and enrollment')),
+                     ('religious services', _('Religious services')),
+                     ('counseling', _('Mental health and counseling')),
+                     ('recreation', _('Recreation')),
+                     ('volunteers', _('Volunteer recruitment')),
+                     ('other', _('Other')),)
 
 class ResourcesChoiceField(forms.ModelMultipleChoiceField):
 	def label_from_instance(self, obj):
@@ -44,18 +60,6 @@ class ProviderForm(ModelForm):
 
 LocationFormset = modelformset_factory(Location, extra=1)
 
-VOLUNTEER_CHOICES = (('food', 'Food'),
-                     ('clothing', 'Clothing'),
-                     ('language', 'English-Spanish translation'),
-                     ('legal services', 'Legal services'),
-                     ('transportation', 'Transportation'),	
-                     ('medical care', 'Medical care'),
-                     ('education and enrollment', 'Help with education and enrollment'),
-                     ('religious services', 'Religious services'),
-                     ('counseling', 'Mental health and counseling'),
-                     ('recreation', 'Recreation'),
-                     ('volunteers', 'Volunteer recruitment'),
-                     ('other', 'Other'),)
 
 class UserForm(forms.Form):
 	first_name = forms.CharField(max_length=45)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-06 14:27-0400\n"
+"POT-Creation-Date: 2014-09-06 17:22-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,58 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: app/forms.py:9 app/templates/index.html:24 app/templates/resources.html:28
+#: app/templates/resources.html.py:98
+msgid "Food"
+msgstr "Comida"
+
+#: app/forms.py:10 app/templates/index.html:25 app/templates/resources.html:29
+#: app/templates/resources.html.py:98
+msgid "Clothing"
+msgstr "Ropa"
+
+#: app/forms.py:11
+msgid "English-Spanish translation"
+msgstr "Idioma"
+
+#: app/forms.py:12
+msgid "Legal services"
+msgstr "Servicios Legales"
+
+#: app/forms.py:13 app/templates/index.html:27 app/templates/resources.html:31
+#: app/templates/resources.html.py:98
+msgid "Transportation"
+msgstr "Servicios de Transporte"
+
+#: app/forms.py:14
+msgid "Medical care"
+msgstr "Atención Médica"
+
+#: app/forms.py:15
+msgid "Help with education and enrollment"
+msgstr "Educación / Inscripciones"
+
+#: app/forms.py:16
+msgid "Religious services"
+msgstr "Servicios Religiosos"
+
+#: app/forms.py:17
+msgid "Mental health and counseling"
+msgstr "Orientación"
+
+#: app/forms.py:18 app/templates/index.html:33 app/templates/resources.html:37
+#: app/templates/resources.html.py:98
+msgid "Recreation"
+msgstr "Entretenimiento"
+
+#: app/forms.py:19
+msgid "Volunteer recruitment"
+msgstr "Registro de Voluntarios"
+
+#: app/forms.py:20
+msgid "Other"
+msgstr "Otro"
 
 #: app/views.py:108
 msgid ""
@@ -389,25 +441,10 @@ msgstr "Recurso"
 msgid "What do you need?"
 msgstr "¿Qué necesita?"
 
-#: app/templates/index.html:24 app/templates/resources.html:28
-#: app/templates/resources.html.py:98
-msgid "Food"
-msgstr "Comida"
-
-#: app/templates/index.html:25 app/templates/resources.html:29
-#: app/templates/resources.html.py:98
-msgid "Clothing"
-msgstr "Ropa"
-
 #: app/templates/index.html:26 app/templates/resources.html:30
 #: app/templates/resources.html.py:98
 msgid "Language"
 msgstr "Idioma"
-
-#: app/templates/index.html:27 app/templates/resources.html:31
-#: app/templates/resources.html.py:98
-msgid "Transportation"
-msgstr "Servicios de Transporte"
 
 #: app/templates/index.html:28 app/templates/resources.html:32
 #: app/templates/resources.html.py:98
@@ -431,11 +468,6 @@ msgstr "Servicios Religiosos"
 #: app/templates/resources.html.py:98
 msgid "Counseling"
 msgstr "Orientación"
-
-#: app/templates/index.html:33 app/templates/resources.html:37
-#: app/templates/resources.html.py:98
-msgid "Recreation"
-msgstr "Entretenimiento"
 
 #: app/templates/index.html:38
 msgid "ZIP Code"
