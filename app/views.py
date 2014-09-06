@@ -19,8 +19,10 @@ import requests
 from django.shortcuts import render_to_response
 from django.utils import simplejson
 from django.core.mail import send_mass_mail
+from email_texts import admin_email_address
 
 RADIUS_DISTANCE = 35 # miles
+
 
 def index(request):
 	return render(request, "index.html")
@@ -242,7 +244,7 @@ def add_provider(request):
 					from email_texts import spanish_version_emails as emails
 		
 				# Grab admin email list (if not already grabbed or stored somewhere else)
-				admin_email_list = ['adamloganunger@gmail.com']
+				admin_email_list = [admin_email_address]
 		
 				# Build confirmation email
 				email = emails['provider_signup']['confirmation']
@@ -474,12 +476,13 @@ def add_volunteer(request):
 				user.save()
 				
 				if len(user_resources) > 0:
-					resources_available = ', '.join(user_resources) #needs to be pulled from the volunteer
+					resources_available = ', '.join(user_resources)
 				else:
 					resources_available = 'None'
+					
 		
 				# Grab current language value (if not already grabbed)
-				language = 'english' #seems to be posted as a hidden field called language in the base form. no idea where it gets posted to, though.
+				language = 'english' #seems to be posted as a hidden field called language in the base form. no idea where it gets sent to, though.
 		
 				# Grab email set dependent on language value (may need to change values)
 				if language == 'english':
@@ -488,7 +491,7 @@ def add_volunteer(request):
 					from email_texts import spanish_version_emails as emails
 		
 				# Grab admin email list (if not already grabbed or stored somewhere else)
-				admin_email_list = ['rshorey@gmail.com']
+				admin_email_list = [admin_email_address]
 		
 				# Build confirmation email
 				email = emails['volunteer_signup']['confirmation']
