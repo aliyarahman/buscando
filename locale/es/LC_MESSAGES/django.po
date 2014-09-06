@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-03 21:19-0400\n"
+"POT-Creation-Date: 2014-09-06 12:56-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: app/views.py:95
+#: app/views.py:108
 msgid ""
 "Sorry, I couldn't find that location. Please try again. You can also search "
 "by city or by zipcode."
@@ -26,15 +26,15 @@ msgstr ""
 "Disculpe, no puedo encontrar esa ubicación. Por favor, intente de nuevo. "
 "También puede buscar por ciudad o por código postal"
 
-#: app/views.py:110
+#: app/views.py:123
 msgid "Please choose a resource and try again."
 msgstr ""
 "Por favor, indique el tipo de recurso o servicio que está buscando e intente "
 "de nuevo."
 
-#: app/templates/FAQ.html:7
+#: app/templates/FAQ.html:7 app/templates/about.html:82
 msgid "Frequently Asked Questions"
-msgstr ""
+msgstr "Preguntas Frecuentes"
 
 #: app/templates/about.html:7
 msgid "About"
@@ -166,96 +166,170 @@ msgstr ""
 
 #: app/templates/about.html:34
 msgid "Researchers"
-msgstr ""
+msgstr "Investigadores"
 
 #: app/templates/about.html:40
 msgid "Content writer - Spanish"
-msgstr ""
+msgstr "Redactora de contenidos - Español"
 
 #: app/templates/about.html:43
 msgid "Content writer - English"
-msgstr ""
+msgstr "Redactora de contenidos - Inglés"
 
 #: app/templates/about.html:46
 msgid "Testers"
-msgstr ""
+msgstr "Ejecutoras de pruebas del sistema"
 
 #: app/templates/about.html:54
 msgid "Front-end developers"
-msgstr ""
+msgstr "Desarrolladoras del front-end"
 
 #: app/templates/about.html:58
 msgid "Back-end developers"
-msgstr ""
+msgstr "Desarrolladoras del back-end"
 
-#: app/templates/about.html:63
+#: app/templates/about.html:65
 msgid "Database programmers"
-msgstr ""
+msgstr "Programadoras de Base de Datos"
 
-#: app/templates/about.html:69
+#: app/templates/about.html:73
 msgid "Project managers"
-msgstr ""
+msgstr "Gerentes de Proyecto"
 
-#: app/templates/about.html:77
+#: app/templates/about.html:83
+msgid "What is the Maryland government's role with this program?"
+msgstr "¿Cuál es el rol del alcalde de Maryland en este programa?"
+
+#: app/templates/about.html:84
+msgid ""
+"The State of Maryland is helping to connect sponsor families with basic "
+"needs such as food and clothing, healthcare and legal assistance to service "
+"providers who are able to help."
+msgstr ""
+"El estado de Maryland está ayudando a conectar a las familias patrocinadoras "
+"que tienen necesidades básicas como alimentación y ropa, cuidados de salud y "
+"asistencia legal, con proveedores de servicios que están en capacidad de "
+"ayudar."
+
+#: app/templates/about.html:86
+msgid "Can the child in my care receive health care?"
+msgstr "¿Los niños que yo estoy cuidado pueden recibir atención médica?"
+
+#: app/templates/about.html:87
+msgid ""
+"Yes. There are many clinics that offer health services at reduced costs to "
+"anyone, regardless of immigration status.  You can find clinics near you "
+"through the Buscando search page."
+msgstr ""
+"Si. Existen muchas clínicas que ofrecen servicios médicos a precios "
+"reducidos para cualquier persona sin importar su estatus migratorio. Puede buscarlas por este sitio."
+
+#: app/templates/about.html:89
+msgid "Is the child in my care eligible for public benefits?"
+msgstr "¿El niño o niña que estoy cuidando puede recibir beneficios públicos?"
+
+#: app/templates/about.html:90
+msgid ""
+"In some cases, children seeking refuge may qualify for some public benefits "
+"like Medical Assistance.  Please call 410-558-3175 for more information."
+msgstr ""
+"En algunos casos, los niños que buscan refugio pueden calificar para recibir algunos beneficios públicos como Asistencia Médica. Por favor llame al siguiente teléfono 410-558-3175 para recibir más información."
+
+#: app/templates/about.html:92
+msgid "Can the child in my care be enrolled in school?"
+msgstr "¿El niño o niña que estoy cuidando puede ser inscrito en la escuela?"
+
+#: app/templates/about.html:93
+msgid ""
+"Yes. According to the United States Department of Education, all children "
+"are entitled to equal access to a public elementary and secondary education, "
+"regardless of their or their parents’ actual or perceived national origin, "
+"citizenship, or immigration status. This includes recently arrived "
+"unaccompanied children who are in immigration proceedings while residing in "
+"local communities with a parent, family member, or other appropriate adult "
+"sponsor."
+msgstr ""
+"Si. De acuerdo con el Departamento de Estado de Educación de los Estados Unidos, todos los niños tienen derecho a acceso igualitario a la educación primaria y secundaria, sin importar su lugar de origen aparente o real del niño o de sus padres, ni su ciudadanía o su estatus migratorio. Esto incluye a los niños no acompañados que han llegado recientemente y que están en procesos migratorios; mientras residen en comunidades locales con alguno de sus padres, parientes o algún otro adulto patrocinador responsable."
+
+#: app/templates/about.html:95
+msgid ""
+"I'm worried about fraud. Do we have to pay for reunification and legal "
+"services?"
+msgstr ""
+"Me preocupa el fraude. ¿Tenemos que pagar por los servicios legales y de reunificación?"
+
+#: app/templates/about.html:96
+msgid ""
+"There are many community organizations that can assist sponsor families with "
+"completing reunification packets and legal services at reduced or no cost. "
+"You may choose to work through a private attorney, but be aware that there "
+"are some individuals who may try to take advantage of you and charge large "
+"fees.  The organizations listed in this resource guide can advise you on the "
+"availability of free or reduced cost legal assistance."
+msgstr ""
+"Existen muchas organizaciones comunales que pueden ayudar a las familias patrocinadoras a llenar los formularios de reunificación y con servicios legales de forma gratuita o a un costo reducido. Usted puede decidir contratar a un abogado privado, pero tenga en cuenta que pueden existir individuos que quieran aprovecharse de la situación y cobrar tarifas muy elevadas. Las organizaciones que aparecen en esta guía de recursos pueden asesorarlo acerca de la opciones de servicios legales gratuitas o de bajo costo."
+
+
+#: app/templates/about.html:103
 msgid "More resources"
 msgstr "Mas información"
 
-#: app/templates/about.html:78
+#: app/templates/about.html:104
 msgid "Federal Response"
-msgstr ""
+msgstr "Respuesta Federal"
 
-#: app/templates/about.html:82
+#: app/templates/about.html:108
 msgid "Education"
 msgstr "Educación"
 
-#: app/templates/about.html:88
+#: app/templates/about.html:114
 msgid "Housing and Health"
-msgstr ""
+msgstr "Alojamiento y Salud"
 
-#: app/templates/about.html:98
+#: app/templates/about.html:124
 msgid "Security"
 msgstr "Seguridad"
 
-#: app/templates/about.html:102
+#: app/templates/about.html:128
 msgid "Legal"
 msgstr "Ley"
 
-#: app/templates/about.html:114
+#: app/templates/about.html:140
 msgid "Brainstorm session for Buscano at DC Techlady Hackathon"
 msgstr ""
 "Sesión de lluvia de ideas para el desarrollo de Buscando en DC Techlady "
 "Hackathon"
 
-#: app/templates/about.html:117
+#: app/templates/about.html:143
 msgid "Brainstorm session for Buscando at "
 msgstr "Sesión de lluvia de ideas para el desarrollo de Buscando en"
 
-#: app/templates/about.html:117
+#: app/templates/about.html:143
 msgid "DC Techlady Hackathon"
 msgstr "DC Techlady Hackathon"
 
-#: app/templates/about.html:124
+#: app/templates/about.html:150
 msgid "Set of wireframes in progess for the app"
 msgstr "Conjunto de diagramas funcionales para la aplicación."
 
-#: app/templates/about.html:127
+#: app/templates/about.html:153
 msgid "Set of wireframes in progress for the app"
 msgstr "Conjunto de diagramas funcionales para la aplicación."
 
-#: app/templates/about.html:133
+#: app/templates/about.html:159
 msgid "Buscando is an open-source project"
 msgstr "Buscando es un proyecto do código abierto"
 
-#: app/templates/about.html:134
+#: app/templates/about.html:160
 msgid "Learn more about who built it"
 msgstr "Conozca más acerca de quiénes desarrollaron Buscando"
 
-#: app/templates/about.html:134
+#: app/templates/about.html:160
 #: venv/lib/python2.7/site-packages/django/utils/text.py:224
 msgid "or"
 msgstr "o"
 
-#: app/templates/about.html:134
+#: app/templates/about.html:160
 msgid "view the code"
 msgstr "vea el código"
 
@@ -300,32 +374,32 @@ msgid "What do you need?"
 msgstr "¿Qué necesita?"
 
 #: app/templates/index.html:24 app/templates/resources.html:28
-#: app/templates/resources.html.py:94
+#: app/templates/resources.html.py:97
 msgid "Food"
 msgstr "Comida"
 
 #: app/templates/index.html:25 app/templates/resources.html:29
-#: app/templates/resources.html.py:94
+#: app/templates/resources.html.py:97
 msgid "Clothing"
 msgstr "Ropa"
 
 #: app/templates/index.html:26 app/templates/resources.html:30
-#: app/templates/resources.html.py:94
+#: app/templates/resources.html.py:97
 msgid "Language"
 msgstr "Idioma"
 
 #: app/templates/index.html:27 app/templates/resources.html:31
-#: app/templates/resources.html.py:94
+#: app/templates/resources.html.py:97
 msgid "Transportation"
 msgstr "Servicios de Transporte"
 
 #: app/templates/index.html:28 app/templates/resources.html:32
-#: app/templates/resources.html.py:94
+#: app/templates/resources.html.py:97
 msgid "Legal Services"
 msgstr "Servicios Legales"
 
 #: app/templates/index.html:29 app/templates/resources.html:33
-#: app/templates/resources.html.py:94
+#: app/templates/resources.html.py:97
 msgid "Medical Care"
 msgstr "Atención Médica"
 
@@ -338,12 +412,12 @@ msgid "Religious Services"
 msgstr "Servicios Religiosos"
 
 #: app/templates/index.html:32 app/templates/resources.html:36
-#: app/templates/resources.html.py:94
+#: app/templates/resources.html.py:97
 msgid "Counseling"
 msgstr "Orientación"
 
 #: app/templates/index.html:33 app/templates/resources.html:37
-#: app/templates/resources.html.py:94
+#: app/templates/resources.html.py:97
 msgid "Recreation"
 msgstr "Entretenimiento"
 
@@ -352,7 +426,7 @@ msgid "ZIP Code"
 msgstr "Código postal"
 
 #: app/templates/index.html:39 app/templates/resources.html:16
-#: app/templates/provider/new.html:99
+#: app/templates/provider/new.html:107
 msgid "Location"
 msgstr "Ubicación"
 
@@ -394,7 +468,7 @@ msgid "Go to my organization profile"
 msgstr "Ver mi perfil"
 
 #: app/templates/index.html:59 app/templates/login.html:11
-#: app/templates/volunteer/new.html:105
+#: app/templates/volunteer/new.html:120
 msgid "Register"
 msgstr "Registrarse"
 
@@ -418,12 +492,13 @@ msgstr ""
 msgid "Organization Login"
 msgstr "Acceso para Organizaciones"
 
-#: app/templates/login.html:18 app/templates/volunteer/new.html:62
+#: app/templates/login.html:18 app/templates/provider/new.html:14
+#: app/templates/volunteer/new.html:65
 #: venv/lib/python2.7/site-packages/django/contrib/auth/forms.py:217
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: app/templates/login.html:22 app/templates/provider/new.html:85
+#: app/templates/login.html:22 app/templates/provider/new.html:91
 #: venv/lib/python2.7/site-packages/django/contrib/admin/templates/admin/auth/user/change_password.html:38
 #: venv/lib/python2.7/site-packages/django/contrib/auth/forms.py:83
 #: venv/lib/python2.7/site-packages/django/contrib/auth/forms.py:132
@@ -487,19 +562,23 @@ msgstr ""
 msgid "Sign up as a Volunteer"
 msgstr "Regístrese como Voluntario"
 
-#: app/templates/resources.html:90
+#: app/templates/resources.html:79
+msgid " miles from you"
+msgstr " millas de aquí"
+
+#: app/templates/resources.html:93
 msgid "Resources needed"
 msgstr "Recursos necesarios"
 
-#: app/templates/resources.html:90
+#: app/templates/resources.html:93
 msgid "Resources available"
 msgstr "Recursos disponibles"
 
-#: app/templates/resources.html:94
+#: app/templates/resources.html:97
 msgid "Education And Enrollment"
 msgstr "Educación / Inscripciones"
 
-#: app/templates/resources.html:94
+#: app/templates/resources.html:97
 msgid "Religous Services"
 msgstr "Servicios Religiosos"
 
@@ -578,12 +657,16 @@ msgstr ""
 msgid "Organization info"
 msgstr ""
 
-#: app/templates/provider/detail.html:29 app/templates/provider/detail.html:42
-msgid "edit"
+#: app/templates/provider/detail.html:29
+msgid "Edit"
 msgstr ""
 
 #: app/templates/provider/detail.html:36
 msgid "Locations info"
+msgstr ""
+
+#: app/templates/provider/detail.html:42
+msgid "edit"
 msgstr ""
 
 #: app/templates/provider/detail.html:43
@@ -621,75 +704,90 @@ msgstr "Elimina oficina"
 msgid "Add Location"
 msgstr "Añada una Oficina Adicional"
 
-#: app/templates/provider/new.html:59
+#: app/templates/provider/new.html:46
+#, fuzzy
+msgid "Primary contact's first name"
+msgstr "Nombre de empleado"
+
+#: app/templates/provider/new.html:46
+#, fuzzy
+msgid "Primary contact's last name"
+msgstr "Nombre de empleado"
+
+#: app/templates/provider/new.html:60
 msgid "Create a new organization account"
 msgstr "Cree una cuenta para su organización"
 
-#: app/templates/provider/new.html:65
+#: app/templates/provider/new.html:68
 msgid "Organization Profile"
 msgstr "Perfil de la Organización"
 
-#: app/templates/provider/new.html:70
+#: app/templates/provider/new.html:73
 msgid "Organization Name"
 msgstr "Nombre de la Organización"
 
-#: app/templates/provider/new.html:75
+#: app/templates/provider/new.html:79
 msgid "Organization Website"
 msgstr "Sitio web de la Organización"
 
-#: app/templates/provider/new.html:80
+#: app/templates/provider/new.html:85
 msgid "Contact Email"
 msgstr "Correo electrónico de contacto"
 
-#: app/templates/provider/new.html:90
+#: app/templates/provider/new.html:97
 msgid "Retype password"
 msgstr "Re- escriba la contraseña"
 
-#: app/templates/provider/new.html:108 app/templates/volunteer/new.html:77
+#: app/templates/provider/new.html:116 app/templates/volunteer/new.html:82
 msgid "Address"
 msgstr "Dirección"
 
-#: app/templates/provider/new.html:113
+#: app/templates/provider/new.html:122
 msgid "This location is our main office"
 msgstr "Esta es la sede principal de nuestra Organización"
 
-#: app/templates/provider/new.html:119
-msgid "Primary Contact"
+#: app/templates/provider/new.html:128
+#, fuzzy
+msgid "Primary Contact's Name"
 msgstr "Nombre de empleado"
 
-#: app/templates/provider/new.html:131 app/templates/volunteer/new.html:70
+#: app/templates/provider/new.html:141 app/templates/volunteer/new.html:74
 msgid "Phone"
 msgstr "Teléfono"
 
-#: app/templates/provider/new.html:136
+#: app/templates/provider/new.html:147
 msgid "Hours of operation"
 msgstr "Horario de trabajo"
 
-#: app/templates/provider/new.html:141
+#: app/templates/provider/new.html:153
 msgid "Resources needed (hold \"Ctrl\" or \"⌘\" to select more than one)"
 msgstr ""
 "Recursos que necesita (mantenga presionado el botón \"Ctrl\" o \"⌘\" para "
 "seleccionar más de uno)"
 
-#: app/templates/provider/new.html:146
+#: app/templates/provider/new.html:158
 msgid "Resources available (hold \"Ctrl\" or \"⌘\" to select more than one)"
 msgstr ""
 "Recursos disponibles (mantenga presionado el botón \"Ctrl\" o \"⌘\" para "
 "seleccionar más de uno)"
 
-#: app/templates/provider/new.html:153
+#: app/templates/provider/new.html:163 app/templates/volunteer/new.html:111
+msgid "Fields marked with <span class=\"required\">*</span> are required"
+msgstr ""
+
+#: app/templates/provider/new.html:169
 msgid "Remove this Location"
 msgstr "Eliminar esta oficina."
 
-#: app/templates/provider/new.html:166
+#: app/templates/provider/new.html:182
 msgid "Finish Up"
 msgstr "Finalice"
 
-#: app/templates/provider/new.html:171
+#: app/templates/provider/new.html:187
 msgid "Add another Location"
 msgstr "Añada una ubicación adicional "
 
-#: app/templates/provider/new.html:174
+#: app/templates/provider/new.html:190
 msgid "Register Now"
 msgstr "Regístrese ahora"
 
@@ -719,19 +817,19 @@ msgstr "Sitio web de la Organización"
 msgid "Volunteer Signup"
 msgstr "Registro de Voluntarios"
 
-#: app/templates/volunteer/new.html:47
+#: app/templates/volunteer/new.html:48
 msgid "First name"
 msgstr "Nombre"
 
-#: app/templates/volunteer/new.html:54
+#: app/templates/volunteer/new.html:56
 msgid "Last name"
 msgstr "Apellidos"
 
-#: app/templates/volunteer/new.html:85
+#: app/templates/volunteer/new.html:92
 msgid "I can help by providing:"
 msgstr "Puedo ayudar con:"
 
-#: app/templates/volunteer/new.html:92
+#: app/templates/volunteer/new.html:100
 msgid "If other, what can you provide?"
 msgstr "Si seleccionó Otros, especifique:"
 
