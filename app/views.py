@@ -252,14 +252,11 @@ def add_provider(request):
                 else:
                     resources_available = 'None'
         
-                # Grab current language value (if not already grabbed)
-                language = 'english'
-        
                 # Grab email set dependent on language value (may need to change values)
-                if language == 'english':
-                    from email_texts import english_version_emails as emails
-                elif language == 'spanish':
+                if request.LANGUAGE_CODE == 'es':
                     from email_texts import spanish_version_emails as emails
+                else:
+                    from email_texts import english_version_emails as emails
         
                 # Grab admin email list (if not already grabbed or stored somewhere else)
                 admin_email_list = [admin_email_address]
