@@ -22,5 +22,5 @@ urlpatterns = patterns('',
     url(r'^provider/(?P<provider_id>\d+)/org_profile/$', views.provider_partial, name='provider_partial'),
     url(r'^provider/(?P<provider_id>\d+)/$', views.provider_detail, name='provider_detail'),
     url(r'^provider/(?P<provider_id>\d+)/delete/$', views.delete_provider, name='delete_provider'),
-    url(r'^volunteer/new/$', views.add_volunteer, name='add_volunteer'),
+    url(r'^volunteer/$', views.add_volunteer, name='add_volunteer'),
 )
