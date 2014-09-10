@@ -462,7 +462,8 @@ def provider_detail(request, provider_id):
     if request.user == admin_user: 
         can_edit = True
     else:
-        can_edit = False
+        return HttpResponseRedirect(reverse('index'))
+
     locations = Location.objects.filter(provider__pk = provider_id)
 
     return render(request, 'provider/detail.html', {
@@ -470,8 +471,6 @@ def provider_detail(request, provider_id):
                                                     'locations': locations, 
                                                     'can_edit': can_edit,
                                                     })
-
-
 
 def add_volunteer(request):
     if request.user.is_authenticated():
