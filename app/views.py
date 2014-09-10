@@ -92,10 +92,9 @@ def resources(request, **kwargs):
     except:
         radius = RADIUS_DISTANCE
 
-    if not searched_location and not resource:
+    if not searched_location and not resource: # neither
         return render(request, 'resources.html', { 'type': type_ })
-
-    if searched_location and resource:
+    elif searched_location and resource: # both
         # Save the search
         search = Search(**{
                 'location': searched_location,
@@ -104,7 +103,8 @@ def resources(request, **kwargs):
         search.save()
 
         coords = find_search_coordinates(searched_location)
-
+    elif not searched_location:
+        coords = False
 
     if not coords:
         cdnt_find_loc_error_msg = _("Sorry, I couldn't find that location. Please try again. You can also search by city or by zipcode.")
