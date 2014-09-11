@@ -44,7 +44,11 @@
        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
        ga('create', 'UA-53737719-1', 'auto');
+      {% if location and resource %}
+        ga('send', 'pageview', '/?location={{ location }}&resource={{ resource|join:"," }}');
+      {% else %}
        ga('send', 'pageview');
+      {% endif %}
 
 </script>
 
