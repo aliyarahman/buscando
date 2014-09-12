@@ -176,7 +176,7 @@ def organization_home(request):
         # This user is not associated with an organization.
         # Should this be a login page for organizations?
         # Or just an index of all organizations (with a search sidebar)?
-        return HttpResponseRedirect(reverse('organization_home'))
+        return HttpResponseRedirect(reverse('index'))
 
 def login_page(request):
     if request.method == "POST":
