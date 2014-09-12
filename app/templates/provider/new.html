@@ -149,14 +149,41 @@
                 {% render_field location_form.hours_open class+="form-control" %}
             </div>
 
+            {# I know this is not the ideal way to do this #}
+            {# But my friends, it seems that django-widget-tweaks #}
+            {# is incompatible with translations and doesn't allow you #}
+            {# to loop through the selects (as far as I know) #}
+
             <div class="form-group{% if field.errors %} has-error{% endif %}">
                 <label>{% trans 'Resources needed (hold "Ctrl" or "⌘" to select more than one)' %}</label>
-                {% render_field location_form.resources_needed class+="form-control" size="13" %}
+                    <select multiple="multiple" class="form-control" id="id_form-{{ location_form.prefix }}-resources_needed" name="form-{{ location_form.prefix }}-resources_needed" size="13">
+                        <option value="1">{% trans "Food" %}</option>
+                        <option value="2">{% trans "Clothing" %}</option>
+                        <option value="3">{% trans "Language" %}</option>
+                        <option value="4">{% trans "Legal services" %}</option>
+                        <option value="5">{% trans "Transportation" %}</option>
+                        <option value="6">{% trans "Medical care" %}</option>
+                        <option value="7">{% trans "Education and enrollment" %}</option>
+                        <option value="8">{% trans "Religious services" %}</option>
+                        <option value="9">{% trans "Counseling" %}</option>
+                        <option value="10">{% trans "Housing" %}</option>
+                    </select>
             </div>
 
             <div class="form-group{% if field.errors %} has-error{% endif %}">
                 <label>{% trans 'Resources available (hold "Ctrl" or "⌘" to select more than one)' %}</label>
-                {% render_field location_form.resources_available class+="form-control" size="13" %}
+                    <select multiple="multiple" class="form-control" id="id_form-{{ location_form.prefix }}-resources_available" name="form-{{ location_form.prefix }}-resources_available" size="13">
+                        <option value="1">{% trans "Food" %}</option>
+                        <option value="2">{% trans "Clothing" %}</option>
+                        <option value="3">{% trans "Language" %}</option>
+                        <option value="4">{% trans "Legal services" %}</option>
+                        <option value="5">{% trans "Transportation" %}</option>
+                        <option value="6">{% trans "Medical care" %}</option>
+                        <option value="7">{% trans "Education and enrollment" %}</option>
+                        <option value="8">{% trans "Religious services" %}</option>
+                        <option value="9">{% trans "Counseling" %}</option>
+                        <option value="10">{% trans "Housing" %}</option>
+                    </select>
             </div>
             
             <div class="explain-required">
