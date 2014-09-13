@@ -17,7 +17,8 @@ VOLUNTEER_CHOICES = (('food', _('Food')),
                      ('counseling', _('Mental health and counseling')),
                      ('recreation', _('Recreation')),
                      ('volunteers', _('Volunteer recruitment')),
-                     ('other', _('Other')),)
+                     # ('other', _('Other')),
+                     )
 
 class ResourcesChoiceField(forms.ModelMultipleChoiceField):
 	def label_from_instance(self, obj):
@@ -71,6 +72,6 @@ class UserForm(forms.Form):
 							widget=forms.CheckboxSelectMultiple(),
 							required=True,
 							)
-	other = forms.CharField(max_length = 45, required=False)
+	# other = forms.CharField(max_length = 45, required=False)
 	phone = forms.CharField(max_length=15)
 	address = forms.CharField(max_length=255)
