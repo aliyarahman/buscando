@@ -71,6 +71,9 @@
             </div>
             {% endif %}
 
+            {% if preferred_orgs %}
+                <div class="preferred-org-message">{% trans "*Buscando partner organization" %}</div>
+            {% endif %}
             <section class="resource-form--results">
             {% for location_tuple in within_radius %}
             
@@ -78,7 +81,7 @@
                     <div class="resource-form--result">
                     <h3>
                         {% if location.provider.preferred %}
-                            {{ location.provider.name }}*
+                            <span class="preferred-org">{{ location.provider.name }}* </span>
                         {% else %}
                             {{ location.provider.name }}
                         {% endif %}
@@ -111,9 +114,7 @@
                     </div>
                 {% endwith %}
             {% endfor %}
-            {% if preferred_orgs %}
-                <div class="preferred-org">*Buscando partner organization</div>
-            {% endif %}
+
             </section>
             </div>
         </div>
