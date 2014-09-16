@@ -33,11 +33,13 @@
     <input class="form-control" disabled value="{{ current_location.address }}">
 </div>
 
+{% if current_location.is_headquarters %}
 <div class="checkbox">
     <label>{% trans "This location is our main office" %}
-        <input type="checkbox" disabled {% if current_location.is_headquarters %} checked {% endif %}>        
+        <input type="checkbox" disabled checked>
     </label>
 </div>
+{% endif %}
 
 <div class="form-group">
     <label>{% trans "Primary Contact's Name" %}</label>
@@ -57,19 +59,23 @@
 </div>
 
 <div class="form-group">
+    {% if current_location.resources_needed.all %}
     <label>{% trans "Resources Available" %}</label>
     <ul>
-    {% for resource in current_location.resources_needed.all %}
+        {% for resource in current_location.resources_needed.all %}
         <li>{% trans resource.name %}</li>
-    {% endfor %}
+        {% endfor %}
     </ul>
+    {% endif %}
 </div>
 
 <div class="form-group">
+    {% if current_location.resources_available.all %}
     <label>{% trans "Resources Needed" %}</label>
     <ul>
-    {% for resource in current_location.resources_available.all %}
+        {% for resource in current_location.resources_available.all %}
         <li>{% trans resource.name %}</li>
-    {% endfor %}
+        {% endfor %}
     </ul>
+    {% endif %}
 </div>
