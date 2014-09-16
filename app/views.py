@@ -135,7 +135,8 @@ def resources(request, **kwargs):
             locations = locations.filter(resources_available=resource[0])
         elif len(resource) > 1:
             locations = locations.filter(resources_available__in=resource)
-
+            
+        preferred_orgs = False
         within_radius = []
         for location in locations:
             dist = vincenty(
@@ -144,14 +145,20 @@ def resources(request, **kwargs):
             ).miles
             if dist <= radius:
                 within_radius.append((location,round(dist,1)))
-                
-        within_radius.sort(key=lambda tup: tup[1]) #sorts the location/distance tuples by dist
+            if location.provider.preferred:
+                preferred_orgs = True
+
+        within_radius.sort(key=lambda tup: (not(tup[0].provider.preferred), tup[1]))
+        #sorts the location/distance tuples by dist with preferred ones first
+        
+        
         #passing a sorted list of tuples with (orgname, distance)
         
 
     context = {
         'within_radius': within_radius,
         'radius':radius,
+        'preferred_orgs':preferred_orgs,
         'location': searched_location,
         'resource': resource,
         'search_from': coords,

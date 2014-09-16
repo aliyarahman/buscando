@@ -73,7 +73,7 @@ user = User.objects.filter(username="test_user").first()
 
 
 
-with open(csv_name, 'rb') as csvfile:
+with open(csv_name, 'rbU') as csvfile:
 	providers = csv.DictReader(csvfile, delimiter=',', quotechar='"')
 	
 
@@ -83,8 +83,12 @@ with open(csv_name, 'rb') as csvfile:
 		
 		existing_provider = Provider.objects.filter(name__iexact = provider_name.strip())
 		
+		preferred = False
+		if row["preferred"] == "yes":
+			preferred = True
+		
 		if len(existing_provider) == 0:
-			p = Provider(admin = user, name = provider_name.strip(), logo=row['image'].strip(), URL=row['website'].strip(), approved=True)
+			p = Provider(admin = user, name = provider_name.strip(), logo=row['image'].strip(), URL=row['website'].strip(), approved=True, preferred=preferred)
 
 
 			p.save()

@@ -15,6 +15,7 @@ class Provider(models.Model):
 	logo = models.CharField(max_length=140, null=True, blank = True)
 	URL = models.CharField(max_length=140)
 	approved = models.BooleanField(default = True) # Change this in production
+	preferred = models.BooleanField(default = False)
 
 	# Auto-generated timestamps
 	created_at = models.DateTimeField(auto_now_add=True, default=datetime.datetime.now())

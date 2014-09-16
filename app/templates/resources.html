@@ -76,7 +76,13 @@
             
                 {% with location=location_tuple.0 distance=location_tuple.1 %}
                     <div class="resource-form--result">
-                    <h3>{{ location.provider.name }}</h3>
+                    <h3>
+                        {% if location.provider.preferred %}
+                            {{ location.provider.name }}*
+                        {% else %}
+                            {{ location.provider.name }}
+                        {% endif %}
+                    </h3>
                     {{ distance }} {% trans " miles from you" %}
                     <p><span class="glyphicon glyphicon-map-marker"></span>{{ location.address }}</p>
                     {% if location.phone %}
@@ -105,9 +111,13 @@
                     </div>
                 {% endwith %}
             {% endfor %}
+            {% if preferred_orgs %}
+                <div class="preferred-org">*Buscando partner organization</div>
+            {% endif %}
             </section>
             </div>
         </div>
+
         
         <div class="resource-form--map-panel col-sm-6 hidden-xs" style="height: 100%;">
             <div id="map-canvas" class="img-responsive"></div>
