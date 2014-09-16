@@ -4,6 +4,7 @@
     $(document).ready(function(){
         $("#edit_location_{{current_location.id}}_link").click(function(e){
             $("#location_{{current_location.id}}_wrapper").load("{% url 'edit_location' current_location.id %}");
+            $(this).parent('.location_edit_link').hide();
         })
 
         $("#delete_location_{{current_location.id}}_link").click(function(){
@@ -55,6 +56,11 @@
 
 <div class="form-group">
     <label>{% trans "Phone Number" %}</label>
+    <input class="form-control" disabled value="{{ current_location.phone }}">
+</div>
+
+<div class="form-group">
+    <label>{% trans "Hours of Operation" %}</label>
     <input class="form-control" disabled value="{{ current_location.phone }}">
 </div>
 

@@ -54,4 +54,13 @@
         margin-bottom: 0px;
     }
 
+    #id_resources_available, #id_resources_needed {
+        padding-left: 0;
+
+        li {
+            @extend .checkbox;
+            list-style-type: none;
+        }
+    }
+
 }
