@@ -23,17 +23,17 @@
                         <select class="resource-form--need form-control" required data-placeholder="{% if type == 'volunteer' %}
                         {% trans "What can you give?" %} {% else %} {% trans "What do you need?" %}{% endif %}" name="resource">
                             <option></option>
-                            <option value="Food" {% ifequal "food" resource.name %}selected="selected"{% endifequal %}>{% trans "Food" %}</option>
-                            <option value="Clothing" {% ifequal "clothing" resource.name %}selected="selected"{% endifequal %}>{% trans "Clothing" %}</option>
-                            <option value="Language" {% ifequal "language" resource.name %}selected="selected"{% endifequal %}>{% trans "Language" %}</option>
-                            <option value="Transportation" {% ifequal "transportation" resource.name %}selected="selected"{% endifequal %}>{% trans "Transportation" %}</option>
-                            <option value="Legal Services" {% ifequal "legal services" resource.name %}selected="selected"{% endifequal %}>{% trans "Legal Services" %}</option>
-                            <option value="Medical Care" {% ifequal "medical care" resource.name %}selected="selected"{% endifequal %}>{% trans "Medical Care" %}</option>
-                            <option value="Education and Enrollment" {% ifequal "education and enrollment" resource.name %}selected="selected"{% endifequal %}>{% trans "Education/Enrollment" %}</option>
-                            <option value="Religious Services" {% ifequal "religious services" resource.name %}selected="selected"{% endifequal %}>{% trans "Religious Services" %}</option>
-                            <option value="Counseling" {% ifequal "counseling" resource.name %}selected="selected"{% endifequal %}>{% trans "Counseling" %}</option>
-                            <option value="Recreation" {% ifequal "recreation" resource.name %}selected="selected"{% endifequal %}>{% trans "Recreation" %}</option>
-                             <option value="Volunteers" {% ifequal "volunteers" resource.name %}selected="selected"{% endifequal %}>{% trans "Volunteers" %}</option>
+                            <option value="Food" {% ifequal "food" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Food" %}</option>
+                            <option value="Clothing" {% ifequal "clothing" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Clothing" %}</option>
+                            <option value="Language" {% ifequal "language" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Language" %}</option>
+                            <option value="Transportation" {% ifequal "transportation" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Transportation" %}</option>
+                            <option value="Legal Services" {% ifequal "legal services" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Legal Services" %}</option>
+                            <option value="Medical Care" {% ifequal "medical care" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Medical Care" %}</option>
+                            <option value="Education and Enrollment" {% ifequal "education and enrollment" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Education/Enrollment" %}</option>
+                            <option value="Religious Services" {% ifequal "religious services" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Religious Services" %}</option>
+                            <option value="Counseling" {% ifequal "counseling" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Counseling" %}</option>
+                            <option value="Recreation" {% ifequal "recreation" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Recreation" %}</option>
+                             <option value="Volunteers" {% ifequal "volunteers" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Volunteers" %}</option>
                         </select>
                     </div>
                 </div>
