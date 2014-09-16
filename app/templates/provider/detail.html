@@ -3,7 +3,7 @@
 
 {% block content %}
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<section class="signup-form">
+<section class="signup-form_provider">
 	<h1>{% trans "Organization Profile" %}</h1>
 	<div class="signup-form--section row">
         <div class="col-sm-3">
@@ -13,12 +13,6 @@
 			<div id="provider_wrapper">
 				{% include "provider/provider_profile.html" with provider=provider %}
 			</div>
-			{% if can_edit %}
-			<div id="provider_edit_link">
-				<a class="btn btn-default" href='javascript:void(0)' id="edit_provider_link"><span class="glyphicon glyphicon-pencil"></span> {% trans "Edit" %}</a>
-
-			</div>
-			{% endif %}
 		</div>
 	</div>
 

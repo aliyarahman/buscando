@@ -46,3 +46,12 @@
         }
     }
 }
+
+.signup-form_provider {
+    @extend .signup-form;
+    
+    .edit-form {
+        margin-bottom: 0px;
+    }
+
+}
