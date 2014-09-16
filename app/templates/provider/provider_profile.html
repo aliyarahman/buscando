@@ -1,10 +1,11 @@
 {% load i18n %}
 
-<div> 
-	<ul>
-		<li>{% trans "id" %}: {{ provider.id }} </li>
-		<li>{% trans "name" %}: {{ provider.name }}  </li>
-		<li>{% trans "logo" %}: {{ provider.logo }} </li>
-		<li>{% trans "URL" %}: {{ provider.URL }} </li>
-	</ul>
+<div class="form-group">
+    <label>{% trans "Organization Name" %}</label>
+    <input class="form-control" disabled value="{{ provider.name }}">
+</div>
+
+<div class="form-group">
+    <label>{% trans "Organization Website" %}</label>
+    <input class="form-control" disabled value="{{ provider.URL }}">
 </div>

@@ -132,6 +132,12 @@
     <div {% if forloop.first %} class="hidden"{% endif %}> {{ location_form.operand }}</div>
 
     <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label>{% trans "Address" %}</label>
+    <div>
+    {% render_field location_form.address class+="form-control" %}
+    </div>
+    </div>
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
     <label class="control-label" for="{{ location_form.POC_firstname.auto_id }}">
         {% trans location_form.POC_firstname.label %}
     </label>
@@ -164,15 +170,6 @@
     </label>
     <div>
     {% render_field location_form.POC_lastname2 class+="form-control" %}
-    </div>
-    </div>
-
-    <div class="form-group{% if field.errors %} has-error{% endif %}">
-    <label class="control-label" for="{{ location_form.address.auto_id }}">
-        {% trans location_form.address.label %}
-    </label>
-    <div>
-    {% render_field location_form.address class+="form-control" %}
     </div>
     </div>
 

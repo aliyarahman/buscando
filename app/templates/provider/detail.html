@@ -1,274 +1,75 @@
 {% extends "base.html" %}
-{% load widget_tweaks %}
 {% load i18n %}
+
 {% block content %}
-
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <section class="signup-form">
-
-    <div class="form-errors">
-
-        {% if admin_form.errors %}
-            {% for field in admin_form %}
-                {% for error in field.errors %}
-                    <div class="alert alert-error">
-                        {% if field.label == 'Username' %}{% trans "Email" %}{% else %}
-                        {% trans field.label %}{% endif %} - {% trans error|escape %}</strong>
-                    </div>
-                {% endfor %}
-            {% endfor %}
-            {% for error in admin_form.non_field_errors %}
-                <div class="alert alert-error">
-                    {% trans error|escape %}
-                </div>
-            {% endfor %}
-        {% endif %}
-
-        {% if provider_form.errors %}
-            {% for field in provider_form %}
-                {% for error in field.errors %}
-                    <div class="alert alert-error">
-                        {% trans field.label %} - {% trans error|escape %}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-            {% for error in provider_form.non_field_errors %}
-                <div class="alert alert-error">
-                    {% trans error|escape %}
-                </div>
-            {% endfor %}
-        {% endif %}
-
-        {% for location_form in location_formset %}
-            {% if location_form.errors %}
-                {% for field in location_form %}
-                    {% for error in field.errors %}
-                        <div class="alert alert-error">
-                        {% if field.label == 'POC firstname' %}{% trans "Primary contact's first name" %}{% elif field.label == 'POC lastname' %}{% trans "Primary contact's last name" %}{% else %}{% trans field.label %}{% endif %} - {% trans error|escape %}
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in location_form.non_field_errors %}
-                    <div class="alert alert-error">
-                        {% trans error|escape %}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
-
-    </div>
-
-    <h1>{% trans "Organization Profile" %}</h1>
-    
-    
-    
-	<form id="provider_edit_form" class="form-horizontal" role="form" action="/provider/{{provider_id}}/edit/" method="post">
-        {% csrf_token %}
-    <div class="signup-form--section row">
+	<h1>{% trans "Organization Profile" %}</h1>
+	<div class="signup-form--section row">
         <div class="col-sm-3">
             <h2>{% trans "Profile" %}</h2>
         </div>
         <div class="col-sm-6 col-sm-offset-1">
-            <div class="admin-form">
-                <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>{% trans "Organization Name" %}</label>
-                    <input class="form-control" id="id_name" maxlength="140" name="name" type="text" value="{{ provider.name }}">
-                </div>
-                
-                <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>{% trans "Organization Website" %}</label>
-                    {% render_field provider_form.URL class+="form-control" required="true" placeholder+="http://" %}
-                    <input class="form-control" id="id_URL" maxlength="140" name="URL" placeholder="http://" required="true" type="text" value="{{ provider.URL }}">
-                </div>
-            </div>
-        </div>
-    </div>
+			<div id="provider_wrapper">
+				{% include "provider/provider_profile.html" with provider=provider %}
+			</div>
+			{% if can_edit %}
+			<div id="provider_edit_link">
+				<a href='javascript:void(0)' id="edit_provider_link">({% trans "Edit" %})</a>
+			</div>
+			{% endif %}
+		</div>
+	</div>
 
     <div class="dynamic-form signup-form--section row">
         <div class="col-sm-3">
             <h2>{% trans "Location" %}</h2>
         </div>
-        
         <div class="location-form col-sm-6 col-sm-offset-1" id="{{ location_form.prefix }}-row">
-        {% for location_form in location_formset %}
-
-            <div {% if forloop.first %} class="hidden"{% endif %}> {{ location_form.operand }}</div>
-            
-            <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>{% trans "Address" %}</label>
-                {% render_field location_form.address class+="form-control" required="true" placeholder="Street, City, State, and Zipcode" %}
-            </div>
-
-            <div class="checkbox{% if field.errors %} has-error{% endif %}">
-                <label>{% trans "This location is our main office" %}
-                {% render_field location_form.is_headquarters %}
-                </label>
-            </div>
-            
-            <div class="form-group signup-form--section-start{% if field.errors %} has-error{% endif %}">
-                <label>{% trans "Primary Contact's Name" %}</label>
-                <div class="row">
-                    <div class="col-xs-6">
-                        {% render_field location_form.POC_firstname class+="form-control" required="true" placeholder="First Name" %}
-                    </div>
-                    <div class="col-xs-6">
-                        {% render_field location_form.POC_lastname class+="form-control" required="true" placeholder="Last Name" %}
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>{% trans "Phone Number" %}</label>
-                {% render_field location_form.phone class+="form-control" required="true" placeholder="(000) 000-0000" %}
-            </div>
-            
-            <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>{% trans "Hours of Operation" %}</label>
-                {% render_field location_form.hours_open class+="form-control" required="true" placeholder="M-F, 8am-4pm" %}
-            </div>
-
-            {# I know this is not the ideal way to do this #}
-            {# But my friends, it seems that django-widget-tweaks #}
-            {# is incompatible with translations and doesn't allow you #}
-            {# to loop through the selects (as far as I know) #}
-
-            <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>{% trans 'Resources Available' %}</label>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="1"> {% trans "Food" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="2"> {% trans "Clothing" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="2"> {% trans "Language" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="4"> {% trans "Legal services" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="5"> {% trans "Transportation" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="6"> {% trans "Medical care" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="7"> {% trans "Education and enrollment" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="8"> {% trans "Religious services" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="9"> {% trans "Counseling" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_available" value="10"> {% trans "Housing" %}
-                    </label>
-                </div>
-            </div>
-
-            <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>{% trans 'Resources Needed' %}</label>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="1"> {% trans "Food" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="2"> {% trans "Clothing" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="3"> {% trans "Language" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="4"> {% trans "Legal Services" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="5"> {% trans "Transportation" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="6"> {% trans "Medical care" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="7"> {% trans "Education and enrollment" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="8"> {% trans "Religious services" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="9"> {% trans "Counseling" %}
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="form-{{ location_form.prefix }}-resources_needed" value="10"> {% trans "Housing" %}
-                    </label>
-                </div>
-            </div>
-   
-        </div>
-        
-        <div {% if forloop.first %} class="hidden col-sm-6 col-sm-offset-4"{% endif %}>
-            <button id="remove-{{ location_form.prefix }}-row" type="button" class="delete-row btn btn-danger is-expanded btn-block">{% trans "Remove this Location" %}</button>
+			<!-- <ol id="locations_list"> -->
+			{% for location in locations %}
+				<!-- <li> -->
+				{% if can_edit %}
+					<div id="location_{{location.id}}_links">
+						<a href='javascript:void(0)' id="edit_location_{{location.id}}_link">({% trans "edit" %})</a>
+						<a href='javascript:void(0)' id="delete_location_{{location.id}}_link">({% trans "delete" %})</a>
+					</div>
+					<div id="location_{{location.id}}_wrapper">
+						{% include "location/profile.html" with current_location=location %}
+					</div>
+				{% endif %}
+				<!-- </li> -->
+{% endfor %}
+</ol>
+	{% if can_edit %}
+<div id="add_location_link">
+	<a href="javascript:void(0)" id="new_location_link">{% trans "Add location" %}</a>
+</div>
+<div id="add_location_wrapper" style="display:none">
+	{% endif %}
+</div>
         </div>
 
-        {% endfor %}
-    </div>
 
-<div>
-
-{{ location_formset.management_form }}
-</div>
-
-<div class="form-group signup-form--section">
-    <div class="col-sm-4">
-        <h2>{% trans "Finish Up" %}</h2>
-    </div>
-    <div class="col-sm-5 col-sm-offset-1 button-group">
-        <div class="row">
-            <div class="col-md-6">
-                <button type="button" class="add-row btn btn-default is-expanded btn-block">{% trans "Add another location" %}</button>
-            </div>
-            <div class="col-md-6">
-                <button class="btn btn-primary is-expanded btn-block" type="submit" value="Submit">{% trans "Register Organization" %}</button>
-            </div>
-        <div>
-    </div>
-</div>
-
-</form>
 </section>
+{% endblock %}
+
+
+{% block script %}
+<script>
+	$(document).ready(function(){
+
+		$("#edit_provider_link").click(function(e){
+			$("#provider_wrapper").load("{% url 'edit_provider' provider.id %}");
+			e.preventDefault();
+		})
+
+		$("#new_location_link").click(function(e){
+			$("#add_location_wrapper").load("{% url 'new_location' provider.id %}");
+			$("#add_location_wrapper").show();
+			$("#add_location_link").hide();
+		})
+	})
+
+</script>
 {% endblock %}

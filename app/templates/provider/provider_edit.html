@@ -75,30 +75,13 @@ $(function() {
 {% endif %}
 
 <div class="form-group" id="div_{{ provider_form.name.auto_id }}">
-<label class="control-label" for="{{ provider_form.name.auto_id }}">
-	{% trans provider_form.name.label %}
-</label>
-<div>
-{% render_field provider_form.name class+="form-control" %}
-</div>
-</div>
-
-<h1>BOOM!</h1>
-
-
-<div>
-{% render_field provider_form.logo type="file" onchange="readURL(this);" %}
-<img id="logo" src="#" alt="logo" style="display:none;" />
-</div>
+    <label>{% trans "Organization Name" %}</label>
+    {% render_field provider_form.name class+="form-control" %}
 </div>
 
 <div class="form-group" id="div_{{ provider_form.URL.auto_id }}">
-<label class="control-label" for="{{ provider_form.URL.auto_id }}">
-	{% trans provider_form.URL.label %}
-</label>
-<div>
-{% render_field provider_form.URL type="URL" class+="form-control" %}
-</div>
+    <label>{% trans "Organization Website" %}</label>
+    {% render_field provider_form.URL type="URL" class+="form-control" %}
 </div>
 
 <div class="form-group">
