@@ -94,6 +94,9 @@ with open(csv_name, 'rbU') as csvfile:
 			p.save()
 		else:
 			p = existing_provider.first()
+			if preferred:
+				p.preferred = True
+				p.save()
 
 		# Add locations
 
