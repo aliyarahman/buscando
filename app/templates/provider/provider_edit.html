@@ -55,7 +55,7 @@ $(function() {
 })
 </script>
 
-<form id="provider_edit_form" class="form-horizontal" role="form" action="/provider/{{provider_id}}/edit/" method='post'>
+<form id="provider_edit_form" class="edit-form" role="form" action="/provider/{{provider_id}}/edit/" method='post'>
 <div id="ajaxwrapper">
 {% csrf_token %}
 
@@ -75,35 +75,18 @@ $(function() {
 {% endif %}
 
 <div class="form-group" id="div_{{ provider_form.name.auto_id }}">
-<label class="control-label" for="{{ provider_form.name.auto_id }}">
-	{% trans provider_form.name.label %}
-</label>
-<div>
-{% render_field provider_form.name class+="form-control" %}
-</div>
-</div>
-
-<h1>BOOM!</h1>
-
-
-<div>
-{% render_field provider_form.logo type="file" onchange="readURL(this);" %}
-<img id="logo" src="#" alt="logo" style="display:none;" />
-</div>
+    <label>{% trans "Organization Name" %}</label>
+    {% render_field provider_form.name class+="form-control" %}
 </div>
 
 <div class="form-group" id="div_{{ provider_form.URL.auto_id }}">
-<label class="control-label" for="{{ provider_form.URL.auto_id }}">
-	{% trans provider_form.URL.label %}
-</label>
-<div>
-{% render_field provider_form.URL type="URL" class+="form-control" %}
-</div>
+    <label>{% trans "Organization Website" %}</label>
+    {% render_field provider_form.URL type="URL" class+="form-control" %}
 </div>
 
 <div class="form-group">
 	<div>
-		<button id="edit_submit_button" class="btn btn-default" type="submit" value="Submit">{% trans "Save" %}</button>
+		<button id="edit_submit_button" class="btn btn-primary" type="submit" value="Submit">{% trans "Save" %}</button>
 		<span id="edit_provider_loading" class="display:none;">{% trans "Saving profile, please wait." %}</span>
         <span id="edit_provider_error" style="display:none; color:red;">{% trans "The form has errors." %}</span>
 	</div>

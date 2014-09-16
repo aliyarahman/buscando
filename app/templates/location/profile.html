@@ -1,58 +1,87 @@
 {% load i18n %}
 
 <script>
-	$(document).ready(function(){
-		$("#edit_location_{{current_location.id}}_link").click(function(e){
-			$("#location_{{current_location.id}}_wrapper").load("{% url 'edit_location' current_location.id %}");
-		})
+    $(document).ready(function(){
+        $("#edit_location_{{current_location.id}}_link").click(function(e){
+            $("#location_{{current_location.id}}_wrapper").load("{% url 'edit_location' current_location.id %}");
+            $(this).parent('.location_edit_link').hide();
+        })
 
-		$("#delete_location_{{current_location.id}}_link").click(function(){
+        $("#delete_location_{{current_location.id}}_link").click(function(){
 
-			if (confirm("Are you sure you want to delete the {{current_location.address}} location?")){
-				// delete from database
-	            $.ajax({
-	            	type: "POST",
-	            	url: '/location/{{current_location.id}}/delete/',
-	            	data:  {csrfmiddlewaretoken:'{{csrf_token}}' },
-	            	success: function(response){
-						// delete from page
-						if (response.success){
-							$("#location_{{current_location.id}}_wrapper").closest('li').remove();	
-						}
-	            	}
-	            })
-	            return false;
-			}
-		});
+            if (confirm("Are you sure you want to delete the {{current_location.address}} location?")){
+                // delete from database
+                $.ajax({
+                    type: "POST",
+                    url: '/location/{{current_location.id}}/delete/',
+                    data:  {csrfmiddlewaretoken:'{{csrf_token}}' },
+                    success: function(response){
+                        // delete from page
+                        if (response.success){
+                            $("#location_{{current_location.id}}_wrapper").closest('li').remove();  
+                        }
+                    }
+                })
+                return false;
+            }
+        });
 
-	})
+    })
 </script>
 
-<div>
-		<ul>
-			<li>{% trans "POC_firstname" %}: {{ current_location.POC_firstname }} </li>
-			<li>{% trans "POC_firstname2" %}: {{ current_location.POC_firstname2 }} </li>
-			<li>{% trans "POC_lastname" %}: {{ current_location.POC_lastname }} </li>
-			<li>{% trans "POC_lastname2" %}: {{ current_location.POC_lastname2 }} </li>
-			<li>{% trans "address" %}: {{ current_location.address }} </li>
-			<li>{% trans "latitude" %}: {{ current_location.latitude }} </li>
-			<li>{% trans "longitude" %}: {{ current_location.longitude }} </li>
-			<li>{% trans "phone" %}: {{ current_location.phone }} </li>
-			<li>{% trans "is_headquarters" %}: {{ current_location.is_headquarters }} </li>
-			<li>{% trans "hours_open" %}: {{ current_location.hours_open }} </li>
-			<li>{% trans "resources needed" %}:
-				<ul>
-					{% for resource in current_location.resources_needed.all %}
-						<li>{% trans resource.name %}</li>
-					{% endfor %}
-				</ul>
-			</li>
-			<li>{% trans "resources available" %}:
-				<ul>
-					{% for resource in current_location.resources_available.all %}
-						<li>{% trans resource.name %}</li>
-					{% endfor %}
-				</ul>
-			</li>
-		</ul>
-	</div>
+<div class="form-group">
+    <label>{% trans "Address" %}</label>
+    <input class="form-control" disabled value="{{ current_location.address }}">
+</div>
+
+{% if current_location.is_headquarters %}
+<div class="checkbox">
+    <label>{% trans "This location is our main office" %}
+        <input type="checkbox" disabled checked>
+    </label>
+</div>
+{% endif %}
+
+<div class="form-group">
+    <label>{% trans "Primary Contact's Name" %}</label>
+    <div class="row">
+        <div class="col-xs-6">
+            <input class="form-control" disabled value="{{ current_location.POC_firstname }}">
+        </div>
+        <div class="col-xs-6">
+            <input class="form-control" disabled value="{{ current_location.POC_lastname }}">
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label>{% trans "Phone Number" %}</label>
+    <input class="form-control" disabled value="{{ current_location.phone }}">
+</div>
+
+<div class="form-group">
+    <label>{% trans "Hours of Operation" %}</label>
+    <input class="form-control" disabled value="{{ current_location.phone }}">
+</div>
+
+<div class="form-group">
+    {% if current_location.resources_needed.all %}
+    <label>{% trans "Resources Available" %}</label>
+    <ul>
+        {% for resource in current_location.resources_needed.all %}
+        <li>{% trans resource.name %}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+<div class="form-group">
+    {% if current_location.resources_available.all %}
+    <label>{% trans "Resources Needed" %}</label>
+    <ul>
+        {% for resource in current_location.resources_available.all %}
+        <li>{% trans resource.name %}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>

@@ -70,8 +70,8 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
 
-            <li><a href="{% url 'resources' %}volunteer">{% trans "Volunteers & Donors" %}</a></li>
-            <!-- <li><a href="{% url 'add_provider' %}">Organizations</a></li> -->
+            <li><a href="{% url 'resources' %}">{% trans "Find Help" %}</a></li>
+            <li><a href="{% url 'resources' %}volunteer">{% trans "Give Help" %}</a></li>
             {% if user.is_authenticated %}
               <li><a href="{% url 'organization_home' %}">{% trans "Profile" %}</a></li>
               <li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
@@ -119,5 +119,7 @@
     <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/application.js' %}"></script>
+    {% block script %}
+    {% endblock %}
   </body>
 </html>

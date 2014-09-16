@@ -1,198 +1,70 @@
 {% extends "base.html" %}
-{% load widget_tweaks %}
 {% load i18n %}
+
 {% block content %}
-
-<section class="organization-form">
-
-    <div class="form-errors">
-
-        {% if admin_form.errors %}
-            {% for field in admin_form %}
-                {% for error in field.errors %}
-                    <div class="alert alert-error">
-                        {% if field.label == 'Username' %}{% trans "Email" %}{% else %}
-                        {% trans field.label %}{% endif %} - {% trans error|escape %}</strong>
-                    </div>
-                {% endfor %}
-            {% endfor %}
-            {% for error in admin_form.non_field_errors %}
-                <div class="alert alert-error">
-                    {% trans error|escape %}
-                </div>
-            {% endfor %}
-        {% endif %}
-
-        {% if provider_form.errors %}
-            {% for field in provider_form %}
-                {% for error in field.errors %}
-                    <div class="alert alert-error">
-                        {% trans field.label %} - {% trans error|escape %}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-            {% for error in provider_form.non_field_errors %}
-                <div class="alert alert-error">
-                    {% trans error|escape %}
-                </div>
-            {% endfor %}
-        {% endif %}
-
-        {% for location_form in location_formset %}
-            {% if location_form.errors %}
-                {% for field in location_form %}
-                    {% for error in field.errors %}
-                        <div class="alert alert-error">
-                        {% if field.label == 'POC firstname' %}{% trans "Primary contact's first name" %}{% elif field.label == 'POC lastname' %}{% trans "Primary contact's last name" %}{% else %}{% trans field.label %}{% endif %} - {% trans error|escape %}
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in location_form.non_field_errors %}
-                    <div class="alert alert-error">
-                        {% trans error|escape %}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
-
-    </div>
-
-    <h1>{% trans "Create a new organization account" %}</h1>
-    
-    
-    
-    <form role="form" action='.' method='post'>
-        {% csrf_token %}
-    <div class="organization-form--section row">
-        <div class="col-sm-4">
-            <h2>{% trans "Organization Profile" %}</h2>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<section class="signup-form_provider">
+	<h1>{% trans "Organization Profile" %}</h1>
+	<div class="signup-form--section row">
+        <div class="col-sm-3">
+            <h2>{% trans "Profile" %}</h2>
         </div>
-        <div class="col-sm-5 col-sm-offset-1">
-            <div class="admin-form">
-                <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>{% trans "Organization Name" %}</label>
-                    <span class="required">*</span>
-                    {% render_field provider_form.name class+="form-control" %}
-                </div>
-                
-                <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>{% trans "Organization Website" %}</label>
-                    <span class="required">*</span>
-                    {% render_field provider_form.URL class+="form-control" placeholder+="http://" %}
-                </div>
+        <div class="col-sm-6 col-sm-offset-1">
+			<div id="provider_wrapper">
+				{% include "provider/provider_profile.html" with provider=provider %}
+			</div>
+		</div>
+	</div>
 
-                <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>{% trans "Contact Email" %}</label>
-                    <span class="required">*</span>
-                    {% render_field admin_form.username class+="form-control "%}
-                </div>
-
-                <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>{% trans "Password" %}</label>
-                    <span class="required">*</span>
-                    {% render_field admin_form.password1 class+="form-control" %}
-                </div>
-
-                <div class="form-group{% if field.errors %} has-error{% endif %}">
-                    <label>{% trans "Retype password" %}</label>
-                    <span class="required">*</span>
-                    {% render_field admin_form.password2 class+="form-control" %}
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="dynamic-form organization-form--section row">
-        <div class="col-sm-4">
+	{% for location in locations %}
+    <div class="signup-form--section row">
+        <div class="col-sm-3">
             <h2>{% trans "Location" %}</h2>
         </div>
-        
-        <div class="location-form col-sm-5 col-sm-offset-1" id="{{ location_form.prefix }}-row">
-        {% for location_form in location_formset %}
+        <div class="location-form col-sm-6 col-sm-offset-1" id="{{ location_form.prefix }}-row">
+				{% if can_edit %}
+					<div id="location_{{location.id}}_wrapper">
+						{% include "location/profile.html" with current_location=location %}
+					</div>
 
-            <div {% if forloop.first %} class="hidden"{% endif %}> {{ location_form.operand }}</div>
-            
-            <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>{% trans "Address" %}</label>
-                <span class="required">*</span>
-                {% render_field location_form.address class+="form-control" %}
-            </div>
-
-            <div class="checkbox{% if field.errors %} has-error{% endif %}">
-                <label>{% trans "This location is our main office" %}
-                {% render_field location_form.is_headquarters %}
-                </label>
-            </div>
-            
-            <div class="form-group{% if field.errors %} has-error{% endif %}"> 
-                <label>{% trans "Primary Contact's Name" %}</label>
-                <span class="required">*</span>
-                <div class="row">
-                    <div class="col-xs-6">
-                        {% render_field location_form.POC_firstname class+="form-control" %}
-                    </div>
-                    <div class="col-xs-6">
-                        {% render_field location_form.POC_lastname class+="form-control" %}
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>{% trans "Phone" %}</label>
-                <span class="required">*</span>
-                {% render_field location_form.phone class+="form-control" %}
-            </div>
-            
-            <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>{% trans "Hours of operation" %}</label>
-                <span class="required">*</span>
-                {% render_field location_form.hours_open class+="form-control" %}
-            </div>
-
-            <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>{% trans 'Resources needed (hold "Ctrl" or "⌘" to select more than one)' %}</label>
-                {% render_field location_form.resources_needed class+="form-control" size="13" %}
-            </div>
-
-            <div class="form-group{% if field.errors %} has-error{% endif %}">
-                <label>{% trans 'Resources available (hold "Ctrl" or "⌘" to select more than one)' %}</label>
-                {% render_field location_form.resources_available class+="form-control" size="13" %}
-            </div>
-            
-            <div class="explain-required">
-                {% trans 'Fields marked with <span class="required">*</span> are required' %}
-            </div>
-   
-        </div>
-        
-        <div {% if forloop.first %} class="hidden col-sm-5 col-sm-offset-5"{% endif %}>
-            <button id="remove-{{ location_form.prefix }}-row" type="button" class="delete-row btn btn-danger btn-lg btn-block">{% trans "Remove this Location" %}</button>
-        </div>
-
-        {% endfor %}
+					<div id="location_{{location.id}}_links" class="location_edit_link">
+						<a class="btn btn-default" href='javascript:void(0)' id="edit_location_{{location.id}}_link"><span class="glyphicon glyphicon-pencil"></span> {% trans "Edit" %}</a>
+						<a class="btn btn-danger" href='javascript:void(0)' id="delete_location_{{location.id}}_link"><span class="glyphicon glyphicon-trash"></span> {% trans "Delete this location" %}</a>
+					</div>
+				{% endif %}
+		</div>
     </div>
+	{% endfor %}
 
-<div>
+	{% if can_edit %}
+	<div class="form-group signup-form--section row">
+	    <div class="col-sm-3">
+	    	<h2>{% trans "New Location" %}</h2>
+    	</div>
+		<div class="col-sm-6 col-sm-offset-1 button-group">
+			<div id="add_location_link">
+				<a class="btn btn-primary btn-block is-expanded" href="javascript:void(0)" id="new_location_link"><span class="glyphicon glyphicon-plus"></span> {% trans "Add another location" %}</a>
+			</div>
+			<div id="add_location_wrapper" style="display:none"></div>
+		</div>
+	</div>
+	{% endif %}
 
-{{ location_formset.management_form }}
-</div>
 
-<div class="form-group organization-form--section">
-    <div class="col-sm-4">
-        <h2>{% trans "Finish Up" %}</h2>
-    </div>
-    <div class="col-sm-5 col-sm-offset-1 button-group">
-        <div class="row">
-            <div class="col-md-6">
-                <button type="button" class="add-row btn btn-default btn-lg btn-block">{% trans "Add another Location" %}</button>
-            </div>
-            <div class="col-md-6">
-                <button class="btn btn-primary btn-lg btn-block" type="submit" value="Submit">{% trans "Register Now" %}</button>
-            </div>
-        <div>
-    </div>
-</div>
-
-</form>
 </section>
+{% endblock %}
+
+
+{% block script %}
+<script>
+	$(document).ready(function(){
+
+		$("#new_location_link").click(function(e){
+			$("#add_location_wrapper").load("{% url 'new_location' provider.id %}");
+			$("#add_location_wrapper").show();
+			$("#add_location_link").hide();
+		})
+	})
+
+</script>
 {% endblock %}
