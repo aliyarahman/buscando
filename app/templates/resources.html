@@ -21,7 +21,7 @@
                     <label class="control-label col-sm-3" for="resource">{% trans "Resources" %}</label>
                     <div class="col-sm-9">
                         <select class="resource-form--need form-control" required data-placeholder="{% if type == 'volunteer' %}
-                        {% trans "What can you give?" %} {% else %} {% trans "What do you need?" %}{% endif %}" name="resource">
+                        {% trans "What can you volunteer?" %} {% else %} {% trans "What do you need help with?" %}{% endif %}" name="resource">
                             <option></option>
                             <option value="Food" {% ifequal "food" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Food" %}</option>
                             <option value="Clothing" {% ifequal "clothing" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Clothing" %}</option>
@@ -41,7 +41,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="zipcode">{% trans "Location" %}</label>
                     <div class="col-sm-9">
-                        <input id="location" class="form-control" type="text" required placeholder="{% trans "Your location" %}" name="location" value="{{ location }}" data-toggle="tooltip" data-placement="bottom" title="{% trans "Address, City or ZIP Code" %}">
+                        <input id="location" class="form-control" type="text" required placeholder="{% trans "Where are you?" %}" name="location" value="{{ location }}" data-toggle="tooltip" data-placement="bottom" title="{% trans "Address, City or ZIP Code" %}">
                     </div>
                 </div>
 
