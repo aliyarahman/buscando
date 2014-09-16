@@ -145,8 +145,8 @@ def resources(request, **kwargs):
             ).miles
             if dist <= radius:
                 within_radius.append((location,round(dist,1)))
-            if location.provider.preferred:
-                preferred_orgs = True
+                if location.provider.preferred:
+                    preferred_orgs = True
 
         within_radius.sort(key=lambda tup: (not(tup[0].provider.preferred), tup[1]))
         #sorts the location/distance tuples by dist with preferred ones first
