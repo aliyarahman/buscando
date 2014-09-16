@@ -77,21 +77,25 @@
             {% endif %}
 
             {% if preferred_orgs %}
-               <br><div class="preferred-org-message"><i>{% trans "* Indicates organization specializing in services for unaccompanied children seeking refuge" %}</i></div>
+            <div class="preferred-org-message">
+                <small>
+                    <span class="preferred-marker glyphicon glyphicon-bookmark"></span>
+                    {% trans "Indicates organizations specializing in services for unaccompanied children seeking refuge" %}
+                </small>
+            </div>
             {% endif %}
             <section class="resource-form--results">
             {% for location_tuple in within_radius %}
             
                 {% with location=location_tuple.0 distance=location_tuple.1 %}
-                    <div class="resource-form--result">
-                    <h3>
-                        {% if location.provider.preferred %}
-                            <span class="preferred-org">{{ location.provider.name }}* </span>
-                        {% else %}
-                            {{ location.provider.name }}
-                        {% endif %}
-                    </h3>
-                    {{ distance }} {% trans " miles from you" %}
+                    
+                    <div class="resource-form--result {% if location.provider.preferred %}preferred-org{% endif %}">
+                    {% if location.provider.preferred %}
+                        <span class="preferred-marker glyphicon glyphicon-bookmark"></span>
+                    {% endif %}
+                    
+                    <h3>{{ location.provider.name }}</h3>
+                    <small class="distance">{{ distance }} {% trans " miles from you" %}</small>
                     <p><span class="glyphicon glyphicon-map-marker"></span>{{ location.address }}</p>
                     {% if location.phone %}
                         <p><span class="glyphicon glyphicon-earphone"></span><a href="tel:{{ location.phone }}">{{ location.phone }}</a></p>

@@ -80,6 +80,15 @@
             border-color: $input-focus-color;
         }
     }
+    .preferred-org-message {
+        background: #f2f2f2;
+        margin-bottom: 40px;
+        padding: 8px 15px;
+
+        .preferred-marker {
+            color: #ffd300;
+        }
+    }
 
     .form-horizontal .control-label {
         font-weight: 400;
@@ -101,6 +110,7 @@
     }
 
     .resource-form--result {
+        position: relative;
         padding: 15px 15px 5px;
         margin-bottom: 25px;
         border-left: 3px solid #ccc;
@@ -109,16 +119,36 @@
         .glyphicon {
             margin-right: 10px;
         }
+        .glyphicon.preferred-marker {
+            color: #ffd300;
+            right: 0;
+            position: absolute;
+        }
 
         h3 {
             font-size: 16px;
             font-weight: 700;
             margin-top: 0;
+            margin-bottom: 0;
         }
 
+        small.distance {
+            display: block;
+            margin-bottom: 15px;
+        }
         &:hover {
+            border-color: #aaa;
+            background: #f9f9f9;
+        }
+
+        &.preferred-org {
             border-color: $brand-primary;
-            background: lighten($brand-primary, 55.3%);
+            background: lighten(#ffd300, 48%);
+
+            &:hover {
+                border-color: $brand-primary;
+                background: lighten(#ffd300, 45%);
+            }
         }
     }
 
