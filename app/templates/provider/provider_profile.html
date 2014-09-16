@@ -1,10 +1,24 @@
 {% load i18n %}
 
-<div> 
-	<ul>
-		<li>{% trans "id" %}: {{ provider.id }} </li>
-		<li>{% trans "name" %}: {{ provider.name }}  </li>
-		<li>{% trans "logo" %}: {{ provider.logo }} </li>
-		<li>{% trans "URL" %}: {{ provider.URL }} </li>
-	</ul>
+<div class="form-group">
+    <label>{% trans "Organization Name" %}</label>
+    <input class="form-control" disabled value="{{ provider.name }}">
 </div>
+
+<div class="form-group">
+    <label>{% trans "Organization Website" %}</label>
+    <input class="form-control" disabled value="{{ provider.URL }}">
+</div>
+
+<div id="provider_edit_link">
+	<a class="btn btn-default" href='javascript:void(0)' id="edit_provider_link"><span class="glyphicon glyphicon-pencil"></span> {% trans "Edit" %}</a>
+</div>
+
+<script>
+	$(document).ready(function(){
+		$("#edit_provider_link").click(function(e){
+			$("#provider_wrapper").load("{% url 'edit_provider' provider.id %}");
+			e.preventDefault();
+		})
+	})
+</script>

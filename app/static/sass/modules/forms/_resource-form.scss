@@ -27,6 +27,20 @@
         padding: 0;
     }
 
+    .btn-group {
+        padding-bottom: 15px;
+
+        .btn.toggle-on {
+            background-color: $brand-primary;
+            border-color: $brand-primary;
+            color: #fff;
+        }
+    }
+
+    .btn-group.btn-group-lg>.btn {
+        border-radius: 0;
+    }
+
     form {
         margin-top: 25px;
         padding: 0 15px;
@@ -60,6 +74,11 @@
         height: 41px;
         left: 0;
         margin: 0 auto;
+        padding-left: 20px;
+
+        &:focus {
+            border-color: $input-focus-color;
+        }
     }
 
     .form-horizontal .control-label {

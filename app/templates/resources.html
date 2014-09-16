@@ -12,31 +12,36 @@
                 <input type="hidden" name="page" value="resources.html">
                 <input type="hidden" name="type" value="{{ type }}">
 
-                <div class="form-group">
-                    <label class="control-label col-sm-3" for="zipcode">{% trans "Location" %}</label>
-                    <div class="col-sm-9">
-                        <input id="location" class="form-control" type="text" placeholder="{% trans "Your location" %}" name="location" value="{{ location }}" data-toggle="tooltip" data-placement="bottom" title="{% trans "Address, City or ZIP Code" %}">
-                    </div>
+                <div class="btn-group btn-group-lg btn-group-justified">
+                  <a href="/resources" class="btn btn-default js-link-search">I am looking for</a>
+                  <a href="/resources/volunteer" class="btn btn-default js-link-volunteer">I want to volunteer/donate</a>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="resource">{% trans "Resources" %}</label>
                     <div class="col-sm-9">
-                        <select class="resource-form--need form-control" data-placeholder="{% if type == 'volunteer' %}
+                        <select class="resource-form--need form-control" required data-placeholder="{% if type == 'volunteer' %}
                         {% trans "What can you give?" %} {% else %} {% trans "What do you need?" %}{% endif %}" name="resource">
                             <option></option>
-                            <option value="Food" {% ifequal "food" resource.name %}selected="selected"{% endifequal %}>{% trans "Food" %}</option>
-                            <option value="Clothing" {% ifequal "clothing" resource.name %}selected="selected"{% endifequal %}>{% trans "Clothing" %}</option>
-                            <option value="Language" {% ifequal "language" resource.name %}selected="selected"{% endifequal %}>{% trans "Language" %}</option>
-                            <option value="Transportation" {% ifequal "transportation" resource.name %}selected="selected"{% endifequal %}>{% trans "Transportation" %}</option>
-                            <option value="Legal Services" {% ifequal "legal services" resource.name %}selected="selected"{% endifequal %}>{% trans "Legal Services" %}</option>
-                            <option value="Medical Care" {% ifequal "medical care" resource.name %}selected="selected"{% endifequal %}>{% trans "Medical Care" %}</option>
-                            <option value="Education and Enrollment" {% ifequal "education and enrollment" resource.name %}selected="selected"{% endifequal %}>{% trans "Education/Enrollment" %}</option>
-                            <option value="Religious Services" {% ifequal "religious services" resource.name %}selected="selected"{% endifequal %}>{% trans "Religious Services" %}</option>
-                            <option value="Counseling" {% ifequal "counseling" resource.name %}selected="selected"{% endifequal %}>{% trans "Counseling" %}</option>
-                            <option value="Recreation" {% ifequal "recreation" resource.name %}selected="selected"{% endifequal %}>{% trans "Recreation" %}</option>
-                             <option value="Volunteers" {% ifequal "volunteers" resource.name %}selected="selected"{% endifequal %}>{% trans "Volunteers" %}</option>
+                            <option value="Food" {% ifequal "food" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Food" %}</option>
+                            <option value="Clothing" {% ifequal "clothing" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Clothing" %}</option>
+                            <option value="Language" {% ifequal "language" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Language" %}</option>
+                            <option value="Transportation" {% ifequal "transportation" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Transportation" %}</option>
+                            <option value="Legal Services" {% ifequal "legal services" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Legal Services" %}</option>
+                            <option value="Medical Care" {% ifequal "medical care" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Medical Care" %}</option>
+                            <option value="Education and Enrollment" {% ifequal "education and enrollment" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Education/Enrollment" %}</option>
+                            <option value="Religious Services" {% ifequal "religious services" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Religious Services" %}</option>
+                            <option value="Counseling" {% ifequal "counseling" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Counseling" %}</option>
+                            <option value="Recreation" {% ifequal "recreation" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Recreation" %}</option>
+                             <option value="Volunteers" {% ifequal "volunteers" resource.0.name %}selected="selected"{% endifequal %}>{% trans "Volunteers" %}</option>
                         </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="zipcode">{% trans "Location" %}</label>
+                    <div class="col-sm-9">
+                        <input id="location" class="form-control" type="text" required placeholder="{% trans "Your location" %}" name="location" value="{{ location }}" data-toggle="tooltip" data-placement="bottom" title="{% trans "Address, City or ZIP Code" %}">
                     </div>
                 </div>
 
@@ -126,11 +131,25 @@
     </div>
 </main>
 
-<script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwAJNgrVKvQmN_oHe6TxNx0nFdxLdUZag{% if LANGUAGE_CODE = "es" %}&language=es{% endif %}">
+{% endblock %}
+
+
+{% block script %}
+<script>
+    var pathArray = window.location.pathname.split('/');
+    var searchType = pathArray[2];
+    if(searchType == 'volunteer'){
+        $('.js-link-volunteer').addClass('toggle-on');
+    } else {
+        $('.js-link-search').addClass('toggle-on');
+    }
+
 </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwAJNgrVKvQmN_oHe6TxNx0nFdxLdUZag{% if LANGUAGE_CODE = "es" %}&language=es{% endif %}"></script>
+
 {% if search_from.latitude and search_from.longitude %}
-<script type="text/javascript">
+<script>
   function initialize() {
     var mapOptions = {
       center: new google.maps.LatLng({{ search_from.latitude }}, {{ search_from.longitude }}),
