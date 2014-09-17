@@ -25,12 +25,14 @@ from email_texts import admin_email_address
 RADIUS_DISTANCE = 35 # miles
 
 
-
 def index(request):
     return render(request, "index.html")
 
 def about(request):
     return render(request, "about.html")
+
+def privacy(request):
+    return render(request, "privacy.html")
 
 def FAQ(request):
     return render(request, "FAQ.html")
