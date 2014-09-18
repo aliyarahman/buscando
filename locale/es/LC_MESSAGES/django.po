@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-17 17:43-0400\n"
+"POT-Creation-Date: 2014-09-18 15:51-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,7 +71,7 @@ msgstr "Entretenimiento"
 msgid "Volunteer recruitment"
 msgstr "Registro de Voluntarios"
 
-#: app/views.py:110
+#: app/views.py:112
 msgid ""
 "Sorry, I couldn't find that location. Please try again. You can also search "
 "by city or by zipcode."
@@ -79,7 +79,7 @@ msgstr ""
 "Disculpe, no puedo encontrar esa ubicación. Por favor, intente de nuevo. "
 "También puede buscar por ciudad o por código postal"
 
-#: app/views.py:125
+#: app/views.py:127
 msgid "Please choose a resource and try again."
 msgstr ""
 "Por favor, indique el tipo de recurso o servicio que está buscando e intente "
@@ -434,6 +434,10 @@ msgstr "Organizaciones"
 msgid "About Buscando"
 msgstr "Acerca de Buscando"
 
+#: app/templates/base.html:112 app/templates/privacy.html:7
+msgid "Privacy Statement"
+msgstr ""
+
 #: app/templates/index.html:6
 msgid "Help is near."
 msgstr "Hay ayuda cerca."
@@ -578,21 +582,92 @@ msgstr ""
 msgid "organization home"
 msgstr ""
 
+#: app/templates/privacy.html:12
+msgid ""
+"\n"
+"\n"
+"        <p>Buscando respects the privacy of the individuals and "
+"organizations seeking or providing resources for Central American children "
+"seeking refuge in the United States, and has taken steps to ensure that "
+"these websites (http://buscando.io and http://buscandomaryland.com) and the "
+"information stored within is secure.</p>\n"
+"        <p>In order to ensure that the confidentiality of personal "
+"information is protected and maintained, we are committed to conducting our "
+"business in accordance with the following principles:\n"
+"          <ul>\n"
+"\n"
+"      <li>Identify the purposes for which information is being collected, "
+"before or at the time of collecting personal information.</li>\n"
+"\n"
+"      <li>Collect and use personal information solely with the objective of "
+"fulfilling those purposes specified by us and for other compatible purposes, "
+"unless we obtain the consent of the individual concerned or as required by "
+"law.</li>\n"
+"\n"
+"      <li>Retain personal information only as long as necessary for the "
+"fulfillment of those purposes.</li>\n"
+"\n"
+"      <li>Collect personal information by lawful and fair means and, where "
+"appropriate, with the knowledge or consent of the individual concerned.</"
+"li>\n"
+"\n"
+"      <li>Protect personal information by reasonable security safeguards "
+"against loss or theft, as well as unauthorized access, disclosure, copying, "
+"use or modification.</li>\n"
+"\n"
+"      <li>Make available to customers and users information about our "
+"policies and practices relating to the management of personal information.</"
+"li></ul></p>\n"
+"\n"
+"\n"
+"      <p>We collect non-Personally Identifiable Information about the usage "
+"of this site and the resources sought. This information may be shared with "
+"service and resource providers, so they may allocate resources appropriately."
+"</p>\n"
+"\n"
+"      <p>We also collect contact information for volunteers, donors, and "
+"organizations. Volunteer and donor contact information may be shared with "
+"the service and resource provider organizations in need of the volunteer/"
+"donor offering. Organizational contact information may be shared with users "
+"of the site who search for services and resources provided by the "
+"organization.</p>\n"
+"\n"
+"      <p>All data will be owned by Code for Progress (1220 L Street NW, "
+"Suite 100-513 Washington, DC, 20005, info@codeforprogress.org) and will not "
+"be sold, rented, shared, given, swapped, or transferred to any organization "
+"that does no provide direct services, support, or resources to Central "
+"American children seeking refuge, their families, or the families and "
+"organizations housing these children.</p>\n"
+" \n"
+"<br><br><br>\n"
+"\n"
+"      </div>\n"
+"\n"
+"\n"
+"\t"
+msgstr ""
+
 #: app/templates/profile.html:5
 msgid "Profile page"
 msgstr "Perfil de la Organización"
+
+#: app/templates/resources.html:16
+msgid "I am looking for"
+msgstr "Estoy buscando"
+
+#: app/templates/resources.html:17
+msgid "I want to volunteer/donate"
+msgstr "Quiero ayudar"
 
 #: app/templates/resources.html:21
 msgid "Resources"
 msgstr "Recursos"
 
 #: app/templates/resources.html:24
-#, fuzzy
 msgid "What can you volunteer?"
 msgstr "¿Qué puedes dar?"
 
 #: app/templates/resources.html:24
-#, fuzzy
 msgid "What do you need help with?"
 msgstr "¿Qué necesita?"
 
@@ -602,7 +677,7 @@ msgstr "Voluntarios"
 
 #: app/templates/resources.html:44
 msgid "Where are you?"
-msgstr ""
+msgstr "¿Donde esta?"
 
 #: app/templates/resources.html:50
 msgid "Give resources"
@@ -635,10 +710,8 @@ msgid "No results found within "
 msgstr "No encontremos ningunos recursos entre "
 
 #: app/templates/resources.html:70
-#, fuzzy
 msgid " miles, but you can sign up as a volunteer."
-msgstr ""
-"No hemos encontrado ningún resultado, pero puede regístrese como voluntario."
+msgstr " millas, pero puede regístrese como voluntario."
 
 #: app/templates/resources.html:74
 msgid "Sign up as a Volunteer"
@@ -694,19 +767,16 @@ msgstr ""
 
 #: app/templates/location/edit.html:100 app/templates/location/new.html:115
 #: app/templates/location/profile.html:63 app/templates/provider/new.html:139
-#, fuzzy
 msgid "Hours of Operation"
 msgstr "Horario de trabajo"
 
 #: app/templates/location/edit.html:105 app/templates/location/new.html:120
 #: app/templates/location/profile.html:69 app/templates/provider/new.html:149
-#, fuzzy
 msgid "Resources Available"
 msgstr "Recursos disponibles"
 
 #: app/templates/location/edit.html:110 app/templates/location/new.html:125
 #: app/templates/location/profile.html:80 app/templates/provider/new.html:203
-#, fuzzy
 msgid "Resources Needed"
 msgstr "Recursos necesarios"
 
@@ -738,17 +808,14 @@ msgid "Edit"
 msgstr ""
 
 #: app/templates/provider/detail.html:32
-#, fuzzy
 msgid "Delete this location"
 msgstr "Eliminar esta oficina."
 
 #: app/templates/provider/detail.html:42
-#, fuzzy
 msgid "New Location"
 msgstr "Ubicación"
 
 #: app/templates/provider/detail.html:46 app/templates/provider/new.html:277
-#, fuzzy
 msgid "Add another location"
 msgstr "Añada otra oficina"
 
@@ -792,9 +859,8 @@ msgid "Primary contact's last name"
 msgstr "Nombre de empleado"
 
 #: app/templates/provider/new.html:60
-#, fuzzy
 msgid "Register Your Organization"
-msgstr "Soy una Organización"
+msgstr "Registre su Organización"
 
 #: app/templates/provider/new.html:73
 #: app/templates/provider/provider_edit.html:78
@@ -809,17 +875,14 @@ msgid "Organization Website"
 msgstr "Sitio web de la Organización"
 
 #: app/templates/provider/new.html:83
-#, fuzzy
 msgid "Contact Email Address"
 msgstr "Correo electrónico de contacto"
 
 #: app/templates/provider/new.html:93
-#, fuzzy
 msgid "Retype Password"
 msgstr "Re- escriba la contraseña"
 
 #: app/templates/provider/new.html:182 app/templates/provider/new.html:236
-#, fuzzy
 msgid "Education and enrollment"
 msgstr "Educación / Inscripciones"
 
@@ -836,36 +899,30 @@ msgid "Finish Up"
 msgstr "Finalice"
 
 #: app/templates/provider/new.html:280
-#, fuzzy
 msgid "Register Organization"
-msgstr "Organizaciones"
+msgstr "Registre su organizacion"
 
 #: app/templates/volunteer/new.html:7
 msgid "Volunteer Signup"
 msgstr "Registro de Voluntarios"
 
 #: app/templates/volunteer/new.html:52
-#, fuzzy
 msgid "First Name"
 msgstr "Nombre"
 
 #: app/templates/volunteer/new.html:57
-#, fuzzy
 msgid "Last Name"
 msgstr "Apellidos"
 
 #: app/templates/volunteer/new.html:63
-#, fuzzy
 msgid "Email Address"
-msgstr "Dirección"
+msgstr "Correo electronico"
 
 #: app/templates/volunteer/new.html:86
-#, fuzzy
 msgid "I can help by providing"
 msgstr "Puedo ayudar con:"
 
 #: app/templates/volunteer/new.html:98
-#, fuzzy
 msgid "Sign up to volunteer"
 msgstr "Regístrese como Voluntario"
 
