@@ -109,7 +109,7 @@ LOCALE_PATHS = os.path.join(BASE_DIR, 'locale'),
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'information@buscandomaryland.com'
+EMAIL_HOST_USER = ' information@codeforprogress.org'
 EMAIL_HOST_PASSWORD = hidden_email_password
 
 
