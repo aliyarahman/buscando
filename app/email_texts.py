@@ -118,10 +118,11 @@ spanish_resource_dict = {"food":"comida",
 							"transportation":"servicios de transporte",
 							"legal services":"servicios legales",
 							"medical care":"atención médica",
-							"education/enrollment":"educación / inscripciones",
+							"education and enrollment":"educación / inscripciones",
 							"religious services":"servicios religiosos",
 							"counseling":"orientación",
-							"recreation":"entretenimiento"}
+							"recreation":"entretenimiento",
+							"housing":"housing"}
 							
 english_resource_dict = {"food":"food",
 							"clothing":"clothing",
@@ -129,10 +130,11 @@ english_resource_dict = {"food":"food",
 							"transportation":"transportation",
 							"legal services":"legal services",
 							"medical care":"medical care",
-							"education/enrollment":"education/enrollment",
+							"education and enrollment":"education/enrollment",
 							"religious services":"religious services",
 							"counseling":"counseling",
-							"recreation":"recreation"}
+							"recreation":"recreation",
+							"housing":"housing"}
 
 english_version_emails = {
 	'provider_signup': {
