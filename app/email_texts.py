@@ -99,6 +99,14 @@ spanish_find_some_orgs = "Aquí podrá encontrár unas organizaciones interesada
 
 spanish_find_more_orgs = "Aquí podrá encontrár más organizaciones interesadas en recibir su ayuda"
 
+english_miles_from_you = "miles from you"
+
+spanish_miles_from_you = "Distancia en millas entre usted y esta organización"
+
+english_resources_needed = "Resources Needed:"
+
+spanish_resources_needed = "Recursos Necesitados:"
+
 
 #dictionaries for translating resources
 
@@ -144,7 +152,9 @@ english_version_emails = {
 			'body':english_volunteer_confirmation_body,
 			'here_are_some_orgs':english_here_are_some_orgs,
 			'find_some_orgs':english_find_some_orgs,
-			'find_some_more_orgs':english_find_more_orgs
+			'find_some_more_orgs':english_find_more_orgs,
+			'resources_needed':english_resources_needed,
+			'miles_from_you':english_miles_from_you
 		},
 		'admin':{
 			'from':admin_email_address,
@@ -174,7 +184,9 @@ spanish_version_emails = {
 			'body':spanish_volunteer_confirmation_body,
 			'here_are_some_orgs':spanish_here_are_some_orgs,
 			'find_some_orgs':spanish_find_some_orgs,
-			'find_some_more_orgs':spanish_find_more_orgs
+			'find_some_more_orgs':spanish_find_more_orgs,
+			'resources_needed':spanish_resources_needed,
+			'miles_from_you':spanish_miles_from_you
 		},
 		'admin':{
 			'from':admin_email_address,

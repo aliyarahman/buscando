@@ -551,9 +551,10 @@ def add_volunteer(request):
                     within_radius.sort(key=lambda tup: tup[1])
                     
                     within_radius = within_radius[0:3] #only display the 3 nearest locations in email
-                    
+                
+                vol_conf_texts = emails['volunteer_signup']['confirmation']
                 if len(within_radius) > 0:
-                    getting_started = emails['volunteer_signup']['confirmation']["here_are_some_orgs"].decode('utf-8')
+                    getting_started = vol_conf_texts["here_are_some_orgs"].decode('utf-8')
                     for location_tuple in within_radius:
                         location = location_tuple[0]
                         dist = location_tuple[1]
@@ -566,14 +567,14 @@ def add_volunteer(request):
                         location_info = [location.provider.name.decode('utf-8'),
                                         location.address,location.phone.decode('utf-8'),
                                         location.provider.URL.decode('utf-8'),
-                                        "{0} miles from you".format(dist),
-                                        "Resources needed: {0}".format(', '.join(location_resources)),
+                                        "{0} {1}".format(dist,vol_conf_texts["miles_from_you"].decode('utf-8')),
+                                        "{0} {1}".format(vol_conf_texts["resources_needed"].decode('utf-8'),', '.join(location_resources)),
                                         '\n\n']
                         getting_started = getting_started.decode('utf-8')
                         getting_started += '\n'.join(location_info)
-                    getting_started += emails['volunteer_signup']['confirmation']["find_some_more_orgs"].decode('utf-8')
+                    getting_started += vol_conf_texts["find_some_more_orgs"].decode('utf-8')
                 else:
-                    getting_started = emails['volunteer_signup']['confirmation']["find_some_orgs"].decode('utf-8')
+                    getting_started = vol_conf_texts["find_some_orgs"].decode('utf-8')
                     
                 getting_started += " http://www.buscandomaryland.com/resources/volunteer"
                     
