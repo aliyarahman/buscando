@@ -122,7 +122,7 @@ spanish_resource_dict = {"food":"comida",
 							"religious services":"servicios religiosos",
 							"counseling":"orientación",
 							"recreation":"entretenimiento",
-							"housing":"housing"}
+							"housing":"alojamiento"}
 							
 english_resource_dict = {"food":"food",
 							"clothing":"clothing",

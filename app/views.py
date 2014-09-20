@@ -261,18 +261,21 @@ def add_provider(request):
                     #needed so we can send them in the email
                     #note that this messy loop is to prevent repeats AND to deal with translation
                     #and is all around generally a pretty terrible hack
+                    
+                    try: #not a huge deal if this is wrong in the confirmation, but def don't want site to crash
+                        for r in location.resources_needed.all():
+                            if r.name.lower() in emails['resource_translation']:
+                                translated_name = emails['resource_translation'][r.name.lower()]
+                                if translated_name not in resources_needed:
+                                    resources_needed.append(translated_name)
 
-                    for r in location.resources_needed.all():
-                        if r.name.lower() in emails['resource_translation']:
-                            translated_name = emails['resource_translation'][r.name.lower()]
-                            if translated_name not in resources_needed:
-                                resources_needed.append(translated_name)
-
-                    for r in location.resources_available.all():
-                        if r.name.lower() in emails['resource_translation']:
-                            translated_name = emails['resource_translation'][r.name.lower()]
-                            if translated_name not in resources_needed:
-                                resources_available.append(translated_name)
+                        for r in location.resources_available.all():
+                            if r.name.lower() in emails['resource_translation']:
+                                translated_name = emails['resource_translation'][r.name.lower()]
+                                if translated_name not in resources_needed:
+                                    resources_available.append(translated_name)
+                    except:
+                        pass
                         
                 location_formset.save() # Now that we've added up resources, save the whole formset.
 
