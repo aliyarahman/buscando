@@ -12,6 +12,7 @@ Thank you for becoming part of the Buscando network and playing an essential rol
 
 Here are the details of your account:
 
+Organization: {provider_name}
 Username: {org_username}
 Resources Needed: {resources_needed}
 Resources Available: {resources_available}
@@ -59,6 +60,7 @@ Gracias por formar parte de Buscando y por jugar un papel esencial en las vidas 
 
 Estos son los detalles de su cuenta:
 
+Organización: {provider_name}
 Usuario: {org_username}
 Recursos que necesita: {resources_needed}
 Recursos disponibles: {resources_available}

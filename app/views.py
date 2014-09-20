@@ -241,20 +241,35 @@ def add_provider(request):
                 provider.save()
                 resources_needed = []
                 resources_available = []
+                
+                
+                # Grab email set dependent on language value
+                if request.LANGUAGE_CODE == 'es':
+                    from email_texts import spanish_version_emails as emails
+                else:
+                    from email_texts import english_version_emails as emails
+                    
+                    
                 # At this point we've saved a user and a provider, and have blank lists of resources ready to accept info about the location
                 for location_form in location_formset: # The formset may have more than one form in it - more get added on the template via javascript. So we have to loop through and save data from each one here.
                     location = location_form.save(commit=False) # The commit=false here lets us create a provider and a location, then connect them, THEN save everthing in the database. Saves time making database commits.
                     location.provider = provider
                     location.save()
                     location_form.save_m2m() # We have to use the .save many-to-many function because we used commit=False earlier
+                    
                     # If there are resources needed or available at any location, grab them from each location and combine them in a list that gets associated with the provider
+                    #needed so we can send them in the email
                     if location.resources_needed.count() > 0:
-                        resources_needed = resources_needed + [resource.name for resource in location.resources_needed.all() if resource.name not in resources_needed]
+                        resources_needed = resources_needed + [emails['resource_translation'][resource.name.lower()] for resource in location.resources_needed.all() if resource.name not in resources_needed]
                     if location.resources_available.count() > 0:
-                        resources_available = resources_available + [resource.name for resource in location.resources_available.all() if resource.name not in resources_available]
+                        resources_available = resources_available + [emails['resource_translation'][resource.name.lower()] for resource in location.resources_available.all() if resource.name not in resources_available]
                 location_formset.save() # Now that we've added up resources, save the whole formset.
 
-                # Transform resources lists into strings (or 'None' if none)
+        
+                
+
+                    
+                # Transform resources lists into strings (or 'None' if none) for e-mail sending
                 if len(resources_needed) > 0:
                     resources_needed = ', '.join(resources_needed)
                 else:
@@ -265,18 +280,13 @@ def add_provider(request):
                 else:
                     resources_available = 'None'
         
-                # Grab email set dependent on language value (may need to change values)
-                if request.LANGUAGE_CODE == 'es':
-                    from email_texts import spanish_version_emails as emails
-                else:
-                    from email_texts import english_version_emails as emails
-        
                 # Grab admin email list (if not already grabbed or stored somewhere else)
                 admin_email_list = [admin_email_address]
         
                 # Build confirmation email
                 email = emails['provider_signup']['confirmation']
-                email['body'] = email['body'].format(org_username=provider.admin.username,
+                email['body'] = email['body'].format(provider_name = provider.name,
+                    org_username=provider.admin.username,
                     resources_needed=resources_needed,
                     resources_available=resources_available)
                 confirmation_email = (email['subject'], email['body'], email['from'], [provider.admin.username])
