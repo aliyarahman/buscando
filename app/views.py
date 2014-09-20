@@ -21,6 +21,10 @@ from django.shortcuts import render_to_response
 from django.utils import simplejson
 from django.core.mail import send_mass_mail
 from email_texts import admin_email_address
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
 
 RADIUS_DISTANCE = 35 # miles
 
@@ -506,10 +510,6 @@ def add_volunteer(request):
                 
                 user.save()
                 
-                if len(user_resources) > 0:
-                    resources_available = ', '.join(user_resources)
-                else:
-                    resources_available = 'None'
                     
 
         
@@ -553,34 +553,49 @@ def add_volunteer(request):
                     within_radius = within_radius[0:3] #only display the 3 nearest locations in email
                     
                 if len(within_radius) > 0:
-                    getting_started = "Here are some organizations near you that could use your help:\n\n"
+                    getting_started = emails['volunteer_signup']['confirmation']["here_are_some_orgs"].decode('utf-8')
                     for location_tuple in within_radius:
                         location = location_tuple[0]
                         dist = location_tuple[1]
                         
-                        location_resources = [r.name for r in location.resources_needed.all()]
+                        location_resources = []
+                        for r in location.resources_needed.all():
+                            if r.name in emails['resource_translation']:
+                                location_resources.append(emails['resource_translation'][r.name])
 
-                        location_info = [location.provider.name,
-                                        location.address,location.phone,
-                                        location.provider.URL,
+                        location_info = [location.provider.name.decode('utf-8'),
+                                        location.address,location.phone.decode('utf-8'),
+                                        location.provider.URL.decode('utf-8'),
                                         "{0} miles from you".format(dist),
                                         "Resources needed: {0}".format(', '.join(location_resources)),
                                         '\n\n']
+                        getting_started = getting_started.decode('utf-8')
                         getting_started += '\n'.join(location_info)
-                        
-                    getting_started += "Or find more places where you can help at http://www.buscandomaryland.com/resources/volunteer"
+                    getting_started += emails['volunteer_signup']['confirmation']["find_some_more_orgs"].decode('utf-8')
                 else:
-                    getting_started = "Find places where you can help: http://www.buscandomaryland.com/resources/volunteer"
+                    getting_started = emails['volunteer_signup']['confirmation']["find_some_orgs"].decode('utf-8')
+                    
+                getting_started += " http://www.buscandomaryland.com/resources/volunteer"
                     
                 # Grab admin email list (if not already grabbed or stored somewhere else)
                 admin_email_list = [admin_email_address]
+                
+                vol_resources = []
+                for r in user_resources:
+                    if r in emails['resource_translation']:
+                        vol_resources.append(emails['resource_translation'][r.lower()])
+                
+                if len(vol_resources) > 0:
+                    vol_resources = ','.join(vol_resources)
+                else:
+                    vol_resources = "None"
         
                 # Build confirmation email
                 email = emails['volunteer_signup']['confirmation']
                 volunteer_email_body = email['body'].format(firstname=user.first_name,
                     vol_username=user.email,
                     vol_location=user.address,
-                    resources_available=resources_available,
+                    resources_available=vol_resources,
                     getting_started = getting_started)
                 confirmation_email = (email['subject'], volunteer_email_body, email['from'], [user.email])
         

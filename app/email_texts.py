@@ -86,6 +86,43 @@ Recursos disponibles: {resources_available}
 Una vez más, gracias por ser una fuerza positiva en la vida de los niños que buscan refugio.
 '''
 
+#Keeping all text for e-mails in here, even though it leads to slightly messy variable passing
+english_here_are_some_orgs = "Here are some organizations near you that could use your help:\n\n"
+
+spanish_here_are_some_orgs = "Estas son algunas de las organizaciones que podrían beneficiarse de su colaboración:\n\n"
+
+english_find_some_orgs = "Find places where you can help:"
+
+english_find_more_orgs = "Or find more places where you can help at"
+
+spanish_find_some_orgs = "Aquí podrá encontrár unas organizaciones interesadas en recibir su ayuda:"
+
+spanish_find_more_orgs = "Aquí podrá encontrár más organizaciones interesadas en recibir su ayuda"
+
+
+#dictionaries for translating resources
+
+spanish_resource_dict = {"food":"comida",
+							"clothing":"ropa",
+							"language":"idioma",
+							"transportation":"servicios de transporte",
+							"legal services":"servicios legales",
+							"medical care":"atención médica",
+							"education/enrollment":"educación / inscripciones",
+							"religious services":"servicios religiosos",
+							"counseling":"orientación",
+							"recreation":"entretenimiento"}
+							
+english_resource_dict = {"food":"food",
+							"clothing":"clothing",
+							"language":"language",
+							"transportation":"transportation",
+							"legal services":"legal services",
+							"medical care":"medical care",
+							"education/enrollment":"education/enrollment",
+							"religious services":"religious services",
+							"counseling":"counseling",
+							"recreation":"recreation"}
 
 english_version_emails = {
 	'provider_signup': {
@@ -104,14 +141,18 @@ english_version_emails = {
 		'confirmation': {
 			'from':admin_email_address,
 			'subject':'Thank you for joining Buscando!',
-			'body':english_volunteer_confirmation_body
+			'body':english_volunteer_confirmation_body,
+			'here_are_some_orgs':english_here_are_some_orgs,
+			'find_some_orgs':english_find_some_orgs,
+			'find_some_more_orgs':english_find_more_orgs
 		},
 		'admin':{
 			'from':admin_email_address,
 			'subject':'New Volunteer: Approval Needed',
 			'body':english_volunteer_admin_body
 		}
-	}
+	},
+	'resource_translation':english_resource_dict
 }
 spanish_version_emails = {
 	'provider_signup': {
@@ -130,12 +171,16 @@ spanish_version_emails = {
 		'confirmation': {
 			'from':admin_email_address,
 			'subject':'Gracias por unirte a Buscando!',
-			'body':spanish_volunteer_confirmation_body
+			'body':spanish_volunteer_confirmation_body,
+			'here_are_some_orgs':spanish_here_are_some_orgs,
+			'find_some_orgs':spanish_find_some_orgs,
+			'find_some_more_orgs':spanish_find_more_orgs
 		},
 		'admin':{
 			'from':admin_email_address,
 			'subject':'New Volunteer: Approval Needed',
 			'body':english_volunteer_admin_body
 		}
-	}
+	},
+	'resource_translation':spanish_resource_dict
 }
