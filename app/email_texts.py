@@ -12,6 +12,7 @@ Thank you for becoming part of the Buscando network and playing an essential rol
 
 Here are the details of your account:
 
+Organization: {provider_name}
 Username: {org_username}
 Resources Needed: {resources_needed}
 Resources Available: {resources_available}
@@ -59,6 +60,7 @@ Gracias por formar parte de Buscando y por jugar un papel esencial en las vidas 
 
 Estos son los detalles de su cuenta:
 
+Organización: {provider_name}
 Usuario: {org_username}
 Recursos que necesita: {resources_needed}
 Recursos disponibles: {resources_available}
@@ -86,6 +88,53 @@ Recursos disponibles: {resources_available}
 Una vez más, gracias por ser una fuerza positiva en la vida de los niños que buscan refugio.
 '''
 
+#Keeping all text for e-mails in here, even though it leads to slightly messy variable passing
+english_here_are_some_orgs = "Here are some organizations near you that could use your help:\n\n"
+
+spanish_here_are_some_orgs = "Estas son algunas de las organizaciones que podrían beneficiarse de su colaboración:\n\n"
+
+english_find_some_orgs = "Find places where you can help:"
+
+english_find_more_orgs = "Or find more places where you can help at"
+
+spanish_find_some_orgs = "Aquí podrá encontrár unas organizaciones interesadas en recibir su ayuda:"
+
+spanish_find_more_orgs = "Aquí podrá encontrár más organizaciones interesadas en recibir su ayuda"
+
+english_miles_from_you = "miles from you"
+
+spanish_miles_from_you = "Distancia en millas entre usted y esta organización"
+
+english_resources_needed = "Resources Needed:"
+
+spanish_resources_needed = "Recursos Necesitados:"
+
+
+#dictionaries for translating resources
+
+spanish_resource_dict = {"food":"comida",
+							"clothing":"ropa",
+							"language":"idioma",
+							"transportation":"servicios de transporte",
+							"legal services":"servicios legales",
+							"medical care":"atención médica",
+							"education and enrollment":"educación / inscripciones",
+							"religious services":"servicios religiosos",
+							"counseling":"orientación",
+							"recreation":"entretenimiento",
+							"housing":"alojamiento"}
+							
+english_resource_dict = {"food":"food",
+							"clothing":"clothing",
+							"language":"language",
+							"transportation":"transportation",
+							"legal services":"legal services",
+							"medical care":"medical care",
+							"education and enrollment":"education/enrollment",
+							"religious services":"religious services",
+							"counseling":"counseling",
+							"recreation":"recreation",
+							"housing":"housing"}
 
 english_version_emails = {
 	'provider_signup': {
@@ -104,14 +153,20 @@ english_version_emails = {
 		'confirmation': {
 			'from':admin_email_address,
 			'subject':'Thank you for joining Buscando!',
-			'body':english_volunteer_confirmation_body
+			'body':english_volunteer_confirmation_body,
+			'here_are_some_orgs':english_here_are_some_orgs,
+			'find_some_orgs':english_find_some_orgs,
+			'find_some_more_orgs':english_find_more_orgs,
+			'resources_needed':english_resources_needed,
+			'miles_from_you':english_miles_from_you
 		},
 		'admin':{
 			'from':admin_email_address,
 			'subject':'New Volunteer: Approval Needed',
 			'body':english_volunteer_admin_body
 		}
-	}
+	},
+	'resource_translation':english_resource_dict
 }
 spanish_version_emails = {
 	'provider_signup': {
@@ -130,12 +185,18 @@ spanish_version_emails = {
 		'confirmation': {
 			'from':admin_email_address,
 			'subject':'Gracias por unirte a Buscando!',
-			'body':spanish_volunteer_confirmation_body
+			'body':spanish_volunteer_confirmation_body,
+			'here_are_some_orgs':spanish_here_are_some_orgs,
+			'find_some_orgs':spanish_find_some_orgs,
+			'find_some_more_orgs':spanish_find_more_orgs,
+			'resources_needed':spanish_resources_needed,
+			'miles_from_you':spanish_miles_from_you
 		},
 		'admin':{
 			'from':admin_email_address,
 			'subject':'New Volunteer: Approval Needed',
 			'body':english_volunteer_admin_body
 		}
-	}
+	},
+	'resource_translation':spanish_resource_dict
 }

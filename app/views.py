@@ -21,6 +21,10 @@ from django.shortcuts import render_to_response
 from django.utils import simplejson
 from django.core.mail import send_mass_mail
 from email_texts import admin_email_address
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
 
 RADIUS_DISTANCE = 35 # miles
 
@@ -237,20 +241,49 @@ def add_provider(request):
                 provider.save()
                 resources_needed = []
                 resources_available = []
+                
+                
+                # Grab email set dependent on language value
+                if request.LANGUAGE_CODE == 'es':
+                    from email_texts import spanish_version_emails as emails
+                else:
+                    from email_texts import english_version_emails as emails
+                    
+                    
                 # At this point we've saved a user and a provider, and have blank lists of resources ready to accept info about the location
                 for location_form in location_formset: # The formset may have more than one form in it - more get added on the template via javascript. So we have to loop through and save data from each one here.
                     location = location_form.save(commit=False) # The commit=false here lets us create a provider and a location, then connect them, THEN save everthing in the database. Saves time making database commits.
                     location.provider = provider
                     location.save()
                     location_form.save_m2m() # We have to use the .save many-to-many function because we used commit=False earlier
+                    
                     # If there are resources needed or available at any location, grab them from each location and combine them in a list that gets associated with the provider
-                    if location.resources_needed.count() > 0:
-                        resources_needed = resources_needed + [resource.name for resource in location.resources_needed.all() if resource.name not in resources_needed]
-                    if location.resources_available.count() > 0:
-                        resources_available = resources_available + [resource.name for resource in location.resources_available.all() if resource.name not in resources_available]
+                    #needed so we can send them in the email
+                    #note that this messy loop is to prevent repeats AND to deal with translation
+                    #and is all around generally a pretty terrible hack
+                    
+                    try: #not a huge deal if this is wrong in the confirmation, but def don't want site to crash
+                        for r in location.resources_needed.all():
+                            if r.name.lower() in emails['resource_translation']:
+                                translated_name = emails['resource_translation'][r.name.lower()]
+                                if translated_name not in resources_needed:
+                                    resources_needed.append(translated_name)
+
+                        for r in location.resources_available.all():
+                            if r.name.lower() in emails['resource_translation']:
+                                translated_name = emails['resource_translation'][r.name.lower()]
+                                if translated_name not in resources_needed:
+                                    resources_available.append(translated_name)
+                    except:
+                        pass
+                        
                 location_formset.save() # Now that we've added up resources, save the whole formset.
 
-                # Transform resources lists into strings (or 'None' if none)
+        
+                
+
+                    
+                # Transform resources lists into strings (or 'None' if none) for e-mail sending
                 if len(resources_needed) > 0:
                     resources_needed = ', '.join(resources_needed)
                 else:
@@ -261,18 +294,13 @@ def add_provider(request):
                 else:
                     resources_available = 'None'
         
-                # Grab email set dependent on language value (may need to change values)
-                if request.LANGUAGE_CODE == 'es':
-                    from email_texts import spanish_version_emails as emails
-                else:
-                    from email_texts import english_version_emails as emails
-        
                 # Grab admin email list (if not already grabbed or stored somewhere else)
                 admin_email_list = [admin_email_address]
         
                 # Build confirmation email
                 email = emails['provider_signup']['confirmation']
-                email['body'] = email['body'].format(org_username=provider.admin.username,
+                email['body'] = email['body'].format(provider_name = provider.name,
+                    org_username=provider.admin.username,
                     resources_needed=resources_needed,
                     resources_available=resources_available)
                 confirmation_email = (email['subject'], email['body'], email['from'], [provider.admin.username])
@@ -506,10 +534,6 @@ def add_volunteer(request):
                 
                 user.save()
                 
-                if len(user_resources) > 0:
-                    resources_available = ', '.join(user_resources)
-                else:
-                    resources_available = 'None'
                     
 
         
@@ -551,36 +575,52 @@ def add_volunteer(request):
                     within_radius.sort(key=lambda tup: tup[1])
                     
                     within_radius = within_radius[0:3] #only display the 3 nearest locations in email
-                    
+                
+                vol_conf_texts = emails['volunteer_signup']['confirmation']
                 if len(within_radius) > 0:
-                    getting_started = "Here are some organizations near you that could use your help:\n\n"
+                    getting_started = vol_conf_texts["here_are_some_orgs"].decode('utf-8')
                     for location_tuple in within_radius:
                         location = location_tuple[0]
                         dist = location_tuple[1]
                         
-                        location_resources = [r.name for r in location.resources_needed.all()]
+                        location_resources = []
+                        for r in location.resources_needed.all():
+                            if r.name in emails['resource_translation']:
+                                location_resources.append(emails['resource_translation'][r.name])
 
-                        location_info = [location.provider.name,
-                                        location.address,location.phone,
-                                        location.provider.URL,
-                                        "{0} miles from you".format(dist),
-                                        "Resources needed: {0}".format(', '.join(location_resources)),
+                        location_info = [location.provider.name.decode('utf-8'),
+                                        location.address,location.phone.decode('utf-8'),
+                                        location.provider.URL.decode('utf-8'),
+                                        "{0} {1}".format(dist,vol_conf_texts["miles_from_you"].decode('utf-8')),
+                                        "{0} {1}".format(vol_conf_texts["resources_needed"].decode('utf-8'),', '.join(location_resources)),
                                         '\n\n']
+                        getting_started = getting_started.decode('utf-8')
                         getting_started += '\n'.join(location_info)
-                        
-                    getting_started += "Or find more places where you can help at http://www.buscandomaryland.com/resources/volunteer"
+                    getting_started += vol_conf_texts["find_some_more_orgs"].decode('utf-8')
                 else:
-                    getting_started = "Find places where you can help: http://www.buscandomaryland.com/resources/volunteer"
+                    getting_started = vol_conf_texts["find_some_orgs"].decode('utf-8')
+                    
+                getting_started += " http://www.buscandomaryland.com/resources/volunteer"
                     
                 # Grab admin email list (if not already grabbed or stored somewhere else)
                 admin_email_list = [admin_email_address]
+                
+                vol_resources = []
+                for r in user_resources:
+                    if r in emails['resource_translation']:
+                        vol_resources.append(emails['resource_translation'][r.lower()])
+                
+                if len(vol_resources) > 0:
+                    vol_resources = ','.join(vol_resources)
+                else:
+                    vol_resources = "None"
         
                 # Build confirmation email
                 email = emails['volunteer_signup']['confirmation']
                 volunteer_email_body = email['body'].format(firstname=user.first_name,
                     vol_username=user.email,
                     vol_location=user.address,
-                    resources_available=resources_available,
+                    resources_available=vol_resources,
                     getting_started = getting_started)
                 confirmation_email = (email['subject'], volunteer_email_body, email['from'], [user.email])
         
